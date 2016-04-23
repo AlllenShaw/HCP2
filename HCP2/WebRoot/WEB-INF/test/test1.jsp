@@ -23,6 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <a href="/HCP2/test/add">Test</a>
+    <a href="/HCP2/test/add">Add</a><br>
+    <a href="/HCP2/test/update">Update</a><br>
+    <a href="/HCP2/test/delete">Delete</a><br>
+    <a href="/HCP2/test/list">List</a><br>
   </body>
 </html>
