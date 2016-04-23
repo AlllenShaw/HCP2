@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- <property name="hibernate.connection.driver_class"> com.mysql.jdbc.Driver 
+			</property> <property name="hibernate.connection.password">xlp340826</property> 
+			<property name="hibernate.connection.url"> jdbc:mysql://127.0.0.1:3306/healthcare_collaboration_platform 
+			</property> <property name="hibernate.connection.username">root</property> 
+			<property name="hibernate.dialect"> org.hibernate.dialect.MySQLDialect </property> -->
+		<property name="myeclipse.connection.profile">
+			MyEclipse Derby
+		</property>
+		<property name="connection.url">
+			jdbc:mysql://localhost:3306/ehealth
+		</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">admin</property>
+		<property name="connection.driver_class">
+			com.mysql.jdbc.Driver
+		</property>
+		<property name="dialect">org.hibernate.dialect.MySQLMyISAMDialect</property>
+		<property name="show_sql">true</property>
+		<property name="connection.autocommit">true</property>
+
+		<property name="hibernate.connection.provider_class">
+			org.hibernate.connection.C3P0ConnectionProvider
+		</property>
+		<property name="hibernate.c3p0.min_size">10</property>
+		<property name="hibernate.c3p0.max_size">100</property>
+		<property name="hibernate.c3p0.timeout">1800</property>
+		<property name="hibernate.c3p0.max_statements">150</property>
+		<property name="hibernate.c3p0.testConnectionOnCheckout">
+			true
+		</property>
+
+		<mapping
+			resource="com/bean/domain/HplPatientMedicineRecord.hbm.xml" />
+		<mapping resource="com/bean/domain/Patient.hbm.xml" />
+		<mapping resource="com/bean/domain/HealthHistory.hbm.xml" />
+		<mapping
+			resource="com/bean/domain/HtnPatientMedicineRecord.hbm.xml" />
+		<mapping resource="com/bean/domain/PatientHasDoctor.hbm.xml" />
+		<mapping resource="com/bean/domain/ExaminationEmr.hbm.xml" />
+		<mapping resource="com/bean/domain/ExaminationType.hbm.xml" />
+		<mapping resource="com/bean/domain/SuperAdministrator.hbm.xml" />
+		<mapping resource="com/bean/domain/Authority.hbm.xml" />
+		<mapping resource="com/bean/domain/HplPatientInfo.hbm.xml" />
+		<mapping
+			resource="com/bean/domain/GluPatientMedicineRecord.hbm.xml" />
+		<mapping resource="com/bean/domain/MedicineEmr.hbm.xml" />
+		<mapping resource="com/bean/domain/GluPatientRecord.hbm.xml" />
+		<mapping resource="com/bean/domain/HplPatientRecord.hbm.xml" />
+		<mapping resource="com/bean/domain/Doctor.hbm.xml" />
+		<mapping resource="com/bean/domain/Protocol.hbm.xml" />
+		<mapping resource="com/bean/domain/HtnPatientRecord.hbm.xml" />
+		<mapping
+			resource="com/bean/domain/HospitalAdministrator.hbm.xml" />
+		<mapping resource="com/bean/domain/MealTime.hbm.xml" />
+		<mapping resource="com/bean/domain/Hospital.hbm.xml" />
+		<mapping resource="com/bean/domain/TakingMedicineWay.hbm.xml" />
+		<mapping resource="com/bean/domain/Medicine.hbm.xml" />
+		<mapping resource="com/bean/domain/MedicineUnit.hbm.xml" />
+		<mapping resource="com/bean/domain/HtnPatientInfo.hbm.xml" />
+		<mapping resource="com/bean/domain/GluPatientInfo.hbm.xml" />
+		<mapping resource="com/bean/domain/Emr.hbm.xml" />
+		<mapping resource="com/bean/domain/TranformFieldsTable.hbm.xml" />
+		<mapping
+			resource="com/bean/domain/DoctorOperPremission.hbm.xml" />
+		<mapping resource="com/bean/domain/DoctorPremission.hbm.xml" />
+		<mapping resource="com/bean/domain/HdPatientRecord.hbm.xml" />
+		<mapping
+			resource="com/bean/domain/HdPatientMedicineRecord.hbm.xml" />
+		<mapping resource="com/bean/domain/HdPatientInfo.hbm.xml" />
+
+	</session-factory>
+</hibernate-configuration>

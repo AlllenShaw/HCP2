@@ -1,0 +1,88 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>平台设置</title>
+<meta http-equiv="pragma" content="no-cache">
+<base href="<%=basePath%>"></base>
+
+<link href="css/fundation.css" rel="stylesheet" type="text/css" />
+<link href="css/submenu.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/tipso.min.css" type="text/css"></link>
+<link rel="stylesheet" href="css/pingtaizhicheng.css" type="text/css"></link>
+<script type="text/javascript" src="js/testing.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/register.js"></script>
+<body>
+	<div id="all">
+		<div id="top">
+			<%@include file="../fundation/header_doctor.jsp"%>
+			<script>
+				document.getElementById("m7").style.backgroundImage = "url(picture/images/menu_over.png)";
+			</script>
+		</div>
+		<div id="middle">
+			<div id="left">
+				<%@include file="submenu6.jsp"%>
+				<script>
+					document.getElementById("sm2").style.backgroundImage = "url(picture/images/submenu_over.png)";
+				</script>
+			</div>
+			<div id="right">
+				<div id="outshezhi">
+					<div id="ti">用户设置</div>
+					<div id="shezhi">
+						<form>
+						<div class="as">
+								<label>ID:</label> <input class="ip" type="text" id="id"
+									name="id" value="${userid}" readonly="readonly">
+							</div>
+							<div class="as">
+								<label>用户名:</label> <input class="ip" type="text" id="username"
+									name="username" value="${username}" readonly="readonly">
+							</div>
+							<div class="as">
+								<label>真实姓名:</label> <input class="ip" type="text" id="realname"
+									name="realname" value="${realname}" readonly="readonly">
+							</div>
+							<div id="ti">修改信息</div>
+							<div class="as">
+								<label>密码:</label> <input class="ip" type="password"
+									id="fpassword" name="password" onblur="checkpassword()" /> <span
+									id="tipfpassword" data-tipso=""></span>
+							</div>
+							<div class="as">
+								<label>确认密码:</label> <input class="ip" type="password"
+									id="spassword" name="password" onblur="rcheckpassword()" /> <span
+									id="tipspassword" data-tipso=""></span>
+							</div>
+							<div class="as">
+								<label>住址:</label> <input class="ip" value="${address}" type="text" id="address"
+									name="address" />
+							</div>
+							<div class="as">
+								<label>联系电话:</label> <input class="ip" value="${tele}"type="text" id="tele"
+									name="tele" onblur="checktele()"><span id="tiptele"
+									data-tipso=""></span>
+							</div>
+							<div class="fbl">
+								<input type="submit" value="修改">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="bottom">
+			<%@include file="../fundation/footer.jsp"%>
+		</div>
+	</div>
+</body>
+</html>

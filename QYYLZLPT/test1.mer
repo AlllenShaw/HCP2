@@ -1,0 +1,1388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ERDiagram version="1.1">
+  <Connection session="mysql" database="test1" />
+  <Drawing gridVisible="false" snapOn="false" fastRouting="false" labelsVisible="true" />
+  <Tables>
+    <Table name="doctor_group">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="user_group_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="doctor_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="doctor">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="username" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="realname" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="id_number" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="password" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="hospital_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="doctor_license" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="20" />
+        </Column>
+        <Column name="mail" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="tele" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="gender" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="age" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="address" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="height" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="weight" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="nation" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="profession" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="company" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="register_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="emr">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="doctor_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="illness_state_desc" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="create_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="examination_emr">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="emr_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="doctor_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="examination_emr_type_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="accessory" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="result" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="create_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="examination_type">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="value" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="detail" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="family">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="name" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="relation" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="tele" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="address" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="email" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="glu_patient_info">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="patient_id" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="blood_glucose_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="blood_glucose_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="upgrade_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="glu_patient_medicine_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_way_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_number_eachtime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_unit_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="glu_patient_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="blood_glucose" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="measure_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hd_patient_info">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="patient_id" primary_key="true" foreign_key="true" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="heart_rate_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="heart_rate_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="upgrade_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hd_patient_medicine_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_way_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_number_eachtime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_unit_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hd_patient_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="heart_rate" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="ecg" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="400" />
+        </Column>
+        <Column name="measure_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hospital_administrator">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="username" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="realname" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="id_number" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="password" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="hospital_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="mail" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="tele" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="register_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hospital">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="name" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="address" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="level" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="introduction" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="400" />
+        </Column>
+        <Column name="register_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hpl_patient_info">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="patient_id" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="tc_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="tc_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="tg_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="tg_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="hdl_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="hdl_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="ldl_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="ldl_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="upgrade_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hpl_patient_medicine_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_way_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_number_eachtime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_unit_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="hpl_patient_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="tc" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="tg" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="hdl" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="ldl" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="measure_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="htn_patient_info">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="patient_id" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="diastolic_pressure_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="diastolic_pressure_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="systolic_pressure_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="systolic_pressure_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="heart_rate_max" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="heart_rate_min" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="upgrade_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="htn_patient_medicine_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_way_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_number_eachtime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_unit_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="htn_patient_record">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="diastolic_pressure" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="systolic_pressure" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="heart_rate" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="measure_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="upload_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="medicine_unit">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_unit" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="medicine">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="name" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="constituent" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="adaptation_disease" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="usage" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="dosage" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="FLOAT" size="12" />
+        </Column>
+        <Column name="adverse_reaction" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="taboo" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="attentions" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="direction" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="patient_group">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="user_group_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="patient_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="patient_has_doctor">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="patient_id" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="doctor_id" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="last_treat" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="patient">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="username" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="realname" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="Id_number" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="password" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="token" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="50" />
+        </Column>
+        <Column name="mail" primary_key="false" foreign_key="false" required="false" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="hin" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="tele" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="famlily1" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="famlily2" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="gender" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="age" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="height" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="weight" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="education" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="address" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="bir_address" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="nation" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="hospital" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="profession" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="company" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="marriage" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BIT" />
+        </Column>
+        <Column name="register_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+        <Column name="glu_state" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BIT" />
+        </Column>
+        <Column name="hpl_state" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BIT" />
+        </Column>
+        <Column name="htn_state" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BIT" />
+        </Column>
+        <Column name="hd_state" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BIT" />
+        </Column>
+        <Column name="illness_his" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="allergic_his" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="family_his" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="security1" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="security2" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="security3" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="answer1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="answer2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="answer3" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="permission">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="name" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="description" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="prescription">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_way_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_number_eachtime" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="medicine_unit_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_times_eachday" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="note" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+        <Column name="emr_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="doctor_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="meal_time" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="create_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="security">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="question" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="super_administrator">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="username" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="realname" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="id_number" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="password" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="mail" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="tele" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="register_time" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATETIME" size="19" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="taking_medicine_way">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="taking_medicine_way" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="user_group_permission">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="user_group1_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="user_group2_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="permission_id" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="feasible" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BIT" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="user_group">
+      <Drawing expanded="true" />
+      <Columns>
+        <Column name="id" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INT" size="10" />
+        </Column>
+        <Column name="name" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="45" />
+        </Column>
+        <Column name="description" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="200" />
+        </Column>
+      </Columns>
+    </Table>
+  </Tables>
+  <Relationships>
+    <Relationship name="doctor_group_ibfk_2">
+      <Details primary_table="doctor" foreign_table="doctor_group">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="doctor_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="doctor_group_ibfk_1">
+      <Details primary_table="user_group" foreign_table="doctor_group">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="user_group_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKB0EF911FBB7D8593">
+      <Details primary_table="hospital" foreign_table="doctor">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="hospital_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK188CA8E89BA61">
+      <Details primary_table="patient" foreign_table="emr">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK188CAE96D11B3">
+      <Details primary_table="doctor" foreign_table="emr">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="doctor_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKB935AB7C112A190F">
+      <Details primary_table="examination_type" foreign_table="examination_emr">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="examination_emr_type_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKB935AB7CE96D11B3">
+      <Details primary_table="doctor" foreign_table="examination_emr">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="doctor_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKB935AB7CFE98A3C1">
+      <Details primary_table="emr" foreign_table="examination_emr">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="emr_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK3318F5578E89BA61">
+      <Details primary_table="patient" foreign_table="glu_patient_info">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5B8219AD1EDE8593">
+      <Details primary_table="medicine" foreign_table="glu_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5B8219ADE105D528">
+      <Details primary_table="medicine_unit" foreign_table="glu_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_unit_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5B8219AD8E89BA61">
+      <Details primary_table="patient" foreign_table="glu_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5B8219ADE7F8E98D">
+      <Details primary_table="taking_medicine_way" foreign_table="glu_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="taking_medicine_way_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKDF8C76BA8E89BA61">
+      <Details primary_table="patient" foreign_table="glu_patient_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="hd_patient_info_ibfk_1">
+      <Details primary_table="patient" foreign_table="hd_patient_info">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="hd_patient_medicine_record_ibfk_1">
+      <Details primary_table="medicine" foreign_table="hd_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="hd_patient_medicine_record_ibfk_4">
+      <Details primary_table="taking_medicine_way" foreign_table="hd_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="taking_medicine_way_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="hd_patient_medicine_record_ibfk_2">
+      <Details primary_table="patient" foreign_table="hd_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="hd_patient_medicine_record_ibfk_3">
+      <Details primary_table="medicine_unit" foreign_table="hd_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_unit_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="hd_patient_record_ibfk_1">
+      <Details primary_table="patient" foreign_table="hd_patient_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5CF62588BB7D8593">
+      <Details primary_table="hospital" foreign_table="hospital_administrator">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="hospital_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK8B4C65A38E89BA61">
+      <Details primary_table="patient" foreign_table="hpl_patient_info">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKF685C1E1E7F8E98D">
+      <Details primary_table="taking_medicine_way" foreign_table="hpl_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="taking_medicine_way_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKF685C1E11EDE8593">
+      <Details primary_table="medicine" foreign_table="hpl_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKF685C1E18E89BA61">
+      <Details primary_table="patient" foreign_table="hpl_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKF685C1E1E105D528">
+      <Details primary_table="medicine_unit" foreign_table="hpl_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_unit_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKF8A504068E89BA61">
+      <Details primary_table="patient" foreign_table="hpl_patient_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKB675A1E58E89BA61">
+      <Details primary_table="patient" foreign_table="htn_patient_info">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK64BA85F1EDE8593">
+      <Details primary_table="medicine" foreign_table="htn_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK64BA85FE7F8E98D">
+      <Details primary_table="taking_medicine_way" foreign_table="htn_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="taking_medicine_way_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK64BA85FE105D528">
+      <Details primary_table="medicine_unit" foreign_table="htn_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_unit_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK64BA85F8E89BA61">
+      <Details primary_table="patient" foreign_table="htn_patient_medicine_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FKFE7037C88E89BA61">
+      <Details primary_table="patient" foreign_table="htn_patient_record">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="patient_group_ibfk_2">
+      <Details primary_table="patient" foreign_table="patient_group">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="patient_group_ibfk_1">
+      <Details primary_table="user_group" foreign_table="patient_group">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="user_group_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5FBC7FDE8E89BA61">
+      <Details primary_table="patient" foreign_table="patient_has_doctor">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="patient_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK5FBC7FDEE96D11B3">
+      <Details primary_table="doctor" foreign_table="patient_has_doctor">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="doctor_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="patient_ibfk_4">
+      <Details primary_table="security" foreign_table="patient">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="security2" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="patient_ibfk_5">
+      <Details primary_table="security" foreign_table="patient">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="security3" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="patient_ibfk_3">
+      <Details primary_table="security" foreign_table="patient">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="security1" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="prescription_ibfk_1">
+      <Details primary_table="medicine" foreign_table="prescription">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="prescription_ibfk_2">
+      <Details primary_table="taking_medicine_way" foreign_table="prescription">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="taking_medicine_way_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="prescription_ibfk_3">
+      <Details primary_table="medicine_unit" foreign_table="prescription">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="medicine_unit_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="prescription_ibfk_4">
+      <Details primary_table="emr" foreign_table="prescription">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="emr_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="prescription_ibfk_5">
+      <Details primary_table="doctor" foreign_table="prescription">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="doctor_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="user_group_permission_ibfk_2">
+      <Details primary_table="user_group" foreign_table="user_group_permission">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="user_group2_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="user_group_permission_ibfk_3">
+      <Details primary_table="permission" foreign_table="user_group_permission">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="permission_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="user_group_permission_ibfk_1">
+      <Details primary_table="user_group" foreign_table="user_group_permission">
+        <PrimaryKeys>
+          <ColumnName name="id" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="user_group1_id" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+  </Relationships>
+</ERDiagram>
+

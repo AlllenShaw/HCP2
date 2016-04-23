@@ -1,0 +1,160 @@
+@CHARSET "UTF-8";
+body{ 
+	font-family:"宋体";
+}
+.td_1 {
+	width: 250px;
+}
+
+.td_2 {
+	width: 100px;
+}
+
+.addtype {
+	cursor: pointer;
+	width: 95%;
+	text-align: left;
+}
+
+.addtype2 {
+	width: 95%;
+	text-align: left;
+}
+
+.td_3 {
+	width: 715px;
+	text-align: center;
+}
+
+.td_4 {
+	width: 100px;
+	text-align: left;
+}
+
+.td_5 {
+	text-align: left;
+	width: 80px;
+}
+
+.inputclass1 {
+	width: 90%;
+}
+
+.inputclass2 {
+	width: 90%;
+	text-align: right;
+}
+
+.fold {
+	background-color: #63B8FF;
+	width: 720px;
+	height: 20px;
+	text-align: center;
+	font-weight:bold;
+	border: 1px solid  #000000;
+	margin-top:1px;
+	margin-left:1px;
+	
+}
+
+.subfold {
+	background-color: #7AC5CD;
+	margin-left: 30px;
+	width: 640px;
+	height: 20px;
+	text-align: center;
+	font-weight:bold;
+	border: 1px solid #000000;
+	margin-top:1px;
+}
+
+.detimg {
+	margin-left: 30px;
+}
+
+.detimage {
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
+}
+
+.foldlabelon {
+	float: right;
+	margin-right: 0px;
+	background-image: url(../picture/images/on-noback20x20.png);
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.foldlabeloff {
+	float: right;
+	margin-right: 0px;
+	background-image: url(../picture/images/off-noback20x20.png);
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.foldlabelback {
+	float: right;
+	margin-right: 0px;
+	background-image: url(../picture/images/back-noback20x20.png);
+	font-weight: bold;
+	width: 20px;
+	height: 20px;
+	cursor:pointer;
+	
+}
+
+.liebiaotable {
+	width: 720px; 
+	padding-top:1px;
+	
+}
+
+.dzdatable {
+	width: 720px;
+	//border: 1px solid red;
+	padding-top:1px;
+	
+}
+
+th,td,tr {
+	border: 1px solid black;
+}
+
+.itemtitle {
+	width: 200px;
+}
+
+.itemvalue {
+	width: 150px;
+}
+
+.td_6 {
+	width: 100px;
+}
+#jqchart{
+	width:720px;
+	height:400px;
+}
+#druga{
+	width:200px;	
+}
+#drugb{
+	width:200px;
+}
+#checkframe{
+	width:400px;
+	heigth:200px;
+	margin-left:150px;
+	padding-top:10px;
+	border: 1px solid black;
+	//background:#00ccff;
+}
+.checkitem {
+	width: 100px;
+	margin-left:10px;
+	float:left;
+}

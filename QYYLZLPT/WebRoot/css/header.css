@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+#header{
+	width: 980px;
+	height: 200px;
+	/*border:double;*/
+	overflow:scroll;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	background-image:url(../picture/stu_bg_adj.jpg);
+	//background-color:#FCB441;
+}
+#tall{
+	width:600px;
+	margin-top:5px;
+	margin-left:20px;
+	float:left;
+	//background:#99dd33;
+	
+}
+#t1{
+	font-size:35px;
+	font-weight:900;	
+}
+#t2{
+	margin-top:0px;
+	margin-left:5px;
+	font-size:14px;
+	font-weight:bold;
+	
+}
+#persion{
+	margin-top:20px;
+	width: 200px;
+	height: 60px;
+	margin-right:0px;
+	float:right;
+	//background:#99dd00;
+
+}
+#pb{
+	//background:#00ccff;
+	width: 150px;
+	height: 30px;
+	font-size:25px;
+	text-align:right;
+
+}
+
+.ss li{
+	cursor:pointer
+	
+}
+.pb{
+	float:right;
+	margin-right:5px;
+	width:45px;
+	height:30px;
+	font-size:20px;
+	//background:#95aeea;	
+	border:none;
+	font-family:verdana,geneva,arial,helvetica,sans-serif;
+	
+	
+}
+
+
+.menu{
+	border:none;
+	font-family:verdana,geneva,arial,helvetica,sans-serif;
+	font-weight:bold;
+	color:#8e8e8e;
+	background:url(../picture/images/menu-bg.gif);
+	
+	width:980px;
+	height:44px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:157px;
+	display: block;
+	}
+.menu ul{
+	
+	height:30px;
+	list-style:none;
+	padding-left:0px;
+	padding-top:10px;
+	
+	}
+	.menu li{
+	
+		width:100px;
+		float:left;
+		font-weight:bold;
+		
+	}
+	.menu li a{
+	/*90*30*/
+		color:#666666;
+		display:block;
+		font-weight:bold;
+		font-size:20px;
+		line-height:33px;
+		text-align:center;
+		text-decoration:none;
+		width:100px;
+		
+		}
+
+		.menu li a:hover{
+			color:#000000;
+			text-decoration:none;
+			background:url(../picture/images/menu_over.png);
+			//background:#0000ff;	
+			
+		}
+

@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+
+#ti{
+	width: 730px;
+	font-size:20px;
+	text-align:center;
+	//background:#00ccff;
+	font-weight:bold;
+
+}
+
+#cont{
+	padding-left:15px;
+	padding-right:15px;
+	width:700px;
+	line-height:2;
+	
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<premissions>
+	<property name="电子病历" value="true"/>
+	<property name="CT" value="true"/>
+	<property name="B超" value="true"/>
+	<property name="MRI" value="true"/>
+	<property name="X光" value="false"/>
+</premissions>

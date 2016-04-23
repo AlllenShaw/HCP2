@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+
+.td_1{
+	width:345px;	
+}
+.td_2{
+	width:100px;
+}
+.td_3{
+	width:100px;
+}
+.inputclass1{
+	width:50px;
+	
+}
+.inputclass2{
+	width:345px;
+	
+}
+.addtype2 {
+	style =width: 95%;
+	text-align: left;
+}

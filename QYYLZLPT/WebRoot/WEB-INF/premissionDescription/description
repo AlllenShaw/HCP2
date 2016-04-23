@@ -1,0 +1,5 @@
+please use the file name with pattern 'hospitalId1_hospitalId2.xml' for example: "1_2.xml" 
+means hospital id 1 and hospital id2 2 protocol.
+
+please use the file name with pattern 'hospitalId_doctor.xml' for example:'1_doctor.xml' 
+means hospital id 1' doctor permission in this platform.

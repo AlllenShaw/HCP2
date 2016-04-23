@@ -1,0 +1,141 @@
+@CHARSET "UTF-8";
+
+.ti {
+	padding-top: 5px;
+	margin-left: 25px;
+	font-weight: bold;
+}
+
+.sti {
+	margin-left: 10px;
+	font-weight: bold;
+	width: 350px;
+	text-align: left;
+}
+
+.as {
+	margin-top: 5px;
+	margin-left: 20px;
+	width: 350px;
+}
+
+.ip {
+	float: right;
+	margin-right: 50px;
+	width: 200px; //
+	border: 0px;
+}
+
+.is1 {
+	float: right;
+	margin-right: 50px;
+	width: 100px;
+}
+
+.is2 {
+	float: right;
+	margin-right: 0px;
+	width: 100px;
+}
+
+label {
+	margin-left: 5px;
+}
+
+.addhos {
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 380px;
+	padding-top: 5px;
+	background-color: #ffffff;
+	padding-bottom: 5px;
+}
+/*width:740px;
+	height:540px;*/
+.outadmin {
+	margin-top: 20px;
+	margin-left: 20px;
+	padding-bottom: 10px;
+	width: 400px;
+	background-color: #d4d4d4;
+	border: double;
+	border-color: #a0a0a9;
+}
+
+.fbl { //
+	margin-top: 10px;
+	margin-left: 150px;
+}
+
+#outtopframe {
+	width: 730px;
+	height: 240px;
+	//background-color: #00ccff;
+}
+
+#outhosframe {
+	margin-top: 20px;
+	margin-left: 0px;
+	float: left;
+	padding-bottom: 10px;
+	width: 350px; //
+	height: 180px;
+	background-color: #d4d4d4;
+	border: double;
+	border-color: #a0a0a9;
+	padding-bottom: 10px;
+}
+
+#hosframe {
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 330px;
+	padding-top: 5px;
+	margin-top: 10px;
+	background-color: #ffffff;
+	padding-bottom: 5px;
+}
+
+#outaddframe { 
+	margin-top: -10px;
+	/*margin-left: auto;
+	margin-right: auto;*/
+	float: right;
+	margin-right: 0px;
+	//padding-bottom: 10px;
+	width: 350px;
+	background-color: #d4d4d4;
+	border: double;
+	border-color: #a0a0a9;
+}
+
+#addframe {
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 330px;
+	padding-top: 5px;
+	margin-top: 10px;
+	background-color: #ffffff;
+	padding-bottom: 5px;
+}
+#outdetailframe{
+	/*margin-left: auto;
+	margin-right: auto;*/
+	margin-left:20px;
+	margin-top: 20px;
+	padding-bottom: 10px;
+	width: 350px;
+	background-color: #d4d4d4;
+	border: double;
+	border-color: #a0a0a9;
+}
+#detailframe{
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 330px;
+	padding-top: 5px;
+	margin-top: 10px;
+	background-color: #ffffff;
+	padding-bottom: 5px;
+	
+}

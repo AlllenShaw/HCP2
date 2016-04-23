@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+
+.outqudao {
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 370px;
+	background-color: #d4d4d4;
+	padding-bottom: 5px;
+	border: double;
+	border-color: #a0a0a9;
+}
+
+.qudao {
+	margin-top: 10px;
+	margin-left: 10px;
+	padding-top: 5px;
+	height: 100px;
+	width: 350px;
+	background-color: #ffffff;
+}
+
+.outqx {
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 370px;
+	background-color: #d4d4d4;
+	padding-bottom: 5px;
+	border: double;
+	border-color: #a0a0a9;
+}
+
+.qx {
+	margin-top: 10px;
+	margin-left: 10px;
+	padding-top: 5px;
+	width: 350px;
+	background-color: #ffffff;
+}
+
+.qxlist {
+	margin-top: 10px;
+	margin-left: 10px;
+	padding-top:5px;
+	width: 350px;
+	background-color: #ffffff;
+}
+
+.qxlistitem { //
+	width: 230px;
+	padding-left: 10px; //
+	background-color: #222222;
+}
+
+.ti {
+	padding-top: 5px;
+	margin-left: 50px;
+	font-weight: bold;
+}
+
+.as {
+	margin-top: 5px;
+	margin-left: 20px;
+	width: 350px;
+}
+#hospital2{
+	width:230px;
+}
+.fblist {
+	margin-top: 5px;
+	width: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom:5px; 
+}
