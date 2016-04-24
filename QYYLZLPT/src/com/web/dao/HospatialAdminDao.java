@@ -57,4 +57,10 @@ public interface HospatialAdminDao {
 			HospitalAdministrator hospitalAdministrator);
 
 	public abstract boolean hospatialAdminRegister(HospitalAdministrator hospitalAdministrator);
+	
+	
+	
+	
+	
+	
 }
