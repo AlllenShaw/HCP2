@@ -44,6 +44,12 @@ public class TestDAO2 extends HibernateDaoSupport {
 		return sa;
 	}
 
+	public SuperAdministrator getByName(String username){
+		List<SuperAdministrator> list = this.getHibernateTemplate().find("from SuperAdministrator as sa where sa.username = ?", new Object[]{username});
+		return list.get(0);
+	}
+	
+	
 	public List<SuperAdministrator> list() {
 		List list = this.getSession().createQuery("from SuperAdministrator").list();
 		System.out.println("list success!---"+list);

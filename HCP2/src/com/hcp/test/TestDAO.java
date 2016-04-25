@@ -45,6 +45,9 @@ public class TestDAO  {
 		System.out.println("---------------------"+list.get(0).getRealname());
 		return (list.isEmpty() ? null : list.get(0));
 	}
+	
+	
+	
 
 	public List<SuperAdministrator> list() {
 		List<SuperAdministrator> list = hibernateTemplate.find("select * from SuperAdministrator");

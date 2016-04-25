@@ -16,6 +16,7 @@ import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
+import com.hcp.domain.PatientHasDoctor;
 
 public interface DoctorDAO {
 
@@ -34,7 +35,7 @@ public interface DoctorDAO {
 
 	public abstract boolean changePassword(Doctor doctor);
 
-	public abstract boolean addPatient(Patient patient);
+	public abstract boolean addPatient(PatientHasDoctor patientHasDoctor);
 
 	// 获取该医生治疗的所有病人
 	public abstract List<Patient> getPatients(Doctor doctor);
@@ -43,7 +44,9 @@ public interface DoctorDAO {
 
 	public abstract Patient getPatientByName(String patient_username);
 
-	public abstract boolean deletePatient(Patient patient);
+	public List<Patient> getPatientByRealName(Doctor doctor, String patient_realname);
+
+	public abstract boolean deletePatient(Patient patient,Doctor doctor);
 
 	public abstract Hospital getHosptial(Integer doctor_id);
 
@@ -53,7 +56,7 @@ public interface DoctorDAO {
 
 	public abstract Emr getLastEmr(Integer patient_id);
 
-	public abstract Emr newPatientEmr(Emr emr);
+	public abstract boolean newPatientEmr(Emr emr);
 
 	// 检查医生是否有权利进行操作
 	public abstract boolean checkPremission(int doctor_id, int premission_id);
@@ -80,6 +83,6 @@ public interface DoctorDAO {
 
 	public abstract Medicine getMedicineById(Integer medicine_id);
 
-	public abstract Medicine getMedicineByName(String medicine_name);
+	public abstract List<Medicine> getMedicineByName(String medicine_name);
 
 }

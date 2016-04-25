@@ -19,9 +19,9 @@ public class TestController {
 
 	@Resource
 	private TestDAO2 tdao;
-	
+
 	@RequestMapping("/add")
-	public String add(String username, String password){
+	public String add(String username, String password) {
 		SuperAdministrator sa = new SuperAdministrator();
 		sa.setUsername("june");
 		sa.setRealname("hong");
@@ -30,47 +30,59 @@ public class TestController {
 		sa.setRegisterTime(new Timestamp(System.currentTimeMillis()));
 		System.out.println(tdao);
 		System.out.println(sa);
-		System.out.println(sa.getId()+" "+sa.getUsername()+" "+sa.getRealname());;
-		
+		System.out.println(sa.getId() + " " + sa.getUsername() + " " + sa.getRealname());
+		;
+
 		tdao.add(sa);
 		return "/result";
 	}
-	
+
 	@RequestMapping("/update")
-	public String update(Integer id,String password){
+	public String update(Integer id, String password) {
 		Integer id1 = 1;
 		System.out.println("----------------------------------------------------");
 		System.out.println(id1);
 		System.out.println("----------------------------------------------------");
 		SuperAdministrator sa = tdao.load(id1);
 		sa.setPassword("new password");
-		System.out.println(sa.getId()+" "+sa.getUsername()+" "+sa.getPassword());
+		System.out.println(sa.getId() + " " + sa.getUsername() + " " + sa.getPassword());
 		tdao.update(sa);
 		return "/result";
 	}
-	
+
 	@RequestMapping("/delete")
-	public String delete(Integer id){
+	public String delete(Integer id) {
 		Integer id1 = 1;
-//		System.out.println("----------------------------------------------------");
-//		System.out.println(id1);
-//		System.out.println("----------------------------------------------------");
-//		SuperAdministrator sa = tdao.load(id1);
-//		System.out.println(sa.getId()+" "+sa.getUsername()+" "+sa.getPassword());
+		// System.out.println("----------------------------------------------------");
+		// System.out.println(id1);
+		// System.out.println("----------------------------------------------------");
+		// SuperAdministrator sa = tdao.load(id1);
+		// System.out.println(sa.getId()+" "+sa.getUsername()+" "+sa.getPassword());
 		tdao.delete(id1);
 		return "/result";
 	}
-	
+
 	@RequestMapping("/list")
-	public String list(){
+	public String list() {
 		List<SuperAdministrator> lists = tdao.list();
 		Iterator<SuperAdministrator> it = lists.iterator();
-		while(it.hasNext()){
-			SuperAdministrator sa = it.next(); 
-			System.out.println(sa.getId()+" "+sa.getUsername()+" "+sa.getPassword());
+		while (it.hasNext()) {
+			SuperAdministrator sa = it.next();
+			System.out.println(sa.getId() + " " + sa.getUsername() + " " + sa.getPassword());
 		}
 		return "/result";
 	}
-	
-	
+
+	@RequestMapping("/get")
+	public String getByName() {
+		String username = "james";
+		SuperAdministrator sa = tdao.getByName(username);
+		if (sa != null) {
+			System.out.println(sa.getId() + " " + sa.getUsername() + " " + sa.getPassword());
+		} else {
+			System.out.println(sa);
+		}
+		return "/result";
+	}
+
 }
