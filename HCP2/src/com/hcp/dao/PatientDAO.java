@@ -47,6 +47,14 @@ public interface PatientDAO {
 	
 	public abstract List<HdPatientRecord> getHdPatientRecords(Integer patient_id, Integer count);
 	
+	public abstract boolean saveGluPatientRecords(GluPatientRecord gluPatientRecord);
+	
+	public abstract boolean saveHtnPatientRecord(HtnPatientRecord htnPatientRecord);
+	
+	public abstract boolean saveHplPatientRecord(HplPatientRecord hplPatientRecord);
+	
+	public abstract boolean saveHdPatientRecord(HdPatientRecord hdPatientRecord);
+	
 	public abstract List<Emr> getPatientEmrsList(Integer patient_id, String startTime, String endTime);
 
 	public abstract Emr getLastEmr(Integer patient_id);

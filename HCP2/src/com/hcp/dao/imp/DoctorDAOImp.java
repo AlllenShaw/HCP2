@@ -1,7 +1,6 @@
 package com.hcp.dao.imp;
 
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,11 +20,14 @@ import com.hcp.domain.Emr;
 import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
+import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
+import com.hcp.domain.HplPatientInfo;
 import com.hcp.domain.HplPatientMedicineRecord;
 import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
@@ -253,6 +255,91 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean setHtnPatientInfo(HtnPatientInfo htnPatientInfo) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().update(htnPatientInfo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+	@Override
+	public boolean setHplPatientInfo(HplPatientInfo hplPatientInfo) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().update(hplPatientInfo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean setGluPatientInfo(GluPatientInfo gluPatientInfo) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().update(gluPatientInfo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean setHdPatientInfo(HdPatientInfo hdPatientInfo) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().update(hdPatientInfo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public GluPatientInfo getGluPatientInfo(Integer patient_id) {
+		// TODO Auto-generated method stub
+		List<GluPatientInfo> list = this.getHibernateTemplate().find("from GluPatientInfo as glu where glu.patient.id=?",
+				new Object[] { patient_id });
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public HtnPatientInfo getHtnPatientInfo(Integer patient_id) {
+		// TODO Auto-generated method stub
+		List<HtnPatientInfo> list = this.getHibernateTemplate().find("from HtnPatientInfo as htn where htn.patient.id=?",
+				new Object[] { patient_id });
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public HplPatientInfo getHplPatientInfo(Integer patient_id) {
+		// TODO Auto-generated method stub
+		List<HplPatientInfo> list = this.getHibernateTemplate().find("from HplPatientInfo as hpl where hpl.patient.id=?",
+				new Object[] { patient_id });
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public HdPatientInfo getHdPatientInfo(Integer patient_id) {
+		// TODO Auto-generated method stub
+		List<HdPatientInfo> list = this.getHibernateTemplate().find("from HdPatientInfo as hd where hd.patient.id=?",
+				new Object[] { patient_id });
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 	@SuppressWarnings("unchecked")

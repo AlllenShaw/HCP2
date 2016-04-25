@@ -4,14 +4,18 @@ import java.util.List;
 
 import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Emr;
+import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
+import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.Doctor;
+import com.hcp.domain.HplPatientInfo;
 import com.hcp.domain.HplPatientMedicineRecord;
 import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
@@ -60,6 +64,22 @@ public interface DoctorDAO {
 
 	// 检查医生是否有权利进行操作
 	public abstract boolean checkPremission(int doctor_id, int premission_id);
+	
+	public abstract boolean setHtnPatientInfo(HtnPatientInfo htnPatientInfo);
+
+	public abstract boolean setHplPatientInfo(HplPatientInfo hplPatientInfo);
+
+	public abstract boolean setGluPatientInfo(GluPatientInfo gluPatientInfo);
+	
+	public abstract boolean setHdPatientInfo(HdPatientInfo hdPatientInfo);
+
+	public abstract GluPatientInfo getGluPatientInfo(Integer patient_id);
+
+	public abstract HtnPatientInfo getHtnPatientInfo(Integer patient_id);
+
+	public abstract HplPatientInfo getHplPatientInfo(Integer patient_id);
+	
+	public abstract HdPatientInfo getHdPatientInfo(Integer patient_id);
 
 	public abstract List<GluPatientMedicineRecord> getGluPatientMedicineRecord(Integer patient_id);
 
