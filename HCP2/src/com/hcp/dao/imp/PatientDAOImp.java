@@ -2,6 +2,12 @@ package com.hcp.dao.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
 import com.hcp.dao.PatientDAO;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
@@ -16,8 +22,14 @@ import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientHasDoctor;
 
-public class PatientDAOImp implements PatientDAO {
+@Repository
+public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 
+	@Resource
+	public void setSuperSessionFactory(SessionFactory sessionFactory) {
+		this.setSessionFactory(sessionFactory);
+	}
+	
 	@Override
 	public Patient getPatientById(Integer patient_id) {
 		// TODO Auto-generated method stub

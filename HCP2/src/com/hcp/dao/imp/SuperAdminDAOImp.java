@@ -2,13 +2,25 @@ package com.hcp.dao.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
 import com.hcp.dao.SuperAdminDAO;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.SuperAdministrator;
 
-public class SuperAdminDAOImp implements SuperAdminDAO {
+@Repository
+public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminDAO {
 
+	@Resource
+	public void setSuperSessionFactory(SessionFactory sessionFactory) {
+		this.setSessionFactory(sessionFactory);
+	}
+	
 	@Override
 	public SuperAdministrator getSuperAdminiByID(Integer id) {
 		// TODO Auto-generated method stub

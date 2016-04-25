@@ -1,6 +1,17 @@
 package com.hcp.dao.imp;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.hcp.dao.HospitalAdminDAO;
 import com.hcp.domain.Doctor;
@@ -13,144 +24,252 @@ import com.hcp.domain.Permission;
 import com.hcp.domain.UserGroup;
 import com.hcp.domain.UserGroupPermission;
 
-public class HospitalAdminDAOImp implements HospitalAdminDAO {
+@Repository
+public class HospitalAdminDAOImp extends HibernateDaoSupport implements HospitalAdminDAO {
+
+	@Resource
+	public void setSuperSessionFactory(SessionFactory sessionFactory) {
+		this.setSessionFactory(sessionFactory);
+	}
 
 	@Override
 	public HospitalAdministrator getHospitalAdminById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(HospitalAdministrator.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public HospitalAdministrator getHospitalAdminByName(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		List<HospitalAdministrator> list = this.getHibernateTemplate().find(
+				"from HospitalAdministrator as ha where ha.username = ?", new Object[] { username });
+		return list.isEmpty() ? null : list.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isNameExist(String username) {
 		// TODO Auto-generated method stub
-		return false;
+		List<HospitalAdministrator> list = this.getHibernateTemplate().find(
+				"from HospitalAdministrator as ha where ha.username = ?", new Object[] { username });
+		return list.isEmpty();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public HospitalAdministrator login(String username, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		List<HospitalAdministrator> list = this.getHibernateTemplate().find(
+				"from HospitalAdministrator as ha where ha.username = ? and ha.password=?", new Object[] { username, password });
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 	@Override
 	public Hospital getHospital(HospitalAdministrator hospitalAdministrator) {
 		// TODO Auto-generated method stub
-		return null;
+		return hospitalAdministrator.getHospital();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Hospital> getHospitalsList() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Hospital> list = this.getSession().createQuery("from Hospital").list();
+		return list.isEmpty() ? null : list;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Doctor> getDoctors(Integer hospital_id) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Doctor> list = this.getHibernateTemplate().find("from Doctor as d where d.hospital.id = ?",
+				new Object[] { hospital_id });
+		return list.isEmpty() ? null : list;
 	}
-	
+
 	@Override
-	public Doctor addDoctor(Doctor doctor) {
+	public boolean addDoctor(Doctor doctor) {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			this.getHibernateTemplate().save(doctor);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public Doctor getDoctorByID(Integer doctor_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Doctor.class, doctor_id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Doctor getDoctorByName(String doctor_username) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Doctor> list = this.getHibernateTemplate().find("from Doctor as d where d.username = ?",
+				new Object[] { doctor_username });
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Doctor> getDoctorByRealName(final String realname, HospitalAdministrator hospitalAdministrator) {
+		final int hospital_id = hospitalAdministrator.getHospital().getId();
+		List<Doctor> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<Doctor>>() {
+			@Override
+			public List<Doctor> doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query = session
+						.createQuery("select d from Doctor as d where d.realname like:realname and d.hospital.id=:hospital_id");
+				query.setString("realname", realname);
+				query.setInteger("hospital_id", hospital_id);
+				return query.list();
+			}
+		});
+		return list.isEmpty() ? null : list;
 	}
 
 	@Override
 	public boolean deleteDoctor(Doctor doctor) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().delete(doctor);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean updateHospitalAdministrator(HospitalAdministrator hospitalAdministrator) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().update(hospitalAdministrator);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Medicine> getMediciensList() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().find("from Medicine");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Medicine getMedicineById(Integer medicine_id) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.id = ?", new Object[] { medicine_id });
+		return list.isEmpty() ? null : list.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Medicine getMedicineByName(String medicine_name) {
+	public List<Medicine> getMedicineByName(String medicine_name) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.name like ?",
+				"%" + medicine_name + "%");
+		return list.isEmpty() ? null : list;
 	}
 
 	@Override
 	public boolean addMedicine(Medicine medicine) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(medicine);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean deleteMedicine(Medicine medicine) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().delete(medicine);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean updateMedicine(Medicine medicine) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().update(medicine);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean newGroup(UserGroup userGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(userGroup);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean addDoctor2Group(DoctorGroup doctorGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(doctorGroup);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean addPatient2Group(PatientGroup patientGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(patientGroup);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean setGroupPermission(UserGroupPermission userGroupPermission) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(userGroupPermission);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Permission> getPermissionsList() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Permission> list = this.getHibernateTemplate().find("from Permission");
+		return list.isEmpty() ? null : list;
 	}
 
 }
