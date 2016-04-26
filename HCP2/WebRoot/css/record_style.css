@@ -1,0 +1,73 @@
+.box{
+	width:610px;
+	margin-left: auto; 
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+}
+
+.tip{
+	font: bold 14px Arial, Helvetica;
+	margin-left: 25px;
+	margin-top: 10px;
+}
+
+.question{
+	font: bold 14px Arial, Helvetica;
+	margin-left: 25px;
+	margin-top: 10px;
+	margin-bottom:5px;
+}
+
+.box span{
+	font: 10px Arial, Helvetica;
+	color:#666;
+	margin-left: 25px;
+}
+
+.test_box {
+	width: 550px; 
+	min-height: 120px; 
+	max-height: 120px; 
+	_height:120px; 
+	margin-left: auto; 
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	padding: 3px; 
+	outline: 0;
+	border: 1px solid #ccc; 
+	font-size: 12px; 
+	word-wrap: break-word;
+	overflow-x: hidden; 
+	overflow-y: auto; 
+	_overflow-y: visible;
+}
+
+
+.fbt{
+    
+    height: 40px;
+    font: bold 14px Arial, Helvetica;
+    width: 150px;
+	float:right;
+	margin: 0 20px 0 0;
+}
+
+.fb {
+	margin-left:470px;
+    -webkit-appearance: none;
+    background: #009dff;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    height: 40px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out;
+    width: 100px;
+}

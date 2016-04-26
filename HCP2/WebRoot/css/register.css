@@ -1,0 +1,152 @@
+@CHARSET "UTF-8";
+
+body {
+	background-image: url(../picture/background.jpg);
+}
+
+#ti {
+	margin-top: 5px;
+	margin-left: 25px;
+	font-weight: bold;
+}
+
+#doc {
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 380px;
+	padding-top: 5px;
+	margin-top: 10px;
+	background-color: #ffffff;
+	padding-bottom: 5px;
+}
+
+.tdl {
+	font-color: #353535;
+	text-align: left;
+}
+
+
+label {
+	margin-left: 5px;
+}
+
+#outdoc {
+	margin-top: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 10px;
+	width: 400px;
+	background-color: #d4d4d4;
+	border: double;
+	border-color: #a0a0a9;
+}
+
+.fbl {
+	margin-top: 10px;
+	margin-left: 95px;
+}
+
+.fbl2 {
+	margin-top: 30px;
+	margin-left: 220px;
+}
+
+
+.as {
+	margin-top: 5px;
+	margin-left: 20px;
+	width: 350px;
+}
+
+.ip {
+	float: right;
+	margin-right: 50px;
+	width: 200px; //
+	border: 0px;
+}
+
+.gen {
+	float: right;
+	margin-right: 210px;
+}
+
+#outpat {
+	padding-left: 10px;
+	padding-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 790px;
+	border: double;
+	border-color: #a0a0a9;
+}
+
+
+#pat {
+	width: 780px;
+	margin-top: 10px;
+	background-color: #ffffff;
+	padding-bottom: 5px;
+}
+
+.td_1 {
+	text-align: center
+}
+
+
+.fb {
+    -webkit-appearance: none;
+    background: #009dff;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    height: 50px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out;
+    width: 100px;
+}
+
+
+.textarea1
+{
+	margin-left:90px;
+	width:660px;
+	height:100px;
+}
+
+#preview
+{
+	overflow:hidden;
+}
+
+#imghead 
+{
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+}
+
+
+.file {
+    position: relative;
+    display: inline-block;
+    background: #009dff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+	font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+	width:100px;
+    position: absolute;
+    font-size: 100px;
+	right: 0;
+    top: 0;
+    opacity: 0;
+}
