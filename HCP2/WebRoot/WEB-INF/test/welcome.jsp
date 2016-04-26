@@ -3,13 +3,13 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'test1.jsp' starting page</title>
+    <title>My JSP 'welcome.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,11 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <a href="/HCP2/test/add.do">Add</a><br>
-    <a href="/HCP2/test/update.do">Update</a><br>
-    <a href="/HCP2/test/delete.do">Delete</a><br>
-    <a href="/HCP2/test/list.do">List</a><br>
-    <a href="/HCP2/test/get.do">Get</a><br>
-    <a href="/HCP2/test/login.do">Login</a><br>
+    <h3>Welcome</h3><br>
+    Username : ${ username }<br>
+    Password : ${ password }<br>
   </body>
 </html>

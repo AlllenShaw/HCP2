@@ -1,5 +1,8 @@
 package com.hcp.service;
 
-public interface SuperAdminService {
+import com.hcp.domain.SuperAdministrator;
 
+public interface SuperAdminService {
+	
+	public abstract SuperAdministrator login(String username, String password);
 }

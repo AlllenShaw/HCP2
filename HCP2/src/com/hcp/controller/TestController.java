@@ -5,9 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.portlet.ModelAndView;
 
 import com.hcp.domain.SuperAdministrator;
 import com.hcp.test.TestDAO;
@@ -34,7 +38,7 @@ public class TestController {
 		;
 
 		tdao.add(sa);
-		return "/result";
+		return "/test/result";
 	}
 
 	@RequestMapping("/update")
@@ -47,7 +51,7 @@ public class TestController {
 		sa.setPassword("new password");
 		System.out.println(sa.getId() + " " + sa.getUsername() + " " + sa.getPassword());
 		tdao.update(sa);
-		return "/result";
+		return "/test/result";
 	}
 
 	@RequestMapping("/delete")
@@ -59,7 +63,7 @@ public class TestController {
 		// SuperAdministrator sa = tdao.load(id1);
 		// System.out.println(sa.getId()+" "+sa.getUsername()+" "+sa.getPassword());
 		tdao.delete(id1);
-		return "/result";
+		return "/test/result";
 	}
 
 	@RequestMapping("/list")
@@ -70,7 +74,7 @@ public class TestController {
 			SuperAdministrator sa = it.next();
 			System.out.println(sa.getId() + " " + sa.getUsername() + " " + sa.getPassword());
 		}
-		return "/result";
+		return "/test/result";
 	}
 
 	@RequestMapping("/get")
@@ -82,7 +86,36 @@ public class TestController {
 		} else {
 			System.out.println(sa);
 		}
-		return "/result";
+		return "/test/result";
 	}
 
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String login(HttpServletRequest request, ModelAndView modelAndView){
+		return "/test/login";
+	}
+	
+//	
+//	@RequestMapping(value="/login",method=RequestMethod.POST)
+//	public String login(HttpServletRequest request, ModelAndView modelAndView,String username,String password){
+//		System.out.println("-------------------------------------");
+//		System.out.println(username+" "+password);
+//		modelAndView.setViewName("");
+//		return "redirect:/test/welcome.do";
+//	}
+	
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public String login(HttpServletRequest request, Model model,String username,String password){
+		System.out.println("-------------------------------------");
+		System.out.println(username+" "+password);
+		model.addAttribute("username", username);
+		model.addAttribute("password",password);
+		return "/test/welcome";
+//		return "redirect:/test/welcome.do";
+	}
+	
+	@RequestMapping(value="/welcome",method=RequestMethod.GET)
+	public String welcome(HttpServletRequest request, Model model){
+		System.out.println("------------WELCOME-------------------");
+		return "/test/welcome";
+	}
 }
