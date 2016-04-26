@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div class="form-wrapper">
-	<form name="login" action="#">
+	<form name="login" action="/user/login">
 		<div class="form">
 		<div class="nav">
 			<ul>

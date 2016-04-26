@@ -34,7 +34,7 @@ function getpatientinfo() {
 							
 						}
 					}
-				});
+);}
 				
 				
 				
@@ -60,7 +60,6 @@ function getdoctorinfo() {
 							document.getElementById("hospital_id").value=result.hospital_id;
 							document.getElementById("certificate").value=result.doctor_license;
 							document.getElementById("belongdepart").value=result.profession;
-							document.getElementById("selfintroduce").value=result.??;
 						}
 					}
-				});
+		);}
