@@ -24,7 +24,7 @@
 	<div id="outpat">
 		<div id="pat">
 			<form id="request_pw" name="request_pw"
-				action="" method="post"
+				action="/patient/forgetPassword.do" method="post"
                 onsubmit="">
 				<table border="0" cellspacing="2px" cellpadding="2px">
 					<tr>

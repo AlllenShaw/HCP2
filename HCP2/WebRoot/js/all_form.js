@@ -188,3 +188,29 @@ function check_allnewv()
 	} 
 }
 
+
+function check_hmanager()
+{
+	var tableid = document.getElementById("hmanager_form");
+	var name="小李";
+	var rows = tableid.getElementsByTagName("tr");
+	for(var i=1;i<10;i++) 
+	{ 
+		var rowobj=tableid.insertRow(tableid.rows.length);
+		
+		var cell1=rowobj.insertCell(rowobj.cells.length);
+		var cell2=rowobj.insertCell(rowobj.cells.length);
+		var cell3=rowobj.insertCell(rowobj.cells.length);
+		var cell4=rowobj.insertCell(rowobj.cells.length);
+		
+		cell1.innerHTML=i;
+		cell2.innerHTML=name+i+"号";
+		cell3.innerHTML="<input type='button' value='修改' onclick=''>";
+		cell4.innerHTML="<input type='button' value='删除' onclick=''>";
+		rowobj.onclick=function()
+		{
+			window.location.href='interview_record/doctor_record.jsp';
+		}
+	} 
+}
+

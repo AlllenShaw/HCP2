@@ -24,7 +24,7 @@
 		align="middle" src="picture/seo_logo.jpg"></img>
 	
 	<div align="center">
-	<select id="selector1" class="size1" style="width:100px">
+	<select id="selector1" name="selector1" class="size1" style="width:100px">
 		<option value="1">血糖表</option>
 		<option value="2">血压表</option>
 		<option value="3">血氧表</option>
@@ -36,12 +36,13 @@
 		<option value="9">用药记录</option>
 		<option value="10">病历</option>
 		<option value="11">医嘱</option>
-	</select> <select id="selector2" class="size1" style="width:100px">
+	</select> 
+	<select id="selector2" name="selector2" class="size1" style="width:100px">
 		<option value="1">姓名</option>
 		<option value="2">ID</option>
 		<option value="3">身份证</option>
 		<option value="4">所有病人</option>
-	</select> <input type="text" id="text1" class="size1"> 
+	</select> <input type="text" id="text1" name="text1" class="size1"> 
 	<br/>
 	<input id="search" class="fb" type="submit" value="查询">
 	</div>

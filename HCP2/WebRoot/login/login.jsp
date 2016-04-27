@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div class="form-wrapper">
-	<form name="login" action="/user/login.do" method="post">
+	<form name="login" action="/user/login.do">
 		<div class="form">
 		<div class="nav">
 			<ul>
@@ -55,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input id="login" type="submit" class="button"  value="登录">
 				<input id="registered" type="button" class="button"  value="注册">
 			</div>
+			<input id="usertype" type="text" style="display:none;" />
 		</div>
 	</form>
 </div>

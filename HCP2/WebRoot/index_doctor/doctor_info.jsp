@@ -15,13 +15,14 @@
 
 <link rel="stylesheet" type="text/css" href="css/info_style.css">
 <link rel="stylesheet" href="css/register.css" type="text/css"></link>
+<script src="js/info.js"></script>
 </head>
 
 <style>
 	.menu input{width:160px}
 </style>
 
-<body>
+<body onload="getdoctorinfo()">
 	<section id="conter"> <section id="help-left"> <details
 		class="menu" open> <summary>个人信息</summary>
 		<div align="center">

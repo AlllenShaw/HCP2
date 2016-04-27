@@ -20,7 +20,7 @@ import com.hcp.util.SessionUtil;
 
 /**
  * 
- * @author Allen 登陆、注册、登出
+ * @author Allen 登陆、登出
  */
 
 @Controller
@@ -41,7 +41,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, Model model) {
-		return "/login/login";
+		return "/main/main";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -52,7 +52,7 @@ public class UserController {
 		System.out.println("type  " + usertype + "  username : " + username + " pass " + password);
 		System.out.println("session is = " + sessionUtil.getJsessionid());
 
-		//1医生，2患者，3医院管理员，4系统管理员
+		// 1医生，2患者，3医院管理员，4系统管理员
 		switch (usertype) {
 		case 1:
 			Doctor doctor = doctorService.login(username, password);
@@ -61,8 +61,9 @@ public class UserController {
 			}
 			sessionUtil.setAttribute("USERMODEL", doctor);
 			System.out.println("doctor name : " + doctor.getUsername());
-			model.addAttribute("username", doctor.getUsername());
-			model.addAttribute("userid", doctor.getId());
+			// model.addAttribute("username", doctor.getUsername());
+			// model.addAttribute("userid", doctor.getId());
+			model.addAttribute("doctor", doctor);
 			return "redirect:/doctor/index.do";
 		case 2:
 			Patient patient = patientService.login(username, password);
@@ -70,9 +71,10 @@ public class UserController {
 				return "redirect:/user/login.do";
 			}
 			sessionUtil.setAttribute("USERMODEL", patient);
-			System.out.println("doctor name : " + patient.getUsername());
-			model.addAttribute("username", patient.getUsername());
-			model.addAttribute("userid", patient.getId());
+			System.out.println("patient name : " + patient.getUsername());
+			// model.addAttribute("username", patient.getUsername());
+			// model.addAttribute("userid", patient.getId());
+			model.addAttribute("patient", patient);
 			return "redirect:/patient/index.do";
 		case 3:
 			HospitalAdministrator hospitalAdministrator = hospitalAdminService.login(username, password);
@@ -80,9 +82,10 @@ public class UserController {
 				return "redirect:/user/login.do";
 			}
 			sessionUtil.setAttribute("USERMODEL", hospitalAdministrator);
-			System.out.println("doctor name : " + hospitalAdministrator.getUsername());
-			model.addAttribute("username", hospitalAdministrator.getUsername());
-			model.addAttribute("userid", hospitalAdministrator.getId());
+			System.out.println("hospitalAdministrator name : " + hospitalAdministrator.getUsername());
+			// model.addAttribute("username", hospitalAdministrator.getUsername());
+			// model.addAttribute("userid", hospitalAdministrator.getId());
+			model.addAttribute("hospitalAdministrator", hospitalAdministrator);
 			return "redirect:/hospitalAdministrator/index.do";
 		case 4:
 			SuperAdministrator superAdministrator = superAdminService.login(username, password);
@@ -90,9 +93,10 @@ public class UserController {
 				return "redirect:/user/login.do";
 			}
 			sessionUtil.setAttribute("USERMODEL", superAdministrator);
-			System.out.println("doctor name : " + superAdministrator.getUsername());
-			model.addAttribute("username", superAdministrator.getUsername());
-			model.addAttribute("userid", superAdministrator.getId());
+			System.out.println("superAdministrator name : " + superAdministrator.getUsername());
+			// model.addAttribute("username", superAdministrator.getUsername());
+			// model.addAttribute("userid", superAdministrator.getId());
+			model.addAttribute("superAdministrator", superAdministrator);
 			return "redirect:/superAdministrator/index.do";
 		default:
 			break;
@@ -101,11 +105,10 @@ public class UserController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request){
+	public String logout(HttpServletRequest request) {
 		SessionUtil sessionUtil = new SessionUtil(request);
 		sessionUtil.removeAttrtube("USERMODEL");
 		return "redirect:/user/login.do";
 	}
-	
-	
+
 }

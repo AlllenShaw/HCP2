@@ -51,10 +51,10 @@
 	<div id="outpat">
 		<div id="pat">
 
-			<form id="register_patient" method="post">
+			<form id="register_patient" method="post" action="/patient/updatePatientInfo.do" >
 				<table border="0" cellspacing="1" cellpadding="2px">
 					<tr>
-						<td colspan="6" class="td_1">病人注册</td>
+						<td colspan="6" class="td_1">修改信息</td>
 					</tr>
 					<tr>
 						<td class="td_2">用户名</td>
@@ -62,10 +62,10 @@
 						<td><input type="text" id="username" name="username"
 							onblur="checkusername()" /> <span id="tipusername" data-tipso=""></span>
 						</td>
-						<td>密码</td>
-						<td><input type="password" id="fpassword" name="password"
-							onblur="checkpassword()" /> <span id="tipfpassword"
-							data-tipso=""></span>
+						<td class="td_2">姓名</td>
+						<td class="td_3"><input type="text" id="realname"
+							name="realname" onBlur="checkrealname()" /> <span
+							id="tiprealname" data-tipso=""></span>
 						</td>
 						<td colspan="2" rowspan="6" align="center">
 								<div id="preview"">
@@ -78,18 +78,6 @@
         					</div>
 						</td>
 					</tr>
-					<tr>
-						<td>确认密码</td>
-						<td><input type="password" id="spassword"
-							onblur="rcheckpassword()" /> <span id="tipspassword"
-							data-tipso=""></span>
-						</td>
-						<td class="td_2">姓名</td>
-						<td class="td_3"><input type="text" id="realname"
-							name="realname" onBlur="checkrealname()" /> <span
-							id="tiprealname" data-tipso=""></span>
-						</td>
-					<tr/>
 					<tr>
 						<td class="td_2">性别</td>
 						<td class="td_3"><select id="gender" name="gender"
@@ -126,13 +114,12 @@
 						</td>
 						<td class="td_2">身份证</td>
 						<td class="td_3"><input type="text" id="id2" name="id2"
-							onblur="checkidcard()"> <span id="tipidcard" data-tipso=""></span>
+						onblur="checkidcard()"> <span id="tipidcard" data-tipso=""></span>
 						</td>
 					<tr/>
 					<tr>	
 						<td class="td_2">医保号</td>
 						<td class="td_3"><input type="text" id="hin" name="hin"></td>
-						
 						<td class="td_2">文化程度</td>
 						<td class="td_3"><select id="education" name="education"
 							style="width: 100%">
@@ -172,7 +159,7 @@
 					</tr>
 					<tr>
 						<td>医院</td>
-						<td><select name="Hospital" id="Hospital"
+						<td><select name="hospital_id" id="hospital"
 							onchange="getDoctor()">
 								<option value="-1">请选择</option>
 								<c:forEach items="${hospital}" var="item">
@@ -273,33 +260,9 @@
 							name="familymedicalhistory" size="90%">
 						</td>
 					</tr>
-					
-					<tr><td>&nbsp; </td></tr>
-					<tr>
-						<td colspan="6" class="td_1">安全验证问题</td>
-					</tr>
-
-					<tr>
-						<td class="td_2">出生日期</td>
-						<td colspan="5"><input type="text" id="security1"
-							name="security1" size="90%">
-						</td>					
-					</tr>
-					<tr>
-						<td class="td_2">喜欢的书</td>
-						<td colspan="5"><input type="text" id="security2"
-							name="security2" size="90%">
-						</td>	
-					</tr>
-					<tr>
-						<td class="td_2">喜欢的人</td>
-						<td colspan="5"><input type="text" id="security3"
-							name="security3" size="90%">
-						</td>	
-					</tr>
 				</table>
 				<div class="fbl2">
-					<input class="fb" type="submit" value="提交">
+					<input class="fb" type="submit" value="修改">
 					<input class="fb" type="reset" value="重置"> 
 					<input class="fb" type="button" value="取消" onClick="">
 				</div>

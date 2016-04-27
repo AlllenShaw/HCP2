@@ -51,8 +51,8 @@
 					</ul>
 					</details> <details class="menu" open> <summary>资源管理</summary>
 					<ul>
-						<li><a  href="index_smanager/hospital_managerment.jsp" target="mainframe" >医院管理</a></li>
-						<li><a  href="index_smanager/hospital_managerment.jsp" target="mainframe" >医院管理员管理</a></li>
+						<li><a  href="index_smanager/hospital_management.jsp" target="mainframe" >医院管理</a></li>
+						<li><a  href="index_smanager/hmanager_management.jsp" target="mainframe" >医院管理员管理</a></li>
 					</ul>
 					</details>
 				</div>

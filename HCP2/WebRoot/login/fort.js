@@ -28,11 +28,13 @@ $("#login").click(function(){
 		{
 			if($("#username").attr("value")=="12qssong"&&$("#password").attr("value")=="123")
 			{
+				$("#usertype").attr("value",1);
 			top.window.location.href='../index_doctor/index_doctor.jsp';
 			}
 		}
 	else if($("#li2").is(".current"))
 		{
+		$("#usertype").attr("value",2);
 			if($("#username").attr("value")=="12qssong"&&$("#password").attr("value")=="123")
 			{
 			top.window.location.href='../index_patient/index_patient.jsp';
@@ -40,6 +42,7 @@ $("#login").click(function(){
 		}
 	else if($("#li3").is(".current"))
 		{
+		$("#usertype").attr("value",3);
 			if($("#username").attr("value")=="12qssong"&&$("#password").attr("value")=="123")
 			{
 			top.window.location.href='../index_hmanager/index_hmanager.jsp';
@@ -47,6 +50,7 @@ $("#login").click(function(){
 		}
 	else if($("#li4").is(".current"))
 		{
+		$("#usertype").attr("value",4);
 			if($("#username").attr("value")=="12qssong"&&$("#password").attr("value")=="123")
 			{
 			top.window.location.href='../index_smanager/index_smanager.jsp';

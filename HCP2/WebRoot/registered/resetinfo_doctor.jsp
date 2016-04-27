@@ -23,12 +23,12 @@
 <body>
 	<div id="outpat">
 		<div id="pat">
-			<form id="register_hmanager" name="register_hmanager"
-				action="" method="post"
-                onsubmit="">
+			<form id="register_doctor" name="register_doctor"
+				action="user/doctor/register.do" method="post"
+                onsubmit="return checkdoctor()">
 				<table border="0" cellspacing="2px" cellpadding="2px">
 					<tr>
-						<td colspan="5" class="td_1">医院管理员注册</td>
+						<td colspan="5" class="td_1">修改信息</td>
 					</tr>
 					<tr><td>&nbsp; </td></tr>
 					<tr>
@@ -37,10 +37,10 @@
 						<td><input type="text" id="username" name="username"
 							onblur="checkusername()" /> <span id="tipusername" data-tipso=""></span>
 						</td>
-						<td>密码</td>
-						<td><input type="password" id="fpassword" name="password"
-							onblur="checkpassword()" /> <span id="tipfpassword"
-							data-tipso=""></span>
+						<td class="td_2">姓名</td>
+						<td class="td_3"><input type="text" id="realname"
+							name="realname" onblur="checkrealname()" /> <span
+							id="tiprealname" data-tipso=""></span>
 						</td>
 						<td colspan="2" rowspan="6" align="center">
 							<div id="preview">
@@ -54,18 +54,6 @@
 						</td>
 					</tr>
 
-					<tr>
-						<td>确认密码</td>
-						<td><input type="password" id="spassword"
-							onblur="rcheckpassword()" /> <span id="tipspassword"
-							data-tipso=""></span>
-						</td>
-						<td class="td_2">姓名</td>
-						<td class="td_3"><input type="text" id="realname"
-							name="realname" onblur="checkrealname()" /> <span
-							id="tiprealname" data-tipso=""></span>
-						</td>
-					</tr>
 					
 					<tr>
 						<td class="td_2">性别</td>
@@ -89,7 +77,19 @@
 						onblur="checkidcard()"> <span id="tipidcard" data-tipso=""></span>
 						</td>
 					</tr>
-
+					<tr>
+						<td class="td_2">现住地址</td>
+						<td colspan="5"><input type="text" id="naddress"
+							name="naddress" size="62%">
+						</td>
+					</tr>
+					<tr>
+						<td class="td_2">工作方向</td>
+						<td colspan="5"><input type="text" id="" name="profession"
+							size="62%">
+						</td> 
+					</tr>
+					<tr><td>&nbsp;</td><tr>
 					<tr>
 
 						<td class="td_2">联系电话</td>
@@ -110,7 +110,23 @@
 						<!--  <input type="text" id="hospital" name="hospital_id" size="90%"> -->
 						</td>
 					</tr>
+					<tr>
+						<td class="td_2">执业许可证</td>
+						<td colspan="5"><input type="text" id="certificate"
+							name="certificate" onblur="checkcer()" size="90%"><span
+							id="tipcer" data-tipso=""></span></td>
+					</tr>
+					<tr>
+						<td class="td_2">所属科</td>
+						<td colspan="5"><input type="text" id="belongdepart"
+							name="belongdepart" onblur="checkbel()" size="90%"><span
+							id="tipbel" data-tipso=""></span></td>
+					</tr>
+					<tr>
+						<td class="td_2" rowspan="5">自我介绍</td>
+					</tr>
 				</table>
+				<textarea class="textarea1" id="selfintroduce"></textarea>
 				<div class="fbl2">
 					<input class="fb" type="submit" value="提交"> <input
 						class="fb" type="reset" value="重置"> <input class="fb"

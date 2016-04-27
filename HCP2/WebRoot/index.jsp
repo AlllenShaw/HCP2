@@ -19,5 +19,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
-  <jsp:forward page="/WEB-INF/test/test1.jsp"></jsp:forward>
+  <jsp:forward page="/main/main.jsp"></jsp:forward>
 </html>
