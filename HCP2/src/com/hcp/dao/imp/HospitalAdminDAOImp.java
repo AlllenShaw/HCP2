@@ -19,6 +19,7 @@ import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.Medicine;
+import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.domain.Permission;
 import com.hcp.domain.UserGroup;
@@ -272,4 +273,57 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 		return list.isEmpty() ? null : list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public void deleteDoctorGroup(String doctor_id, String group_id) {
+		// TODO Auto-generated method stub
+		// 根据doctor_id和group_id找到doctorGroup
+		List<DoctorGroup> list = this.getHibernateTemplate().find(
+				"from DoctorGroup as dg where dg.doctor.id = ? and dg.userGroup.id = ? ", new Object[] { doctor_id, group_id });
+		DoctorGroup doctorGroup = list.isEmpty() ? null : list.get(0);
+		// 删除doctorGroup
+		this.getHibernateTemplate().delete(doctorGroup);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void deletePatientGroup(String patient_id, String group_id) {
+		// TODO Auto-generated method stub
+		// 根据patient_id和group_id找到patientGroup
+		List<PatientGroup> list = this.getHibernateTemplate()
+				.find("from PatientGroup as pg where pg.patient.id = ? and pg.userGroup.id = ? ",
+						new Object[] { patient_id, group_id });
+		PatientGroup patientGroup = list.isEmpty() ? null : list.get(0);
+		// 删除doctorGroup
+		this.getHibernateTemplate().delete(patientGroup);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Doctor> getNumberByGroupId(final String group_id) {
+		// TODO Auto-generated method stub
+		List<Doctor> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<Doctor>>() {
+			int id = Integer.parseInt(group_id);
+
+			@Override
+			public List<Doctor> doInHibernate(Session session) throws HibernateException, SQLException {
+				// TODO Auto-generated method stub
+				Query query = session.createQuery("select dg.doctor from DoctorGroup as dg.userGroup.id =:id");
+				query.setInteger("id", id);
+				return query.list();
+			}
+		});
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public UserGroupPermission getGroupPermissionn(String group_id1, String group_id2, String permission_id) {
+		// TODO Auto-generated method stub
+		List<UserGroupPermission> list = this
+				.getHibernateTemplate()
+				.find("from UserGroupPermission as p where p.userGroupByUserGroup1Id.id = ? and p.userGroupByUserGroup2Id.id = ? and p.permission.id = ?",
+						new Object[] { group_id1, group_id2, permission_id });
+		return list.isEmpty() ? null : list.get(0);
+	}
 }

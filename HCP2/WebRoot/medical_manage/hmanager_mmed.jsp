@@ -33,6 +33,7 @@
 	<div align="center">
 		<table class="tip">
 			<tr><td colspan="4">药物信息</td></tr>
+			<!-- 这里改成一个option吧，选择id还是名称，（选择框name为"type",输入框name为"text",id返回0，名称返回1）不然两个都填冲突就麻烦了 -->
 			<tr>
 				<td>药物ID</td>
 				<td><input/></td>
@@ -73,10 +74,10 @@
 				<tr>
 					<td>
 					<select class="size1" style="width:100px" id="type">
-						<option value="1">高血压</option>
-						<option value="2">高血脂</option>
-						<option value="3">高血糖</option>
-						<option value="4">其他</option>
+						<option value="高血压">高血压</option>
+						<option value="高血脂">高血脂</option>
+						<option value="高血糖">高血糖</option>
+						<option value="其他">其他</option>
 					</select>
 					</td>
 					<td><input/></td>
