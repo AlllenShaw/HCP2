@@ -27,4 +27,6 @@ public interface PatientService {
 	public abstract boolean updatePatient(Patient patient);
 
 	public abstract Patient getPatientById(Integer patient_id);
+
+	public abstract List<Doctor> getDoctorList();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hcp.dao.HospitalAdminDAO;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
+import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
@@ -130,6 +131,12 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	public void deleteUserGroupPermission(UserGroupPermission userGroupPermission) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Hospital getHospitalById(String hospital_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
