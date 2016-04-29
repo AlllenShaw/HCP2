@@ -8,21 +8,27 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hcp.domain.Doctor;
+import com.hcp.domain.Emr;
 import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
+import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
+import com.hcp.domain.Prescription;
+import com.hcp.mobilePOJO.DoctorInfo;
 import com.hcp.mobilePOJO.SimpleDoctor;
 import com.hcp.mobilePOJO.SimplePatient;
+import com.hcp.service.DoctorService;
 import com.hcp.service.PatientService;
 
 @Controller
@@ -31,6 +37,9 @@ public class MobileController {
 
 	@Resource
 	private PatientService patientService;
+
+	@Resource
+	private DoctorService doctorService;
 
 	@RequestMapping("/login")
 	public String login(String username, String password) {
@@ -230,7 +239,6 @@ public class MobileController {
 
 	@RequestMapping("/getDoctorList")
 	public String getDoctorList() {
-		// TODO
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
 		int error = 0;
@@ -281,7 +289,7 @@ public class MobileController {
 	// public String updatePatientInfo(Integer patient_id) {
 	// return null;
 	// }
-	
+
 	@RequestMapping("/changePassword")
 	public String changePassword(int type, String username, String answer1, String answer2, String answer3, String oldPassword,
 			String newPassword) {
@@ -294,7 +302,7 @@ public class MobileController {
 			// 1是用旧密码
 			if (patient.getPassword().equals(oldPassword)) {
 				flag = true;
-			}else{
+			} else {
 				state = 0;
 				error = 1;
 			}
@@ -303,12 +311,12 @@ public class MobileController {
 			if ((patient.getAnswer1().equals(answer1)) && (patient.getAnswer2().equals(answer2))
 					&& (patient.getAnswer3().equals(answer3))) {
 				flag = true;
-			}else{
+			} else {
 				state = 0;
 				error = 8;
 			}
 		}
-		if(flag){
+		if (flag) {
 			patient.setPassword(newPassword);
 			patientService.updatePatient(patient);
 		}
@@ -318,21 +326,60 @@ public class MobileController {
 		return jo.toString();
 	}
 
-	
-	
+	@RequestMapping("/getDoctorInfo")
 	public String getDoctorInfo(Integer doctor_id) {
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		int error = 0;
+		int sex = 1;
+		String info = "";
+		DoctorInfo doctorInfo = null;
+		Doctor doctor = patientService.getDoctorById(doctor_id);
+		if (doctor != null) {
+			if (doctor.getGender().equals("female")) {
+				sex = 0;
+			}
+			doctorInfo = new DoctorInfo(doctor.getRealname(), doctor.getProfession(), doctor.getHospital().getName(), sex,
+					Integer.parseInt(doctor.getAge()), doctor.getAddress(), doctor.getNation(), info, doctor.getTele(),
+					doctor.getMail());
+		} else {
+			state = 0;
+			error = 9;
+		}
+		map.put("state", state);
+		map.put("doctor", doctorInfo);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
 
 	public String getHospitals() {
 		return null;
 	}
 
-	public String getMedicineById() {
-		return null;
+	@RequestMapping("/getMedicineById")
+	public String getMedicineById(Integer medicine_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		int error = 0;
+		Medicine medicine = null;
+		medicine = patientService.getMedicineById(medicine_id);
+		if (medicine == null) {
+			state = 0;
+			error = 10;
+		}
+		map.put("state", state);
+		map.put("medicine", medicine);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
 
-	public String getPrescription() {
+	@SuppressWarnings("unchecked")
+	public String getPrescription(String username) {
+		// TODO
+		Patient patient = patientService.getPatientByName(username);
+		Set<Emr> emrs = patient.getEmrs();
 		return null;
 	}
 
@@ -340,7 +387,9 @@ public class MobileController {
 		return null;
 	}
 
-	public String uploadHdRecord() {
+	public String uploadHdRecord(String username, String data, String cookie) {
+		// TODO
+		JSONObject json = JSONObject.fromObject(data);
 		return null;
 	}
 

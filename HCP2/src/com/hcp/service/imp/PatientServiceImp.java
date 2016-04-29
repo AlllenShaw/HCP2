@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.hcp.dao.PatientDAO;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Hospital;
+import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
+import com.hcp.domain.Prescription;
 import com.hcp.service.PatientService;
 
 @Service("patientService")
@@ -69,6 +71,30 @@ public class PatientServiceImp implements PatientService {
 
 	@Override
 	public Patient getPatientById(Integer patient_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Doctor getDoctorById(Integer doctor_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Doctor> getDoctorList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Medicine getMedicineById(Integer medicine_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Prescription> getPrescriptionByName(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -103,8 +103,8 @@ public class PatientController {
 		Set<PatientGroup> patientGroups = new HashSet<PatientGroup>();
 		PatientGroup defaultGroup = patientService.getDefaultGroup();
 		patientGroups.add(defaultGroup);
-		patient.setPatientGroups(patientGroups);
-		Doctor doctor = patientService.getDoctorById(doctor_id);
+		patient.setPatientGroups(patientGroups); 
+		Doctor doctor = patientService.getDoctorById(Integer.parseInt(doctor_id));
 		PatientHasDoctorId patientHasDoctorId = new PatientHasDoctorId(patient, doctor);
 		PatientHasDoctor patientHasDoctor = new PatientHasDoctor(patientHasDoctorId, new Timestamp(new Date().getTime()));
 		Set<PatientHasDoctor> patientHasDoctors = new HashSet<PatientHasDoctor>();
@@ -157,7 +157,7 @@ public class PatientController {
 			String relationship2, String tele2, String faddress2, String femail2, boolean htnstate, boolean glustate,
 			boolean hplstate, String illnesshistory, String allergichistory, String familymedicalhistory) {
 		Patient patient = patientService.getPatientById(patient_id);
-		Doctor doctor = patientService.getDoctorById(doctor_id);
+		Doctor doctor = patientService.getDoctorById(Integer.parseInt(doctor_id));
 		Hospital hospital = patientService.getHospitalByID(hospital_id);
 		patient.setAge(age);
 		boolean marriaged = false;
