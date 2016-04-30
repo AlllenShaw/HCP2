@@ -376,11 +376,26 @@ public class MobileController {
 	}
 
 	@SuppressWarnings("unchecked")
+	@RequestMapping("/getPrescription")
 	public String getPrescription(String username) {
-		// TODO
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		int error = 0;
 		Patient patient = patientService.getPatientByName(username);
 		Set<Emr> emrs = patient.getEmrs();
-		return null;
+		List<Emr> list = new ArrayList<Emr>();
+		list.addAll(emrs);
+		Emr lastEmr = list.get(list.size()-1);
+		Set<Prescription> prescriptions = lastEmr.getPrescriptions();
+		if(prescriptions==null){
+			state = 1;
+			error = 11;
+		}
+		map.put("state", state);
+		map.put("prescriptions", prescriptions);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
 
 	public String uploadGluRecord() {
@@ -390,6 +405,7 @@ public class MobileController {
 	public String uploadHdRecord(String username, String data, String cookie) {
 		// TODO
 		JSONObject json = JSONObject.fromObject(data);
+		
 		return null;
 	}
 

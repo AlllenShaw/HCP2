@@ -7,6 +7,7 @@ import com.hcp.domain.Hospital;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
+import com.hcp.domain.PatientHasDoctor;
 import com.hcp.domain.Prescription;
 
 
@@ -37,4 +38,6 @@ public interface PatientService {
 	public abstract Doctor getDoctorById(String doctor_id);
 
 	public abstract List<Prescription> getPrescriptionByName(String username);
+
+	
 }

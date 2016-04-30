@@ -12,6 +12,7 @@ import com.hcp.domain.Hospital;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
+import com.hcp.domain.PatientHasDoctor;
 import com.hcp.domain.Prescription;
 import com.hcp.service.PatientService;
 
@@ -30,73 +31,75 @@ public class PatientServiceImp implements PatientService {
 	@Override
 	public List<Hospital> getHospitals() {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getHospitals();
 	}
 
 	@Override
 	public Hospital getHospitalByID(String hospital_id) {
 		// TODO Auto-generated method stub
-		return null;
+		Integer id = Integer.parseInt(hospital_id);
+		return patientDAO.getHospitalByID(id);
 	}
 
 	@Override
 	public PatientGroup getDefaultGroup() {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getDefaultGroup();
 	}
 
 	@Override
 	public Doctor getDoctorById(String doctor_id) {
 		// TODO Auto-generated method stub
-		return null;
+		Integer id = Integer.parseInt(doctor_id);
+		return patientDAO.getDoctorById(id);
 	}
 
 	@Override
 	public boolean register(Patient patient) {
 		// TODO Auto-generated method stub
-		return false;
+		return patientDAO.register(patient);
 	}
 
 	@Override
 	public Patient getPatientByName(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getPatientByName(username);
 	}
 
 	@Override
 	public boolean updatePatient(Patient patient) {
 		// TODO Auto-generated method stub
-		return false;
+		return patientDAO.updatePatient(patient);
 	}
 
 	@Override
 	public Patient getPatientById(Integer patient_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getPatientById(patient_id);
 	}
 
 	@Override
 	public Doctor getDoctorById(Integer doctor_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getDoctorById(doctor_id);
 	}
 
 	@Override
 	public List<Doctor> getDoctorList() {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getDoctorsList();
 	}
 
 	@Override
 	public Medicine getMedicineById(Integer medicine_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getMedicineById(medicine_id);
 	}
 
 	@Override
 	public List<Prescription> getPrescriptionByName(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return patientDAO.getPrescriptionByName(username);
 	}
 
 }

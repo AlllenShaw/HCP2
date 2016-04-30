@@ -174,11 +174,10 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Medicine> getMedicineByName(String medicine_name) {
+	public Medicine getMedicineByName(String medicine_name) {
 		// TODO Auto-generated method stub
-		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.name like ?",
-				"%" + medicine_name + "%");
-		return list.isEmpty() ? null : list;
+		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.name =?",new Object[]{medicine_name});
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 	@Override
@@ -325,5 +324,53 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 				.find("from UserGroupPermission as p where p.userGroupByUserGroup1Id.id = ? and p.userGroupByUserGroup2Id.id = ? and p.permission.id = ?",
 						new Object[] { group_id1, group_id2, permission_id });
 		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@Override
+	public boolean addUserGroup(UserGroup userGroup) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public UserGroup getUserGroupById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addDoctorGroup(DoctorGroup doctorGroup) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Patient getPatientById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addPatientGroup(PatientGroup patientGroup) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Permission getPermissionById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Hospital getHospitalById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

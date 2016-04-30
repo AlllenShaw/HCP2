@@ -27,49 +27,52 @@ public class SuperAdminServiceImp implements SuperAdminService {
 	@Override
 	public List<Hospital> getAllHospital() {
 		// TODO Auto-generated method stub
-		return null;
+		return superAdminDAO.getHospitalsList();
 	}
 
 	@Override
-	public void addHospital(Hospital hospital) {
+	public boolean addHospital(Hospital hospital) {
 		// TODO Auto-generated method stub
-		
+		return superAdminDAO.addHosptial(hospital);
 	}
 
 	@Override
-	public void removeHospital(String hospital_id) {
+	public boolean removeHospital(String hospital_id) {
 		// TODO Auto-generated method stub
-		
+		int id = Integer.parseInt(hospital_id);
+		Hospital hospital = superAdminDAO.getHospitalById(id);
+		return superAdminDAO.deleteHospital(hospital);
 	}
 
 	@Override
 	public List<HospitalAdministrator> getAllHospitalAdmin() {
 		// TODO Auto-generated method stub
-		return null;
+		return superAdminDAO.getHospitalAdministratorsList();
 	}
 
 	@Override
 	public Hospital getHospitalById(String hospital_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(hospital_id);
+		return superAdminDAO.getHospitalById(id);
 	}
 
 	@Override
-	public void addHospitalAdmin(HospitalAdministrator hospitalAdministrator) {
+	public boolean addHospitalAdmin(HospitalAdministrator hospitalAdministrator) {
 		// TODO Auto-generated method stub
-		
+		return superAdminDAO.addospitalAdministrator(hospitalAdministrator);
 	}
 
 	@Override
 	public HospitalAdministrator getAllHospitalAdminById(String hospitalAdmin_id) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer admin_id = Integer.parseInt(hospitalAdmin_id);
+		return superAdminDAO.getHospitalAdministratorByID(admin_id);
 	}
 
 	@Override
-	public void deleteHospitalAdmin(HospitalAdministrator hospitalAdministrator) {
+	public boolean deleteHospitalAdmin(HospitalAdministrator hospitalAdministrator) {
 		// TODO Auto-generated method stub
-		
+		return superAdminDAO.deleteHospitalAdministrator(hospitalAdministrator);
 	}
 
 }

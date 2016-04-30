@@ -16,12 +16,16 @@ import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
+import com.hcp.domain.Hospital;
 import com.hcp.domain.HplPatientMedicineRecord;
 import com.hcp.domain.HplPatientRecord;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
+import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
+import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
+import com.hcp.domain.Prescription;
 import com.hcp.util.MyHibernateCallback;
 
 @Repository
@@ -72,7 +76,6 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		return list.isEmpty() ? null : list;
 	}
 
-	@Override
 	public boolean register(Patient patients, PatientHasDoctor patientHasDoctor) {
 		// TODO Auto-generated method stub
 		try {
@@ -85,6 +88,18 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		}
 		
 	}
+	
+	@Override
+	public boolean register(Patient patients){
+		try {
+			this.getHibernateTemplate().save(patients);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 
 	@Override
 	public boolean updatePatient(Patient patient) {
@@ -232,6 +247,48 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		// TODO Auto-generated method stub
 		List<Emr> list = this.getHibernateTemplate().find("from Emr as e where e.patient.id = ?", new Object[] { patient_id });
 		return list.get(list.size() - 1);
+	}
+
+	@Override
+	public List<Hospital> getHospitals() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Hospital getHospitalByID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PatientGroup getDefaultGroup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Doctor getDoctorById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Doctor> getDoctorsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Medicine getMedicineById(Integer medicine_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Prescription> getPrescriptionByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

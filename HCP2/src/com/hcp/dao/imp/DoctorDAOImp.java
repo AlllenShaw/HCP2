@@ -32,6 +32,7 @@ import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
+import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
 import com.hcp.domain.UserGroupPermission;
 import com.hcp.util.MyHibernateCallback;
@@ -448,6 +449,36 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.name like ?",
 				"%" + medicine_name + "%");
 		return list.isEmpty() ? null : list;
+	}
+
+	@Override
+	public DoctorGroup getDefaultDoctorGroup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Hospital getHospitalById(int hospital_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup, int permission_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasPatien(int doctor_id, int patient_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Patient getPatientByIdNumber(String idNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

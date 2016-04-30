@@ -20,6 +20,7 @@ import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
+import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
 
 public interface DoctorDAO {
@@ -104,5 +105,15 @@ public interface DoctorDAO {
 	public abstract Medicine getMedicineById(Integer medicine_id);
 
 	public abstract List<Medicine> getMedicineByName(String medicine_name);
+
+	public abstract DoctorGroup getDefaultDoctorGroup();
+
+	public abstract Hospital getHospitalById(int hospital_id);
+
+	public abstract boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup, int permission_id);
+
+	public abstract boolean hasPatien(int doctor_id, int patient_id);
+
+	public abstract Patient getPatientByIdNumber(String idNumber);
 
 }

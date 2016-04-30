@@ -12,17 +12,17 @@ public interface SuperAdminService {
 
 	public abstract List<Hospital> getAllHospital();
 
-	public abstract void addHospital(Hospital hospital);
+	public abstract boolean addHospital(Hospital hospital);
 
-	public abstract void removeHospital(String hospital_id);
+	public abstract boolean removeHospital(String hospital_id);
 
 	public abstract List<HospitalAdministrator> getAllHospitalAdmin();
 
 	public abstract Hospital getHospitalById(String hospital_id);
 
-	public abstract void addHospitalAdmin(HospitalAdministrator hospitalAdministrator);
+	public abstract boolean addHospitalAdmin(HospitalAdministrator hospitalAdministrator);
 
 	public abstract HospitalAdministrator getAllHospitalAdminById(String hospitalAdmin_id);
 
-	public abstract void deleteHospitalAdmin(HospitalAdministrator hospitalAdministrator);
+	public abstract boolean deleteHospitalAdmin(HospitalAdministrator hospitalAdministrator);
 }

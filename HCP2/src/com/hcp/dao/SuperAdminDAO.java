@@ -34,4 +34,6 @@ public interface SuperAdminDAO {
 
 	public abstract boolean deleteHospitalAdministrator(HospitalAdministrator hospitalAdministrator);
 
+	public abstract List<HospitalAdministrator> getHospitalAdministratorsList();
+
 }

@@ -8,12 +8,16 @@ import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
+import com.hcp.domain.Hospital;
 import com.hcp.domain.HplPatientMedicineRecord;
 import com.hcp.domain.HplPatientRecord;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
+import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
+import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
+import com.hcp.domain.Prescription;
 
 public interface PatientDAO {
 
@@ -27,7 +31,7 @@ public interface PatientDAO {
 
 	public abstract List<Doctor> getDoctors(Integer hospital_id);
 
-	public abstract boolean register(Patient patients, PatientHasDoctor patientHasDoctor);
+	public abstract boolean register(Patient patients);
 
 	public abstract boolean updatePatient(Patient patient);
 	
@@ -58,4 +62,18 @@ public interface PatientDAO {
 	public abstract List<Emr> getPatientEmrsList(Integer patient_id, String startTime, String endTime);
 
 	public abstract Emr getLastEmr(Integer patient_id);
+
+	public abstract List<Hospital> getHospitals();
+
+	public abstract Hospital getHospitalByID(Integer id);
+
+	public abstract PatientGroup getDefaultGroup();
+
+	public abstract Doctor getDoctorById(Integer id);
+
+	public abstract List<Doctor> getDoctorsList();
+
+	public abstract Medicine getMedicineById(Integer medicine_id);
+
+	public abstract List<Prescription> getPrescriptionByName(String username);
 }

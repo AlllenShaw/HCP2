@@ -163,4 +163,10 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 		}
 	}
 
+	@Override
+	public List<HospitalAdministrator> getHospitalAdministratorsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

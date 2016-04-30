@@ -34,61 +34,65 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	@Override
 	public Medicine getMedicineById(String medicine_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(medicine_id);
+		return hospitalAdminDAO.getMedicineById(id);
 	}
 
 	@Override
 	public Medicine getMedicineByName(String medicine_name) {
 		// TODO Auto-generated method stub
-		return null;
+		return hospitalAdminDAO.getMedicineByName(medicine_name);
 	}
 
 	@Override
 	public boolean addMedicine(Medicine medicine) {
 		// TODO Auto-generated method stub
-		return false;
+		return hospitalAdminDAO.addMedicine(medicine);
 	}
 
 	@Override
 	public boolean updateMedicine(Medicine medicine) {
 		// TODO Auto-generated method stub
-		return false;
+		return hospitalAdminDAO.updateMedicine(medicine);
 	}
 
 	@Override
 	public boolean addUserGroup(UserGroup userGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		return hospitalAdminDAO.addUserGroup(userGroup);
 	}
 
 	@Override
 	public UserGroup getUserGroupById(String group_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(group_id);
+		return hospitalAdminDAO.getUserGroupById(id);
 	}
 
 	@Override
 	public Doctor getDoctorById(String doctor_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(doctor_id);
+		return hospitalAdminDAO.getDoctorByID(id);
 	}
 
 	@Override
 	public boolean addDoctorGroup(DoctorGroup doctorGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		return hospitalAdminDAO.addDoctorGroup(doctorGroup);
 	}
 
 	@Override
 	public Patient getPatientById(String patient_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(patient_id);
+		return hospitalAdminDAO.getPatientById(id);
 	}
 
 	@Override
 	public boolean addPatientGroup(PatientGroup patientGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		return hospitalAdminDAO.addPatientGroup(patientGroup);
 	}
 
 	@Override
@@ -112,13 +116,14 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	@Override
 	public Permission getPermissionById(String permission_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(permission_id);
+		return hospitalAdminDAO.getPermissionById(id);
 	}
 
 	@Override
-	public void addUserGroupPermission(UserGroupPermission userGroupPermission) {
+	public boolean addUserGroupPermission(UserGroupPermission userGroupPermission) {
 		// TODO Auto-generated method stub
-		
+		return hospitalAdminDAO.setGroupPermission(userGroupPermission);
 	}
 
 	@Override
@@ -128,15 +133,16 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	}
 
 	@Override
-	public void deleteUserGroupPermission(UserGroupPermission userGroupPermission) {
+	public boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission) {
 		// TODO Auto-generated method stub
-		
+		return hospitalAdminDAO.deleteUserGroupPermission(userGroupPermission);
 	}
 
 	@Override
 	public Hospital getHospitalById(String hospital_id) {
 		// TODO Auto-generated method stub
-		return null;
+		int id = Integer.parseInt(hospital_id);
+		return hospitalAdminDAO.getHospitalById(id);
 	}
 
 }

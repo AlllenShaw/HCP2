@@ -29,7 +29,7 @@ public interface DoctorService {
 
 	public abstract Doctor getDoctorById(Integer doctor_id);
 
-	public abstract void updateDoctor(Doctor doctor);
+	public abstract boolean updateDoctor(Doctor doctor);
 
 	public abstract Patient getPatientByName(String username);
 

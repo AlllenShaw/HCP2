@@ -7,6 +7,7 @@ import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.Medicine;
+import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.domain.Permission;
 import com.hcp.domain.UserGroup;
@@ -46,7 +47,7 @@ public interface HospitalAdminDAO {
 
 	public abstract Medicine getMedicineById(Integer medicine_id);
 
-	public abstract List<Medicine> getMedicineByName(String medicine_name);
+	public abstract Medicine getMedicineByName(String medicine_name);
 
 	public abstract boolean addMedicine(Medicine medicine);
 
@@ -79,4 +80,20 @@ public interface HospitalAdminDAO {
 	public abstract List<Doctor> getNumberByGroupId(String group_id);
 
 	public abstract UserGroupPermission getGroupPermissionn(String group_id1, String group_id2, String permission_id);
+
+	public abstract boolean addUserGroup(UserGroup userGroup);
+
+	public abstract UserGroup getUserGroupById(int id);
+
+	public abstract boolean addDoctorGroup(DoctorGroup doctorGroup);
+
+	public abstract Patient getPatientById(int id);
+
+	public abstract boolean addPatientGroup(PatientGroup patientGroup);
+
+	public abstract Permission getPermissionById(int id);
+
+	public abstract boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission);
+
+	public abstract Hospital getHospitalById(int id);
 }

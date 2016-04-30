@@ -45,11 +45,11 @@ public interface HospitalAdminService {
 
 	public abstract Permission getPermissionById(String permission_id);
 
-	public abstract void addUserGroupPermission(UserGroupPermission userGroupPermission);
+	public abstract boolean addUserGroupPermission(UserGroupPermission userGroupPermission);
 
 	public abstract UserGroupPermission getGroupPermission(String group_id1, String group_id2, String permission_id);
 
-	public abstract void deleteUserGroupPermission(UserGroupPermission userGroupPermission);
+	public abstract boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission);
 
 	public abstract Hospital getHospitalById(String hospital_id);
 }
