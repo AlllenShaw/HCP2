@@ -329,48 +329,72 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	@Override
 	public boolean addUserGroup(UserGroup userGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		try{
+			this.getHibernateTemplate().save(userGroup);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public UserGroup getUserGroupById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(UserGroup.class, id);
 	}
 
 	@Override
 	public boolean addDoctorGroup(DoctorGroup doctorGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(doctorGroup);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} 
 	}
 
 	@Override
 	public Patient getPatientById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Patient.class, id);
 	}
 
 	@Override
 	public boolean addPatientGroup(PatientGroup patientGroup) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().save(patientGroup);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} 
 	}
 
 	@Override
 	public Permission getPermissionById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Permission.class, id);
 	}
 
 	@Override
 	public boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.getHibernateTemplate().delete(userGroupPermission);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public Hospital getHospitalById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Hospital.class, id);
 	}
 }

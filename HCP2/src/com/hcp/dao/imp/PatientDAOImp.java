@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hcp.dao.PatientDAO;
 import com.hcp.domain.Doctor;
+import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Emr;
 import com.hcp.domain.Family;
 import com.hcp.domain.GluPatientMedicineRecord;
@@ -46,7 +47,8 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 	@Override
 	public Patient getPatientByName(String patient_username) {
 		// TODO Auto-generated method stub
-		List<Patient> list = this.getHibernateTemplate().find("from Patient as p where p.username = ?", new Object[] { patient_username });
+		List<Patient> list = this.getHibernateTemplate().find("from Patient as p where p.username = ?",
+				new Object[] { patient_username });
 		return list.isEmpty() ? null : list.get(0);
 	}
 
@@ -54,7 +56,8 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 	@Override
 	public boolean isNameExist(String username) {
 		// TODO Auto-generated method stub
-		List<Patient> list = this.getHibernateTemplate().find("from Patient as p where p.username = ?", new Object[] { username });
+		List<Patient> list = this.getHibernateTemplate()
+				.find("from Patient as p where p.username = ?", new Object[] { username });
 		return list.isEmpty();
 	}
 
@@ -86,11 +89,11 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
-	
+
 	@Override
-	public boolean register(Patient patients){
+	public boolean register(Patient patients) {
 		try {
 			this.getHibernateTemplate().save(patients);
 			return true;
@@ -99,7 +102,6 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 			return false;
 		}
 	}
-	
 
 	@Override
 	public boolean updatePatient(Patient patient) {
@@ -249,46 +251,52 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		return list.get(list.size() - 1);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Hospital> getHospitals() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Hospital> list = this.getSession().createQuery("from Hospital").list();
+		return list.isEmpty() ? null : list;
 	}
 
 	@Override
 	public Hospital getHospitalByID(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Hospital.class, id);
 	}
 
 	@Override
 	public PatientGroup getDefaultGroup() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(PatientGroup.class, 1);
 	}
 
 	@Override
 	public Doctor getDoctorById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Doctor.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Doctor> getDoctorsList() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().find("from Doctor");
 	}
 
 	@Override
 	public Medicine getMedicineById(Integer medicine_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Medicine.class, medicine_id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prescription> getPrescriptionByName(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Prescription> list = this.getHibernateTemplate().find("from Prescription as p where p.emr.patient.username = ?",
+				new Object[] { username });
+		return list.isEmpty()?null:list;
 	}
 
 }

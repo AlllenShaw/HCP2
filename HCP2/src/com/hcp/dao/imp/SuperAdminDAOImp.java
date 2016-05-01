@@ -125,15 +125,17 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 	@SuppressWarnings("unchecked")
 	public List<HospitalAdministrator> getHospitalAdministratorByRealName(final String realname) {
 		// TODO Auto-generated method stub
-		List<HospitalAdministrator> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<HospitalAdministrator>>() {
-			@Override
-			public List<HospitalAdministrator> doInHibernate(Session session) throws HibernateException, SQLException {
-				// TODO Auto-generated method stub
-				Query query = session.createQuery("select ha from HospitalAdministrator as ha where ha.realname like :realname");
-				query.setString("realname", realname);
-				return query.list();
-			}
-		});
+		List<HospitalAdministrator> list = this.getHibernateTemplate().executeFind(
+				new HibernateCallback<List<HospitalAdministrator>>() {
+					@Override
+					public List<HospitalAdministrator> doInHibernate(Session session) throws HibernateException, SQLException {
+						// TODO Auto-generated method stub
+						Query query = session
+								.createQuery("select ha from HospitalAdministrator as ha where ha.realname like :realname");
+						query.setString("realname", realname);
+						return query.list();
+					}
+				});
 		return list;
 	}
 
@@ -163,10 +165,11 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<HospitalAdministrator> getHospitalAdministratorsList() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().find("from HospitalAdministrator");
 	}
 
 }

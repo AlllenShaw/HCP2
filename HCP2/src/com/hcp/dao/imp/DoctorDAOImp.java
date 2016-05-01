@@ -34,6 +34,7 @@ import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
+import com.hcp.domain.PatientHasDoctorId;
 import com.hcp.domain.UserGroupPermission;
 import com.hcp.util.MyHibernateCallback;
 
@@ -454,31 +455,45 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 	@Override
 	public DoctorGroup getDefaultDoctorGroup() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(DoctorGroup.class, 1);
 	}
 
 	@Override
 	public Hospital getHospitalById(int hospital_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().load(Hospital.class, hospital_id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup, int permission_id) {
 		// TODO Auto-generated method stub
-		return false;
+		int doctorGroupId = doctorGroup.getUserGroup().getId();
+		int patientGroupId = patientGroup.getUserGroup().getId();
+		List<UserGroupPermission> list = this
+				.getHibernateTemplate()
+				.find("form UserGroupPermission as p where p.userGroupByUserGroup1Id.id = ? and p.userGroupByUserGroup2Id.id = ? and p.permission.id = ?",
+						new Object[] { doctorGroupId, patientGroupId, permission_id });
+		return list.isEmpty() ? false : true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean hasPatien(int doctor_id, int patient_id) {
 		// TODO Auto-generated method stub
-		return false;
+		List<PatientHasDoctorId> list = this.getHibernateTemplate().find(
+				"form PatientHasDoctorId as phd where phd.patient.id = ? and phd.doctor.id = ?",
+				new Object[] { patient_id, doctor_id });
+		return list.isEmpty() ? false : true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Patient getPatientByIdNumber(String idNumber) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Patient> list = this.getHibernateTemplate()
+				.find("form Patient as p where p.idNumber = ?", new Object[] { idNumber });
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 }
