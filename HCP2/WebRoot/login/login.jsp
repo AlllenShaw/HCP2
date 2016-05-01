@@ -1,8 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+
 
 <html lang="zh-cn">
 <head>
@@ -35,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div class="form-wrapper">
-	<form name="login" action="/user/login.do">
+	<form name="login" action="user/login.do">
 		<div class="form">
 		<div class="nav">
 			<ul>
@@ -60,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 </div>
 
-<script src="fort.js"></script>
+
 
 </body>
 </html>

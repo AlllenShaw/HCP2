@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
@@ -61,6 +62,7 @@ public class PatientController {
 		return "/registered/registered.jsp?route=registered/registered_patient";
 	}
 
+	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public String register(HttpServletRequest request, Model model, String username, String password, String realname,
 			String gender, String nation, String age, String marriage, String profession, String id2, String hin,
 			String education, String address, String naddress, String company, String tele, String email, String hospital_id,
@@ -68,6 +70,7 @@ public class PatientController {
 			String relationship2, String tele2, String faddress2, String femail2, boolean htnstate, boolean glustate,
 			boolean hplstate, String illnesshistory, String allergichistory, String familymedicalhistory, String security1,
 			String security2, String security3) {
+		System.out.println("Register");
 		Patient patient = new Patient();
 		patient.setAddress(naddress);
 		patient.setAge(age);
@@ -114,6 +117,7 @@ public class PatientController {
 		patient.setRealname(realname);
 		patient.setTele(tele);
 		patient.setUsername(username);
+		patient.setRegisterTime(new Timestamp(new Date().getTime()));
 		if (patientService.register(patient)) {
 			return "/main/main";
 		} else {
@@ -215,7 +219,7 @@ public class PatientController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/getHplRecord")
+	@RequestMapping("/getHdRecord")
 	public String getHdRecord(HttpServletRequest request, Model model, Integer patient_id) {
 		Patient patient = patientService.getPatientById(patient_id);
 		Set<HdPatientRecord> hdPatientRecords = patient.getHdPatientRecords();

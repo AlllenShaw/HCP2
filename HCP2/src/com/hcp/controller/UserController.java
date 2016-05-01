@@ -46,7 +46,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, Model model, Integer usertype, String username, String password) {
-
+		System.out.println("user login");
 		SessionUtil sessionUtil = new SessionUtil(request);
 
 		System.out.println("type  " + usertype + "  username : " + username + " pass " + password);

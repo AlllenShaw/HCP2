@@ -51,7 +51,7 @@
 	<div id="outpat">
 		<div id="pat">
 
-			<form id="register_patient" method="post">
+			<form id="register_patient" method="post" action="/patient/register.do">
 				<table border="0" cellspacing="1" cellpadding="2px">
 					<tr>
 						<td colspan="6" class="td_1">病人注册</td>

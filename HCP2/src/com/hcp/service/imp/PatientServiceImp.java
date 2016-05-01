@@ -57,6 +57,7 @@ public class PatientServiceImp implements PatientService {
 	@Override
 	public boolean register(Patient patient) {
 		// TODO Auto-generated method stub
+		System.out.println("patientService register");
 		return patientDAO.register(patient);
 	}
 
