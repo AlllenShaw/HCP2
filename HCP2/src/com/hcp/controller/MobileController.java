@@ -1,6 +1,10 @@
 package com.hcp.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +17,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
@@ -26,7 +31,10 @@ import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.Prescription;
 import com.hcp.mobilePOJO.DoctorInfo;
+import com.hcp.mobilePOJO.MedicineDetail;
+import com.hcp.mobilePOJO.MedicineInfo;
 import com.hcp.mobilePOJO.SimpleDoctor;
+import com.hcp.mobilePOJO.SimpleHdRecord;
 import com.hcp.mobilePOJO.SimplePatient;
 import com.hcp.service.DoctorService;
 import com.hcp.service.PatientService;
@@ -42,34 +50,43 @@ public class MobileController {
 	private DoctorService doctorService;
 
 	@RequestMapping("/login")
+	@ResponseBody
 	public String login(String username, String password) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
-		int error = 0;
+		String error = "0";
 		System.out.println(username + " " + password);
 		Patient patient = patientService.login(username, password);
 		if (patient == null) {
 			state = 0;
-			error = 1;
+			error = "1";
 		}
-		map.put("state", state);
+		System.out.println("------------------------" + patient);
+		System.out.println("state: " + state + " error: " + error);
+		JSONObject jo = new JSONObject();
+		jo.put("state", state);
+		jo.put("error", error);
+		jo.put("cookie", username);
+		// map.put("state", state);
 		// map.put("patient", patient);
-		map.put("error", error);
-		JSONObject jo = JSONObject.fromObject(map);
+		// map.put("error", error);
+		// JSONObject jo = JSONObject.fromObject(map);
 		return jo.toString();
 	}
 
 	@RequestMapping("/register")
+	@ResponseBody
 	public String register(String account, String password, String name, int sex, String birthday, String idNumber, String phone,
 			String answer1, String answer2, String answer3) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
-		int error = 0;
+		String error = "0";
 		String gender = "male";
 		Patient patient = new Patient(account, idNumber, password);
 		if (sex == 0) {
 			gender = "female";
 		}
+		patient.setRealname(name);
 		patient.setGender(gender);
 		patient.setTele(phone);
 		patient.setAnswer1(answer1);
@@ -78,7 +95,7 @@ public class MobileController {
 		if (patientService.register(patient)) {
 		} else {
 			state = 0;
-			error = 2;
+			error = "2";
 		}
 		map.put("state", state);
 		map.put("error", error);
@@ -88,6 +105,7 @@ public class MobileController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getGluPatinentInfo")
+	@ResponseBody
 	public String getGluPatinentInfo(Integer patient_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -109,6 +127,7 @@ public class MobileController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getGluPatientMedicineRecord")
+	@ResponseBody
 	public String getGluPatientMedicineRecord(Integer patient_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -130,6 +149,7 @@ public class MobileController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getGluPatientRecord")
+	@ResponseBody
 	public String getGluPatientRecord(Integer patient_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -151,6 +171,7 @@ public class MobileController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getHdPatientInfo")
+	@ResponseBody
 	public String getHdPatientInfo(Integer patient_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -172,6 +193,7 @@ public class MobileController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getHdPatientMedicineRecord")
+	@ResponseBody
 	public String getHdPatientMedicineRecord(Integer patient_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -191,26 +213,82 @@ public class MobileController {
 		return jo.toString();
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping("/getHdPatientRecord")
-	public String getHdPatientRecord(Integer patient_id) {
+	@RequestMapping("/getAllHdRecordTime")
+	@ResponseBody
+	public String getAllHdRecordTime(String username) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> list = new ArrayList<String>();
 		int state = 1;
-		int error = 0;
-		Set<HdPatientRecord> set = null;
-		Patient patient = patientService.getPatientById(patient_id);
-		if (patient != null) {
-			set = patient.getHdPatientRecords();
-		} else {
+		String error = "0";
+		List<Timestamp> timestamps = patientService.getAllHdRecordTime(username);
+		if (list == null) {
 			state = 0;
-			error = 5;
+			error = "该用户没有心电数据";
+		}
+		for (Timestamp timestamp : timestamps) {
+			System.out.println(timestamp.toString());
+			list.add(timestamp.toString());
 		}
 		map.put("state", state);
-		map.put("set", set);
+		map.put("list", list);
 		map.put("error", error);
 		JSONObject jo = JSONObject.fromObject(map);
 		return jo.toString();
 	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/getHdPatientRecords")
+	@ResponseBody
+	public String getHdPatientRecords(String username, String startTime, String endTime) {
+		System.out.println("===========================================");
+		System.out.println(username+" "+startTime+" "+endTime);
+		System.out.println("===========================================");
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<SimpleHdRecord> list = new ArrayList<SimpleHdRecord>();
+		int state = 1;
+		String error = "0";
+		List<HdPatientRecord> records = patientService.getHdPatientRecords(username, startTime, endTime);
+		if (list == null) {
+			state = 0;
+			error = "该用户没有心电数据记录";
+		}else{
+			for (HdPatientRecord record : records) {
+				SimpleHdRecord sRecord = new SimpleHdRecord(record.getId(), record.getHeartRate(), record.getEcg(), record.getMeasureTime().toString());
+				list.add(sRecord);
+			}
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		System.out.println(jo.toString());
+		return jo.toString();
+	}
+
+	// // /////////////////////////////////////////////////////////////////////////
+	// @SuppressWarnings("unchecked")
+	// @RequestMapping("/getHdPatientRecord")
+	// @ResponseBody
+	// public String getHdPatientRecord(Integer patient_id) {
+	// Map<String, Object> map = new HashMap<String, Object>();
+	// int state = 1;
+	// int error = 0;
+	// Set<HdPatientRecord> set = null;
+	// Patient patient = patientService.getPatientById(patient_id);
+	// if (patient != null) {
+	// set = patient.getHdPatientRecords();
+	// } else {
+	// state = 0;
+	// error = 5;
+	// }
+	// map.put("state", state);
+	// map.put("set", set);
+	// map.put("error", error);
+	// JSONObject jo = JSONObject.fromObject(map);
+	// return jo.toString();
+	// }
+	//
+	// // //////////////////////////////////////////////////////////////////////////////////////
 
 	// @RequestMapping("/getHplPatientInfo")
 	// public String getHplPatientInfo(Integer patient_id) {
@@ -237,7 +315,6 @@ public class MobileController {
 	// return null;
 	// }
 
-	@RequestMapping("/getDoctorList")
 	public String getDoctorList() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -261,13 +338,39 @@ public class MobileController {
 		return jo.toString();
 	}
 
-	@RequestMapping("/getPatientInfo")
-	public String getPatientInfo(Integer patient_id) {
+	@RequestMapping("/getDoctorList")
+	@ResponseBody
+	public String getDoctor(String username) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
 		int error = 0;
+		List<SimpleDoctor> list = new ArrayList<SimpleDoctor>();
+		List<Doctor> doctors = patientService.getDoctorListbyName(username);
+		if (list != null) {
+			for (Doctor doctor : doctors) {
+				SimpleDoctor simpleDoctor = new SimpleDoctor(doctor.getId(), doctor.getRealname(), doctor.getProfession(), doctor
+						.getHospital().getName());
+				list.add(simpleDoctor);
+			}
+		} else {
+			state = 0;
+			error = 6;
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
+
+	@RequestMapping("/getPatientInfo")
+	@ResponseBody
+	public String getPatientInfo(String username) throws UnsupportedEncodingException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
 		SimplePatient simplePatient = null;
-		Patient patient = patientService.getPatientById(patient_id);
+		Patient patient = patientService.getPatientByName(username);
 		if (patient != null) {
 			int sex = 0;
 			if (patient.getGender().equals("male")) {
@@ -277,13 +380,15 @@ public class MobileController {
 					patient.getAge(), patient.getTele());
 		} else {
 			state = 0;
-			error = 7;
+			error = "7";
 		}
+		System.out.println("中文名----------------" + simplePatient.getName());
 		map.put("state", state);
 		map.put("simplePatient", simplePatient);
 		map.put("error", error);
 		JSONObject jo = JSONObject.fromObject(map);
 		return jo.toString();
+		// return URLDecoder.decode(jo.toString(), "utf-8");
 	}
 
 	// public String updatePatientInfo(Integer patient_id) {
@@ -291,8 +396,13 @@ public class MobileController {
 	// }
 
 	@RequestMapping("/changePassword")
-	public String changePassword(int type, String username, String answer1, String answer2, String answer3, String oldPassword,
+	@ResponseBody
+	public String changePassword(String username, String answer1, String answer2, String answer3, String oldPassword,
 			String newPassword) {
+		int type = 1;
+		if (oldPassword == null) {
+			type = 0;
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
 		int error = 0;
@@ -327,7 +437,11 @@ public class MobileController {
 	}
 
 	@RequestMapping("/getDoctorInfo")
+	@ResponseBody
 	public String getDoctorInfo(Integer doctor_id) {
+		System.out.println("=============================================");
+		System.out.println("=======getDoctorInfo=================");
+		System.out.println("=============================================");
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
 		int error = 0;
@@ -336,8 +450,10 @@ public class MobileController {
 		DoctorInfo doctorInfo = null;
 		Doctor doctor = patientService.getDoctorById(doctor_id);
 		if (doctor != null) {
-			if (doctor.getGender().equals("female")) {
-				sex = 0;
+			if (doctor.getGender() != null) {
+				if (doctor.getGender().equals("female")) {
+					sex = 0;
+				}
 			}
 			doctorInfo = new DoctorInfo(doctor.getRealname(), doctor.getProfession(), doctor.getHospital().getName(), sex,
 					Integer.parseInt(doctor.getAge()), doctor.getAddress(), doctor.getNation(), info, doctor.getTele(),
@@ -358,55 +474,106 @@ public class MobileController {
 	}
 
 	@RequestMapping("/getMedicineById")
-	public String getMedicineById(Integer medicine_id) {
+	@ResponseBody
+	public String getMedicineById(Integer medicineId) {
+		System.out.println("=============================================");
+		System.out.println("=======getMedicineById=================");
+		System.out.println("=============================================");
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
 		int error = 0;
 		Medicine medicine = null;
-		medicine = patientService.getMedicineById(medicine_id);
+		medicine = patientService.getMedicineById(medicineId);
 		if (medicine == null) {
 			state = 0;
 			error = 10;
 		}
+		MedicineDetail medicineDetail = new MedicineDetail(medicine.getName(), medicine.getConstituent(),
+				medicine.getAdaptationDisease(), medicine.getAdverseReaction(), medicine.getTaboo(), medicine.getAttentions(),
+				medicine.getDirection());
 		map.put("state", state);
-		map.put("medicine", medicine);
+		map.put("medicineDetail", medicineDetail);
 		map.put("error", error);
 		JSONObject jo = JSONObject.fromObject(map);
 		return jo.toString();
 	}
 
 	@SuppressWarnings("unchecked")
+	@ResponseBody
 	@RequestMapping("/getPrescription")
 	public String getPrescription(String username) {
+		System.out.println("=============================================");
+		System.out.println("=======getPrescription=================");
+		System.out.println("=============================================");
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
 		int error = 0;
+		List<MedicineInfo> medicineInfos = new ArrayList<MedicineInfo>();
 		Patient patient = patientService.getPatientByName(username);
 		Set<Emr> emrs = patient.getEmrs();
 		List<Emr> list = new ArrayList<Emr>();
 		list.addAll(emrs);
-		Emr lastEmr = list.get(list.size()-1);
+		Emr lastEmr = list.get(list.size() - 1);
 		Set<Prescription> prescriptions = lastEmr.getPrescriptions();
-		if(prescriptions==null){
+		if (prescriptions == null) {
 			state = 1;
 			error = 11;
 		}
+		if (prescriptions != null) {
+			for (Prescription prescription : prescriptions) {
+				Medicine medicine = prescription.getMedicine();
+				MedicineInfo medicineInfo = new MedicineInfo(medicine.getId().toString(), medicine.getName(), prescription
+						.getTakingMedicineWay().getTakingMedicineWay(), prescription.getTakingMedicineNumberEachtime(),
+						prescription.getMedicineUnit().getMedicineUnit(),
+						prescription.getTakingMedicineTimesEachday().toString(), prescription.getMealTime().toString(),
+						prescription.getCreateTime().toString());
+				medicineInfos.add(medicineInfo);
+			}
+		}
 		map.put("state", state);
-		map.put("prescriptions", prescriptions);
+		map.put("medicineInfos", medicineInfos);
 		map.put("error", error);
 		JSONObject jo = JSONObject.fromObject(map);
 		return jo.toString();
+	}
+
+	public String uploadRecord(String username, Integer type, String data) {
+		return null;
 	}
 
 	public String uploadGluRecord() {
 		return null;
 	}
 
-	public String uploadHdRecord(String username, String data, String cookie) {
+	@RequestMapping("/uploadHdRecord")
+	@ResponseBody
+	public String uploadHdRecord(String username, String data) {
 		// TODO
+		System.out.println("=========================" + username);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
 		JSONObject json = JSONObject.fromObject(data);
-		
-		return null;
+		System.out.println("json------" + json);
+		String time = json.getString("time");
+		float heartRate = (float) json.getInt("nAverageHR");
+		Integer analysis = json.getInt("nAnalysis");
+		String ecg = json.getString("ecgData");
+		Timestamp measureTime = Timestamp.valueOf(time);
+		Timestamp uploadTime = new Timestamp(new Date().getTime());
+		System.out.println("====" + time + " " + heartRate + " " + measureTime + " " + ecg);
+		Patient patient = patientService.getPatientByName(username);
+		System.out.println(patient);
+		HdPatientRecord hdPatientRecord = new HdPatientRecord(patient, heartRate, ecg, measureTime, uploadTime);
+		Boolean f = patientService.uploadHdRecord(hdPatientRecord);
+		if (!f) {
+			state = 0;
+			error = "储存用户心电数据失败";
+		}
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
 
 	public String uploadHplRecord() {

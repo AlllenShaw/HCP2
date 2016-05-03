@@ -1,5 +1,6 @@
 package com.hcp.service.imp;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.hcp.dao.PatientDAO;
 import com.hcp.domain.Doctor;
+import com.hcp.domain.GluPatientRecord;
+import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
+import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
@@ -101,6 +106,51 @@ public class PatientServiceImp implements PatientService {
 	public List<Prescription> getPrescriptionByName(String username) {
 		// TODO Auto-generated method stub
 		return patientDAO.getPrescriptionByName(username);
+	}
+
+	@Override
+	public List<Doctor> getDoctorListbyName(String username) {
+		// TODO Auto-generated method stub
+		int id = patientDAO.getPatientByName(username).getId();
+		return patientDAO.getDoctorListByPatientId(id);
+	}
+
+	@Override
+	public boolean uploadHdRecord(HdPatientRecord hdPatientRecord) {
+		// TODO Auto-generated method stub
+		return patientDAO.saveHdPatientRecord(hdPatientRecord);
+	}
+
+	@Override
+	public boolean uploadGluRecord(GluPatientRecord gluPatientRecord) {
+		// TODO Auto-generated method stub
+		return patientDAO.saveGluPatientRecords(gluPatientRecord);
+	}
+
+	@Override
+	public boolean uploadHplRecord(HplPatientRecord hplPatientRecord) {
+		// TODO Auto-generated method stub
+		return patientDAO.saveHplPatientRecord(hplPatientRecord);
+	}
+
+	@Override
+	public boolean uploadHtnRecord(HtnPatientRecord htnPatientRecord) {
+		// TODO Auto-generated method stub
+		return patientDAO.saveHtnPatientRecord(htnPatientRecord);
+	}
+
+	@Override
+	public List<Timestamp> getAllHdRecordTime(String username) {
+		// TODO Auto-generated method stub
+		return patientDAO.getAllHdRecordTime(username);
+	}
+
+	@Override
+	public List<HdPatientRecord> getHdPatientRecords(String username, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		Timestamp sTime = Timestamp.valueOf(startTime);
+		Timestamp eTime = Timestamp.valueOf(endTime);
+		return patientDAO.getHdPatientRecordsByTime(username,sTime,eTime);
 	}
 
 }

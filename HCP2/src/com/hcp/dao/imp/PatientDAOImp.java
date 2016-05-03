@@ -1,10 +1,17 @@
 package com.hcp.dao.imp;
 
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +33,7 @@ import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
+import com.hcp.domain.PatientHasDoctorId;
 import com.hcp.domain.Prescription;
 import com.hcp.util.MyHibernateCallback;
 
@@ -49,6 +57,7 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		// TODO Auto-generated method stub
 		List<Patient> list = this.getHibernateTemplate().find("from Patient as p where p.username = ?",
 				new Object[] { patient_username });
+		System.out.println("-----DAO-----" + list.isEmpty());
 		return list.isEmpty() ? null : list.get(0);
 	}
 
@@ -65,8 +74,9 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 	@Override
 	public Patient login(String username, String password) {
 		// TODO Auto-generated method stub
-		List<Patient> list = this.getHibernateTemplate().find("from Patient as p where p.username = ? and p.password=?",
+		List<Patient> list = this.getHibernateTemplate().find("from Patient as p where p.username = ? and p.password = ?",
 				new Object[] { username, password });
+		System.out.println("list---------------------" + list);
 		return list.isEmpty() ? null : list.get(0);
 	}
 
@@ -84,6 +94,7 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		try {
 			this.getHibernateTemplate().save(patients);
 			this.getHibernateTemplate().save(patientHasDoctor);
+			this.getHibernateTemplate().flush();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,6 +239,7 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().save(hdPatientRecord);
+			// this.getHibernateTemplate().flush();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -296,7 +308,47 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		// TODO Auto-generated method stub
 		List<Prescription> list = this.getHibernateTemplate().find("from Prescription as p where p.emr.patient.username = ?",
 				new Object[] { username });
-		return list.isEmpty()?null:list;
+		return list.isEmpty() ? null : list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Doctor> getDoctorListByPatientId(int id) {
+		// TODO Auto-generated method stub
+		// List<PatientHasDoctor> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<PatientHasDoctor>>() {
+		// @Override
+		// public List<PatientHasDoctor> doInHibernate(Session session) throws HibernateException, SQLException {
+		// Query query = session.createQuery("from PatientHasDoctor p where p.id.patient.id =:id");
+		// query.setInteger("id", id);
+		// return query.list();
+		// }
+		// });
+		List<PatientHasDoctor> list = this.getHibernateTemplate().find("from PatientHasDoctor p where p.id.patient.id = ?",
+				new Object[] { id });
+		List<Doctor> doctors = new ArrayList<Doctor>();
+		for (PatientHasDoctor p : list) {
+			doctors.add(p.getId().getDoctor());
+		}
+		return doctors.isEmpty() ? null : doctors;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Timestamp> getAllHdRecordTime(String username) {
+		// TODO Auto-generated method stub
+		List<Timestamp> list = this.getHibernateTemplate().find(
+				"select h.measureTime from HdPatientRecord as h where h.patient.username = ?", new Object[] { username });
+		return list.isEmpty() ? null : list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HdPatientRecord> getHdPatientRecordsByTime(String username, Timestamp startTime, Timestamp endTime) {
+		// TODO Auto-generated method stub
+		List<HdPatientRecord> list = this.getHibernateTemplate().find(
+				"from HdPatientRecord as h where h.patient.username = ? and h.measureTime >= ? and h.measureTime <= ?",
+				new Object[]{username,startTime,endTime});
+		return list.isEmpty() ? null : list;
 	}
 
 }
