@@ -26,7 +26,7 @@ public interface PatientDAO {
 
 	public abstract Patient getPatientByName(String patient_username);
 
-	public abstract boolean isNameExist(String username);
+	public abstract boolean isExist(String username,String idNumber,String mail,String tele);
 
 	public abstract Patient login(String username, String password);
 

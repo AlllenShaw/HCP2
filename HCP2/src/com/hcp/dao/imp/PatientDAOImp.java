@@ -63,10 +63,11 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean isNameExist(String username) {
+	public boolean isExist(String username, String idNumber, String mail, String tele) {
 		// TODO Auto-generated method stub
-		List<Patient> list = this.getHibernateTemplate()
-				.find("from Patient as p where p.username = ?", new Object[] { username });
+		List<Patient> list = this.getHibernateTemplate().find(
+				"from Patient as p where p.username = ? or p.idNumber = ? or p.mail = ? or p.tele = ?",
+				new Object[] { username, idNumber, mail, tele });
 		return list.isEmpty();
 	}
 
@@ -347,7 +348,7 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		// TODO Auto-generated method stub
 		List<HdPatientRecord> list = this.getHibernateTemplate().find(
 				"from HdPatientRecord as h where h.patient.username = ? and h.measureTime >= ? and h.measureTime <= ?",
-				new Object[]{username,startTime,endTime});
+				new Object[] { username, startTime, endTime });
 		return list.isEmpty() ? null : list;
 	}
 

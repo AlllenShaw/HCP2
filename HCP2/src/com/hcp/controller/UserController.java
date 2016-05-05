@@ -45,16 +45,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, Model model, Integer usertype, String username, String password) {
+	public String login(HttpServletRequest request, Model model, String usertype, String username, String password) {
 		System.out.println("user login");
 		SessionUtil sessionUtil = new SessionUtil(request);
 
 		System.out.println("type  " + usertype + "  username : " + username + " pass " + password);
 		System.out.println("session is = " + sessionUtil.getJsessionid());
-
+		
 		// 1医生，2患者，3医院管理员，4系统管理员
 		switch (usertype) {
-		case 1:
+		case "1":
 			Doctor doctor = doctorService.login(username, password);
 			if (doctor == null) {
 				return "redirect:/user/login.do";
@@ -65,7 +65,7 @@ public class UserController {
 			// model.addAttribute("userid", doctor.getId());
 			model.addAttribute("doctor", doctor);
 			return "redirect:/doctor/index.do";
-		case 2:
+		case "2":
 			Patient patient = patientService.login(username, password);
 			if (patient == null) {
 				return "redirect:/user/login.do";
@@ -76,7 +76,7 @@ public class UserController {
 			// model.addAttribute("userid", patient.getId());
 			model.addAttribute("patient", patient);
 			return "redirect:/patient/index.do";
-		case 3:
+		case "3":
 			HospitalAdministrator hospitalAdministrator = hospitalAdminService.login(username, password);
 			if (hospitalAdministrator == null) {
 				return "redirect:/user/login.do";
@@ -87,7 +87,7 @@ public class UserController {
 			// model.addAttribute("userid", hospitalAdministrator.getId());
 			model.addAttribute("hospitalAdministrator", hospitalAdministrator);
 			return "redirect:/hospitalAdministrator/index.do";
-		case 4:
+		case "4":
 			SuperAdministrator superAdministrator = superAdminService.login(username, password);
 			if (superAdministrator == null) {
 				return "redirect:/user/login.do";

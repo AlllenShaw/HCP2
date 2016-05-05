@@ -26,7 +26,7 @@ public class PatientServiceImp implements PatientService {
 
 	@Resource
 	private PatientDAO patientDAO;
-	
+
 	@Override
 	public Patient login(String username, String password) {
 		// TODO Auto-generated method stub
@@ -63,6 +63,9 @@ public class PatientServiceImp implements PatientService {
 	public boolean register(Patient patient) {
 		// TODO Auto-generated method stub
 		System.out.println("patientService register");
+		if (patientDAO.isExist(patient.getUsername(), patient.getIdNumber(), patient.getMail(), patient.getTele())) {
+			return false;
+		}
 		return patientDAO.register(patient);
 	}
 
@@ -150,7 +153,7 @@ public class PatientServiceImp implements PatientService {
 		// TODO Auto-generated method stub
 		Timestamp sTime = Timestamp.valueOf(startTime);
 		Timestamp eTime = Timestamp.valueOf(endTime);
-		return patientDAO.getHdPatientRecordsByTime(username,sTime,eTime);
+		return patientDAO.getHdPatientRecordsByTime(username, sTime, eTime);
 	}
 
 }

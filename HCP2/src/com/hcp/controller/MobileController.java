@@ -1,7 +1,6 @@
 package com.hcp.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,7 +75,7 @@ public class MobileController {
 
 	@RequestMapping("/register")
 	@ResponseBody
-	public String register(String account, String password, String name, int sex, String birthday, String idNumber, String phone,
+	public String register(String account, String password, String name, int sex, String age, String idNumber, String phone,
 			String answer1, String answer2, String answer3) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
@@ -89,6 +88,7 @@ public class MobileController {
 		patient.setRealname(name);
 		patient.setGender(gender);
 		patient.setTele(phone);
+		patient.setAge(age);
 		patient.setAnswer1(answer1);
 		patient.setAnswer2(answer2);
 		patient.setAnswer3(answer3);
@@ -221,7 +221,7 @@ public class MobileController {
 		int state = 1;
 		String error = "0";
 		List<Timestamp> timestamps = patientService.getAllHdRecordTime(username);
-		if (list == null) {
+		if (timestamps == null) {
 			state = 0;
 			error = "该用户没有心电数据";
 		}
@@ -236,24 +236,24 @@ public class MobileController {
 		return jo.toString();
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/getHdPatientRecords")
 	@ResponseBody
 	public String getHdPatientRecords(String username, String startTime, String endTime) {
 		System.out.println("===========================================");
-		System.out.println(username+" "+startTime+" "+endTime);
+		System.out.println(username + " " + startTime + " " + endTime);
 		System.out.println("===========================================");
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<SimpleHdRecord> list = new ArrayList<SimpleHdRecord>();
 		int state = 1;
 		String error = "0";
 		List<HdPatientRecord> records = patientService.getHdPatientRecords(username, startTime, endTime);
-		if (list == null) {
+		if (records == null) {
 			state = 0;
 			error = "该用户没有心电数据记录";
-		}else{
+		} else {
 			for (HdPatientRecord record : records) {
-				SimpleHdRecord sRecord = new SimpleHdRecord(record.getId(), record.getHeartRate(), record.getEcg(), record.getMeasureTime().toString());
+				SimpleHdRecord sRecord = new SimpleHdRecord(record.getId(), record.getHeartRate(), record.getEcg(), record
+						.getMeasureTime().toString());
 				list.add(sRecord);
 			}
 		}
@@ -321,7 +321,7 @@ public class MobileController {
 		int error = 0;
 		List<SimpleDoctor> list = new ArrayList<SimpleDoctor>();
 		List<Doctor> doctors = patientService.getDoctorList();
-		if (list != null) {
+		if (doctors != null) {
 			for (Doctor doctor : doctors) {
 				SimpleDoctor simpleDoctor = new SimpleDoctor(doctor.getId(), doctor.getRealname(), doctor.getProfession(), doctor
 						.getHospital().getName());
@@ -346,7 +346,7 @@ public class MobileController {
 		int error = 0;
 		List<SimpleDoctor> list = new ArrayList<SimpleDoctor>();
 		List<Doctor> doctors = patientService.getDoctorListbyName(username);
-		if (list != null) {
+		if (doctors != null) {
 			for (Doctor doctor : doctors) {
 				SimpleDoctor simpleDoctor = new SimpleDoctor(doctor.getId(), doctor.getRealname(), doctor.getProfession(), doctor
 						.getHospital().getName());
@@ -391,9 +391,36 @@ public class MobileController {
 		// return URLDecoder.decode(jo.toString(), "utf-8");
 	}
 
-	// public String updatePatientInfo(Integer patient_id) {
-	// return null;
-	// }
+	@RequestMapping("/updatePatientInfo")
+	@ResponseBody
+	public String updatePatientInfo(String username, String name, int sex, String age, String idNumber, String phone) {
+		System.out.println("=======================updatePatientInfo=================");
+		System.out.println("username: " + username + " realname= " + name + " sex= " + sex + " idNumber= " + idNumber
+				+ " phone= " + phone);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
+		String gender = "male";
+		if (sex == 0) {
+			gender = "female";
+		}
+		Patient patient = patientService.getPatientByName(username);
+		if (patient == null) {
+			state = 0;
+			error = "不存在该用户";
+		} else {
+			patient.setRealname(name);
+			patient.setGender(gender);
+			patient.setIdNumber(idNumber);
+			patient.setAge(age);
+			patient.setTele(phone);
+			patientService.updatePatient(patient);
+		}
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
 
 	@RequestMapping("/changePassword")
 	@ResponseBody
@@ -548,7 +575,6 @@ public class MobileController {
 	@RequestMapping("/uploadHdRecord")
 	@ResponseBody
 	public String uploadHdRecord(String username, String data) {
-		// TODO
 		System.out.println("=========================" + username);
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
