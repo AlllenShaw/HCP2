@@ -2,6 +2,9 @@ package com.hcp.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -45,7 +48,7 @@ public class DoctorController {
 		List<Hospital> hospitals = doctorService.getHospitals();
 		model.addAttribute("hospitals", hospitals);
 		return "/registered/registered_doctor";
-//		 return "/test/TestJSTL";
+		// return "/test/TestJSTL";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -74,7 +77,7 @@ public class DoctorController {
 		doctor.setUsername(username);
 		doctor.setRegisterTime(new Timestamp(new Date().getTime()));
 		Boolean flag = doctorService.register(doctor);
-		System.out.println(flag+"-=-=-=-=-=-=-=-=-=-=-");
+		System.out.println(flag + "-=-=-=-=-=-=-=-=-=-=-");
 		if (flag) {
 			return "/registered/success";
 		} else {
@@ -82,9 +85,23 @@ public class DoctorController {
 		}
 	}
 
+	// @RequestMapping("/getDoctorInfo")
+	// public String getDoctorInfo(HttpServletRequest request, Model model, Integer doctor_id) {
+	// Doctor doctor = doctorService.getDoctorById(doctor_id);
+	// model.addAttribute("doctor", doctor);
+	// if (doctor != null) {
+	// return "/index_doctor/doctor_info";
+	// } else {
+	// return "/error/doctor/withoutThisDoctor";
+	// }
+	// }
+
 	@RequestMapping("/getDoctorInfo")
-	public String getDoctorInfo(HttpServletRequest request, Model model, Integer doctor_id) {
-		Doctor doctor = doctorService.getDoctorById(doctor_id);
+	public String getDoctorInfo(HttpServletRequest request, Model model) {
+		System.out.println("getdoctorinfo");
+		SessionUtil sessionUtil = new SessionUtil(request);
+		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
+		System.out.println("----------------" + doctor.getUsername() + " " + doctor.getRealname());
 		model.addAttribute("doctor", doctor);
 		if (doctor != null) {
 			return "/index_doctor/doctor_info";
@@ -94,8 +111,13 @@ public class DoctorController {
 	}
 
 	@RequestMapping(value = "/updateDoctorInfo", method = RequestMethod.GET)
-	public String updateDoctorInfo(HttpServletRequest request, Model model, Integer doctor_id) {
-		Doctor doctor = doctorService.getDoctorById(doctor_id);
+	public String updateDoctorInfo(HttpServletRequest request, Model model) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
+		System.out.println("----------------" + doctor.getUsername() + " " + doctor.getRealname() + " " + doctor.getAddress());
+		List<Hospital> hospitals = doctorService.getHospitals();
+		model.addAttribute("hospitals", hospitals);
+		System.out.println("----------------" + doctor.getUsername() + " " + doctor.getRealname() + " " + doctor.getAddress());
 		model.addAttribute("doctor", doctor);
 		return "/registered/resetinfo_doctor";
 	}
@@ -113,95 +135,159 @@ public class DoctorController {
 		doctor.setHospital(hospital);
 		doctor.setCompany(belongdepart);
 		doctorService.updateDoctor(doctor);
-		return "/doctor/getDoctorInfo.do";
+		return "/registered/success";
 	}
 
 	@RequestMapping(value = "/seo", method = RequestMethod.GET)
 	public String seo(HttpServletRequest request, Model model) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
+		System.out.println("----------------" + doctor.getUsername() + " " + doctor.getRealname() + " " + doctor.getAddress());
+		model.addAttribute("doctor", doctor);
 		return "/seo/seo";
 	}
 
 	@SuppressWarnings({ "unchecked" })
 	@RequestMapping(value = "/seo", method = RequestMethod.POST)
-	public String seo(HttpServletRequest request, Model model, String selector1, String selector2, String text1, Integer doctor_id) {
-		Doctor doctor = doctorService.getDoctorById(doctor_id);
+	public String seo(HttpServletRequest request, Model model, String selector1, String selector2, String text1) {
+		// TODO
+		SessionUtil sessionUtil = new SessionUtil(request);
+		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
+		// System.out.println("----------------"+doctor.getUsername()+" "+doctor.getRealname()+" "+doctor.getAddress());
+		System.out.println("seo:====" + selector1 + " " + selector2 + " " + text1);
 		boolean flag = false;
 		Patient patient = null;
-		if (selector2 == "1") {
+		if (selector2.equals("1")) {
 			// byUsername
 			patient = doctorService.getPatientByName(text1);
-		} else if (selector2 == "2") {
+		} else if (selector2.equals("2")) {
 			// byID
 			patient = doctorService.getPatientByID(text1);
-		} else if (selector2 == "3") {
+		} else if (selector2.equals("3")) {
 			// by身份证
 			patient = doctorService.getPatientByIdNumber(text1);
+		} else if (selector2.equals("4")) {
+			return this.seoAll(doctor, selector1, model);
 		} else {
-			return "/doctor/seo.do";
+			return "redirect:/doctor/seo.do";
 		}
+		System.out.println("patient==" + patient);
 		if (patient == null) {
 			return "/error/withoutPatient";
 		}
+		model.addAttribute("name", patient.getRealname());
 		// 判断该医生是不是该病人的主治医生
 		if (doctorService.hasPatien(doctor, patient)) {
 			flag = true;
 		}
+		System.out.println("flag= " + flag);
 
-		switch (selector1) {
-		// 血糖
-		case "1":
+		if (selector1.equals("1") || selector1.equals("5")) {
+			// 血糖
 			// 判断医生是否有权限查看该病人的血糖
 			if (doctorService.isHasPermission(doctor, patient, 1)) {
 				flag = true;
 			}
 			if (flag) {
 				// 返回该病人的血糖信息,加入model
-				Set<GluPatientRecord> gluPatientRecords = patient.getGluPatientRecords();
+				Set<GluPatientRecord> gluPatientRecordsSet = patient.getGluPatientRecords();
+				List<GluPatientRecord> gluPatientRecords = new ArrayList<GluPatientRecord>();
+				gluPatientRecords.addAll(gluPatientRecordsSet);
+				Collections.sort(gluPatientRecords, new Comparator<GluPatientRecord>() {
+					@Override
+					public int compare(GluPatientRecord o1, GluPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
 				model.addAttribute("gluPatientRecords", gluPatientRecords);
 				// 返回血糖显示页面
 				return "/index_patient/bg_patient";
 			} else {
 				return "/error/withoutPermission";
 			}
+		} else if (selector1.equals("2") || selector1.equals("6")) {
 			// 血压
-		case "2":
 			if (doctorService.isHasPermission(doctor, patient, 2)) {
 				flag = true;
 			}
 			if (flag) {
-				Set<HtnPatientRecord> htnPatientRecords = patient.getHtnPatientRecords();
+				Set<HtnPatientRecord> htnPatientRecordsSet = patient.getHtnPatientRecords();
+				List<HtnPatientRecord> htnPatientRecords = new ArrayList<HtnPatientRecord>();
+				htnPatientRecords.addAll(htnPatientRecordsSet);
+				Collections.sort(htnPatientRecords, new Comparator<HtnPatientRecord>() {
+					@Override
+					public int compare(HtnPatientRecord o1, HtnPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
 				model.addAttribute("htnPatientRecords", htnPatientRecords);
 				return "/index_patient/bp_patient";
 			} else {
 				return "/error/withoutPermission";
 			}
+		} else if (selector1.equals("3") || selector1.equals("7")) {
 			// 血氧
-		case "3":
 			if (doctorService.isHasPermission(doctor, patient, 3)) {
 				flag = true;
 			}
 			if (flag) {
-				Set<HplPatientRecord> hplPatientRecords = patient.getHplPatientRecords();
+				Set<BoPatientRecord> boPatientRecordsSet = patient.getBoPatientRecords();
+				List<BoPatientRecord> boPatientRecords = new ArrayList<BoPatientRecord>();
+				boPatientRecords.addAll(boPatientRecordsSet);
+				Collections.sort(boPatientRecords, new Comparator<BoPatientRecord>() {
+					@Override
+					public int compare(BoPatientRecord o1, BoPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				model.addAttribute("boPatientRecords", boPatientRecords);
+				return "/index_patient/spo_patient";
+			} else {
+				return "/error/withoutPermission";
+			}
+		} else if (selector1.equals("4")) {
+			// 血脂
+			if (doctorService.isHasPermission(doctor, patient, 4)) {
+				flag = true;
+			}
+			if (flag) {
+				Set<HplPatientRecord> hplPatientRecordsSet = patient.getHplPatientRecords();
+				List<HplPatientRecord> hplPatientRecords = new ArrayList<HplPatientRecord>();
+				hplPatientRecords.addAll(hplPatientRecordsSet);
+				Collections.sort(hplPatientRecords, new Comparator<HplPatientRecord>() {
+					@Override
+					public int compare(HplPatientRecord o1, HplPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
 				model.addAttribute("hplPatientRecords", hplPatientRecords);
 				return "/index_patient/spo_patient";
 			} else {
 				return "/error/withoutPermission";
 			}
+		} else if (selector1.equals("8")) {
 			// 心电
-		case "8":
-			if (doctorService.isHasPermission(doctor, patient, 4)) {
+			if (doctorService.isHasPermission(doctor, patient, 5)) {
 				flag = true;
 			}
 			if (flag) {
-				Set<HdPatientRecord> hdPatientRecords = patient.getHdPatientRecords();
+				Set<HdPatientRecord> hdPatientRecordsSet = patient.getHdPatientRecords();
+				List<HdPatientRecord> hdPatientRecords = new ArrayList<HdPatientRecord>();
+				hdPatientRecords.addAll(hdPatientRecordsSet);
+				Collections.sort(hdPatientRecords, new Comparator<HdPatientRecord>() {
+					@Override
+					public int compare(HdPatientRecord o1, HdPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
 				model.addAttribute("hdPatientRecords", hdPatientRecords);
 				return "/index_patient/hd_patient";
 			} else {
 				return "/error/withoutPermission";
 			}
+		} else if (selector1.equals("9")) {
 			// 用药记录
-		case "9":
-			if (doctorService.isHasPermission(doctor, patient, 5)) {
+			if (doctorService.isHasPermission(doctor, patient, 6)) {
 				flag = true;
 			}
 			if (flag) {
@@ -217,9 +303,9 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
+		} else if (selector1.equals("10")) {
 			// 病历
-		case "10":
-			if (doctorService.isHasPermission(doctor, patient, 6)) {
+			if (doctorService.isHasPermission(doctor, patient, 7)) {
 				flag = true;
 			}
 			if (flag) {
@@ -229,9 +315,9 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
+		} else if (selector1.equals("11")) {
 			// 处方
-		case "11":
-			if (doctorService.isHasPermission(doctor, patient, 7)) {
+			if (doctorService.isHasPermission(doctor, patient, 8)) {
 				flag = true;
 			}
 			List<Set<Prescription>> list = new ArrayList<Set<Prescription>>();
@@ -247,16 +333,157 @@ public class DoctorController {
 				return "/error/withoutPermission";
 			}
 
-		default:
-			break;
+		} else {
+			return "redirect: seo.do";
 		}
-		return "/doctor/seo.do";
+
 	}
 
 	@RequestMapping(value = "setWarning", method = RequestMethod.POST)
-	public String setWarning() {
-		// TODO
-		return "/doctor/index.do";
+	public String setWarning(HttpServletRequest request, Model model, String patient_id, String bloodGlucoseMin,
+			String bloodGlucoseMax, String pulseRateMin, String pulseRateMax, String spo2maxMin, String spo2maxMax,
+			String systolicPressureMax, String systolicPressureMin, String diastolicPressureMax, String diastolicPressureMin,
+			String heartRateMax, String heartRateMin) {
+		Patient patient = doctorService.getPatientByID(patient_id);
+		System.out.println(patient);
+		Set<BoPatientInfo> boPatientInfos = patient.getBoPatientInfos();
+		Set<GluPatientInfo> gluPatientInfos = patient.getGluPatientInfos();
+		Set<HtnPatientInfo> htnPatientInfos = patient.getHtnPatientInfos();
+		// 血氧
+		if (boPatientInfos.isEmpty()) {
+			System.out.println("血氧--无");
+			BoPatientInfo boPatientInfo = new BoPatientInfo(patient, Float.parseFloat(pulseRateMax),
+					Float.parseFloat(pulseRateMin), Float.parseFloat(spo2maxMax), Float.parseFloat(spo2maxMin), new Timestamp(
+							new Date().getTime()));
+			boPatientInfos.add(boPatientInfo);
+		} else {
+			System.out.println("血氧--有");
+			for (BoPatientInfo boPatientInfo : boPatientInfos) {
+				boPatientInfo.setPulseRateMax(Float.parseFloat(pulseRateMax));
+				boPatientInfo.setPulseRateMin(Float.parseFloat(pulseRateMin));
+				boPatientInfo.setSpo2maxMax(Float.parseFloat(spo2maxMax));
+				boPatientInfo.setSpo2maxMin(Float.parseFloat(spo2maxMin));
+				boPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
+			}
+		}
+		// 血糖
+		if (gluPatientInfos.isEmpty()) {
+			GluPatientInfo gluPatientInfo = new GluPatientInfo(patient, Float.parseFloat(bloodGlucoseMax),
+					Float.parseFloat(bloodGlucoseMin), new Timestamp(new Date().getTime()));
+			gluPatientInfos.add(gluPatientInfo);
+		} else {
+			for (GluPatientInfo gluPatientInfo : gluPatientInfos) {
+				gluPatientInfo.setBloodGlucoseMax(Float.parseFloat(bloodGlucoseMax));
+				gluPatientInfo.setBloodGlucoseMin(Float.parseFloat(bloodGlucoseMin));
+				gluPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
+			}
+		}
+		// 血压
+		if (htnPatientInfos.isEmpty()) {
+			HtnPatientInfo htnPatientInfo = new HtnPatientInfo(patient, Float.parseFloat(diastolicPressureMax),
+					Float.parseFloat(diastolicPressureMin), Float.parseFloat(systolicPressureMax),
+					Float.parseFloat(systolicPressureMin), Float.parseFloat(heartRateMax), Float.parseFloat(heartRateMin),
+					new Timestamp(new Date().getTime()));
+			htnPatientInfos.add(htnPatientInfo);
+		} else {
+			for (HtnPatientInfo htnPatientInfo : htnPatientInfos) {
+				htnPatientInfo.setDiastolicPressureMax(Float.parseFloat(diastolicPressureMax));
+				htnPatientInfo.setDiastolicPressureMin(Float.parseFloat(diastolicPressureMin));
+				htnPatientInfo.setHeartRateMax(Float.parseFloat(heartRateMax));
+				htnPatientInfo.setHeartRateMin(Float.parseFloat(heartRateMin));
+				htnPatientInfo.setSystolicPressureMax(Float.parseFloat(systolicPressureMax));
+				htnPatientInfo.setSystolicPressureMin(Float.parseFloat(systolicPressureMin));
+				htnPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
+			}
+		}
+		if (doctorService.updatePatient(patient)) {
+			return "/index_doctor/index";
+		} else {
+			return "/error/setPatientInfoError";
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private String seoAll(Doctor doctor, String selecter, Model model) {
+		List<Patient> patients = doctorService.getPatientByDoctor(doctor);
+		switch (selecter) {
+		// 血糖
+		case "1":
+			List<GluPatientRecord> gluPatientRecords = new ArrayList<>();
+			for (Patient patient : patients) {
+				List<GluPatientRecord> list = new ArrayList<GluPatientRecord>();
+				Set<GluPatientRecord> gluPatientRecordsSet = patient.getGluPatientRecords();
+				list.addAll(gluPatientRecordsSet);
+				Collections.sort(list, new Comparator<GluPatientRecord>() {
+					@Override
+					public int compare(GluPatientRecord o1, GluPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				gluPatientRecords.add(list.get(0));
+			}
+			model.addAttribute("gluPatientRecords", gluPatientRecords);
+			// 返回血糖显示页面
+			return "/all_form/bg_form";
+
+			// 血压
+		case "2":
+
+			// 血氧
+		case "3":
+
+			// 心电
+		case "8":
+
+			// 用药记录
+		case "9":
+
+			// 病历
+		case "10":
+
+			// 处方
+		case "11":
+
+		default:
+			break;
+		}
+		return "redirect: seo.do";
+	}
+
+	@RequestMapping(value = "/getPatient", method = RequestMethod.POST)
+	public String getPatient(HttpServletRequest request, Model model, String type, String text) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
+		Patient patient = null;
+		Boolean flag = false;
+		switch (type) {
+		case "1":
+			// 姓名
+			patient = doctorService.getPatientByName(text);
+			break;
+		case "2":
+			// ID
+			patient = doctorService.getPatientByID(text);
+			break;
+		case "3":
+			// 身份证
+			patient = doctorService.getPatientByIdNumber(text);
+			break;
+		default:
+			break;
+		}
+		if (patient == null) {
+			return "/error/noThisPatient";
+		}
+		if (doctorService.hasPatien(doctor, patient)) {
+			flag = true;
+		}
+		if (flag) {
+			model.addAttribute("patient", patient);
+			return "/warning_setting/warning_setting";
+		}
+		return "/warning_setting/warning_search";
 	}
 
 }

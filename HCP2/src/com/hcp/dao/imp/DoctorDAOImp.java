@@ -76,7 +76,7 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 		// TODO Auto-generated method stub
 		List<Doctor> list = this.getHibernateTemplate().find("from Doctor as d where d.username = ? or d.idNumber = ?",
 				new Object[] { username, idNumber });
-//		System.out.println("isExist?"+!list.isEmpty());
+		// System.out.println("isExist?"+!list.isEmpty());
 		return !list.isEmpty();
 	}
 
@@ -484,10 +484,10 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 	@Override
 	public boolean hasPatien(int doctor_id, int patient_id) {
 		// TODO Auto-generated method stub
-		List<PatientHasDoctorId> list = this.getHibernateTemplate().find(
-				"form PatientHasDoctorId as phd where phd.patient.id = ? and phd.doctor.id = ?",
+		List<PatientHasDoctor> list = this.getHibernateTemplate().find(
+				"from PatientHasDoctor as phd where phd.id.patient.id = ? and phd.id.doctor.id = ?",
 				new Object[] { patient_id, doctor_id });
-		return list.isEmpty() ? false : true;
+		return !list.isEmpty();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -495,8 +495,20 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 	public Patient getPatientByIdNumber(String idNumber) {
 		// TODO Auto-generated method stub
 		List<Patient> list = this.getHibernateTemplate()
-				.find("form Patient as p where p.idNumber = ?", new Object[] { idNumber });
+				.find("from Patient as p where p.idNumber = ?", new Object[] { idNumber });
 		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@Override
+	public boolean updatePatient(Patient patient) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().update(patient);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

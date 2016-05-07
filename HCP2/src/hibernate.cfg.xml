@@ -59,6 +59,10 @@
 		<mapping resource="com/hcp/domain/Emr.hbm.xml" />
 		<mapping resource="com/hcp/domain/Patient.hbm.xml" />
 		<mapping resource="com/hcp/domain/MealTime.hbm.xml" />
+		<mapping resource="com/hcp/domain/BoPatientRecord.hbm.xml" />
+		<mapping
+			resource="com/hcp/domain/BoPatientMedicineRecord.hbm.xml" />
+		<mapping resource="com/hcp/domain/BoPatientInfo.hbm.xml" />
 
 	</session-factory>
 

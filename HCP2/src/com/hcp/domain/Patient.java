@@ -49,15 +49,19 @@ public class Patient implements java.io.Serializable {
 	private String answer1;
 	private String answer2;
 	private String answer3;
+	private String picture;
 	private Set htnPatientRecords = new HashSet(0);
 	private Set emrs = new HashSet(0);
 	private Set hplPatientInfos = new HashSet(0);
 	private Set patientGroups = new HashSet(0);
 	private Set hdPatientInfos = new HashSet(0);
+	private Set boPatientInfos = new HashSet(0);
 	private Set htnPatientMedicineRecords = new HashSet(0);
 	private Set hdPatientRecords = new HashSet(0);
 	private Set gluPatientRecords = new HashSet(0);
 	private Set gluPatientInfos = new HashSet(0);
+	private Set boPatientMedicineRecords = new HashSet(0);
+	private Set boPatientRecords = new HashSet(0);
 	private Set patientHasDoctors = new HashSet(0);
 	private Set hplPatientMedicineRecords = new HashSet(0);
 	private Set gluPatientMedicineRecords = new HashSet(0);
@@ -85,10 +89,10 @@ public class Patient implements java.io.Serializable {
 			String address, String birAddress, String nation, String hospital, String profession, String company,
 			Boolean marriage, Timestamp registerTime, Boolean gluState, Boolean hplState, Boolean htnState, Boolean hdState,
 			String illnessHis, String allergicHis, String familyHis, String answer1, String answer2, String answer3,
-			Set htnPatientRecords, Set emrs, Set hplPatientInfos, Set patientGroups, Set hdPatientInfos,
-			Set htnPatientMedicineRecords, Set hdPatientRecords, Set gluPatientRecords, Set gluPatientInfos,
-			Set patientHasDoctors, Set hplPatientMedicineRecords, Set gluPatientMedicineRecords, Set hdPatientMedicineRecords,
-			Set hplPatientRecords, Set htnPatientInfos) {
+			String picture, Set htnPatientRecords, Set emrs, Set hplPatientInfos, Set patientGroups, Set hdPatientInfos,
+			Set boPatientInfos, Set htnPatientMedicineRecords, Set hdPatientRecords, Set gluPatientRecords, Set gluPatientInfos,
+			Set boPatientMedicineRecords, Set boPatientRecords, Set patientHasDoctors, Set hplPatientMedicineRecords,
+			Set gluPatientMedicineRecords, Set hdPatientMedicineRecords, Set hplPatientRecords, Set htnPatientInfos) {
 		this.securityBySecurity3 = securityBySecurity3;
 		this.familyByFamlily1 = familyByFamlily1;
 		this.familyByFamlily2 = familyByFamlily2;
@@ -125,15 +129,19 @@ public class Patient implements java.io.Serializable {
 		this.answer1 = answer1;
 		this.answer2 = answer2;
 		this.answer3 = answer3;
+		this.picture = picture;
 		this.htnPatientRecords = htnPatientRecords;
 		this.emrs = emrs;
 		this.hplPatientInfos = hplPatientInfos;
 		this.patientGroups = patientGroups;
 		this.hdPatientInfos = hdPatientInfos;
+		this.boPatientInfos = boPatientInfos;
 		this.htnPatientMedicineRecords = htnPatientMedicineRecords;
 		this.hdPatientRecords = hdPatientRecords;
 		this.gluPatientRecords = gluPatientRecords;
 		this.gluPatientInfos = gluPatientInfos;
+		this.boPatientMedicineRecords = boPatientMedicineRecords;
+		this.boPatientRecords = boPatientRecords;
 		this.patientHasDoctors = patientHasDoctors;
 		this.hplPatientMedicineRecords = hplPatientMedicineRecords;
 		this.gluPatientMedicineRecords = gluPatientMedicineRecords;
@@ -440,6 +448,14 @@ public class Patient implements java.io.Serializable {
 		this.answer3 = answer3;
 	}
 
+	public String getPicture() {
+		return this.picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public Set getHtnPatientRecords() {
 		return this.htnPatientRecords;
 	}
@@ -480,6 +496,14 @@ public class Patient implements java.io.Serializable {
 		this.hdPatientInfos = hdPatientInfos;
 	}
 
+	public Set getBoPatientInfos() {
+		return this.boPatientInfos;
+	}
+
+	public void setBoPatientInfos(Set boPatientInfos) {
+		this.boPatientInfos = boPatientInfos;
+	}
+
 	public Set getHtnPatientMedicineRecords() {
 		return this.htnPatientMedicineRecords;
 	}
@@ -510,6 +534,22 @@ public class Patient implements java.io.Serializable {
 
 	public void setGluPatientInfos(Set gluPatientInfos) {
 		this.gluPatientInfos = gluPatientInfos;
+	}
+
+	public Set getBoPatientMedicineRecords() {
+		return this.boPatientMedicineRecords;
+	}
+
+	public void setBoPatientMedicineRecords(Set boPatientMedicineRecords) {
+		this.boPatientMedicineRecords = boPatientMedicineRecords;
+	}
+
+	public Set getBoPatientRecords() {
+		return this.boPatientRecords;
+	}
+
+	public void setBoPatientRecords(Set boPatientRecords) {
+		this.boPatientRecords = boPatientRecords;
 	}
 
 	public Set getPatientHasDoctors() {

@@ -12,7 +12,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>注册</title>
+<title>成功</title>
 <link rel="stylesheet" type="text/css" href="css/index_style.css" />
 <link rel="stylesheet" href="css/register.css" type="text/css"></link>
 <link rel="stylesheet" href="css/tipso.min.css" type="text/css"></link>
@@ -26,9 +26,9 @@
     if (i>0){
       i--;
     }else{
-      location.href="../main/main.jsp";
+      location.href="main/main.jsp";
     }
-     document.getElementById('showtime').innerHTML="注册成功，<font color=red>"+i+"</font>秒后返回主界面";
+     document.getElementById('showtime').innerHTML="操作成功，<font color=red>"+i+"</font>秒后返回主界面";
   }
   setInterval("ok()",1000);
 </script>

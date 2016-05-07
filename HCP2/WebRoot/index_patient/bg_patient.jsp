@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -18,18 +19,24 @@
 
 </head>
 
-<body onload="check_bg()">
-	<h2>XXX的血糖情况</h2>
+<body>
+	<h2>${name}的血糖情况</h2>
 	<table class="bordered" id="bg_form">
 		<thead>
 
 			<tr>
 				<th>ID</th>
 				<th>血糖值</th>
-				<th>测试时间</th>
-				<th>上限</th>
-				<th>下限</th>
+				<th>测量时间</th>
+				
 			</tr>
+			<c:forEach items="${gluPatientRecords }" var="item">
+				<tr>
+					<td>${item.patient.id}</td>
+					<td>${item.bloodGlucose }</td>
+					<td>${item.measureTime }</td>
+				</tr>
+			</c:forEach>
 		</thead>
 	</table>
 	<br/>
@@ -54,7 +61,7 @@
 	 <hr style="height:5px;border:none;margin-top:50px;border-top:1px ridge #ccc;" />
 	 
 	 <div style="margin-top:50px">
-	 <h2 style="float:right">XXX剩下的血糖测试次数：X次</h2>
+	 <h2 style="float:right">${name}剩下的血糖测试次数：X次</h2>
 	 </div>
 	 
 	 <script src="js/patient_form.js"></script>

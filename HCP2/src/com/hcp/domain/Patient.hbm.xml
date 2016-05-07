@@ -118,6 +118,9 @@
         <property name="answer3" type="java.lang.String">
             <column name="answer3" length="45" />
         </property>
+        <property name="picture" type="java.lang.String">
+            <column name="picture" length="200" />
+        </property>
         <set name="htnPatientRecords" inverse="true">
             <key>
                 <column name="patient_id" not-null="true" />
@@ -148,6 +151,12 @@
             </key>
             <one-to-many class="com.hcp.domain.HdPatientInfo" />
         </set>
+        <set name="boPatientInfos" inverse="true">
+            <key>
+                <column name="patient_id" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="com.hcp.domain.BoPatientInfo" />
+        </set>
         <set name="htnPatientMedicineRecords" inverse="true">
             <key>
                 <column name="patient_id" not-null="true" />
@@ -171,6 +180,18 @@
                 <column name="patient_id" not-null="true" unique="true" />
             </key>
             <one-to-many class="com.hcp.domain.GluPatientInfo" />
+        </set>
+        <set name="boPatientMedicineRecords" inverse="true">
+            <key>
+                <column name="patient_id" not-null="true" />
+            </key>
+            <one-to-many class="com.hcp.domain.BoPatientMedicineRecord" />
+        </set>
+        <set name="boPatientRecords" inverse="true">
+            <key>
+                <column name="patient_id" not-null="true" />
+            </key>
+            <one-to-many class="com.hcp.domain.BoPatientRecord" />
         </set>
         <set name="patientHasDoctors" inverse="true">
             <key>

@@ -116,4 +116,6 @@ public interface DoctorDAO {
 
 	public abstract Patient getPatientByIdNumber(String idNumber);
 
+	public abstract boolean updatePatient(Patient patient);
+
 }

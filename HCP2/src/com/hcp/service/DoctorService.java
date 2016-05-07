@@ -44,5 +44,7 @@ public interface DoctorService {
 	public abstract Patient getPatientByIdNumber(String idNumber);
 
 	public abstract List<Patient> getPatientByDoctor(Doctor doctor);
+
+	public abstract boolean updatePatient(Patient patient);
 	
 }

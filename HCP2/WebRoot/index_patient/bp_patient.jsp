@@ -29,6 +29,7 @@
 				<th>舒张压</th>
 				<th>心率</th>
 			</tr>
+			
 		</thead>
 	</table>
 	<br/>

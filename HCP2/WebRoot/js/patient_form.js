@@ -1,32 +1,6 @@
 function check_bg()
 {
 	var tableid = document.getElementById("bg_form");
-	var id=1;
-	var time="2016/1/1";
-	var bg_max=6.1;
-	var bg_min=3.9;
-	var rows = tableid.getElementsByTagName("tr");
-	for(var i=1;i<10;i++) 
-	{ 
-		var rowobj=tableid.insertRow(tableid.rows.length);
-		
-		var cell1=rowobj.insertCell(rowobj.cells.length);
-		var cell2=rowobj.insertCell(rowobj.cells.length);
-		var cell3=rowobj.insertCell(rowobj.cells.length);
-		var cell4=rowobj.insertCell(rowobj.cells.length);
-		var cell5=rowobj.insertCell(rowobj.cells.length);
-		
-		cell1.innerHTML=id;
-		current_value=(Math.random()*10).toFixed(1);
-		cell2.innerHTML=current_value+"mmol/L";
-		cell3.innerHTML=time;
-		cell4.innerHTML=bg_max+"mmol/L";
-		cell5.innerHTML=bg_min+"mmol/L";
-		if(current_value<bg_min||current_value>bg_max)
-		{
-			rows[i].style.color="#f00";
-		}
-	}
 }
 
 

@@ -12,7 +12,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>注册</title>
+<title>失败</title>
 <link rel="stylesheet" type="text/css" href="css/index_style.css" />
 <link rel="stylesheet" href="css/register.css" type="text/css"></link>
 <link rel="stylesheet" href="css/tipso.min.css" type="text/css"></link>
@@ -29,7 +29,7 @@
     }else{
       window.history.back(-1);
     }
-     document.getElementById('showtime').innerHTML="注册成功，<font color=red>"+i+"</font>秒后前一页";
+     document.getElementById('showtime').innerHTML="操作失败，<font color=red>"+i+"</font>秒后前一页";
   }
   setInterval("ok()",1000);
 </script>

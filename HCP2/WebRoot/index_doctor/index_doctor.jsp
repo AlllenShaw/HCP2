@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -28,7 +29,7 @@
 				<div id="menu">
 					<ul>
 						<li><a href="#l" title="">首页</a></li>
-						<li><a href="registered/registered.jsp?route=registered/resetinfo_doctor.jsp" title="" target="_black">修改信息</a></li>
+						<li><a href="doctor/updateDoctorInfo.do" title="" target="_black">修改信息</a></li>
 						<li><a href="#" title="">注销</a></li>
 					</ul>
 				</div>
@@ -38,7 +39,7 @@
 
 			<hr
 				style="height:5px;border:none;margin-right:30px;border-top:5px ridge black;" />
-			<span class="tip">XX医院协同诊治平台</span>
+			<span class="tip">${doctor.hospital.name}协同诊治平台</span>
 			<img style="margin-left:5px" src="picture/slider_photo1.png"
 				width="965" height="150" alt="" />
 
@@ -52,11 +53,11 @@
 					</ul>
 					</details> <details class="menu" open> <summary>个人信息</summary>
 					<ul>
-						<li><a href="index_doctor/doctor_info.jsp" target="mainframe">个人信息</a></li>
+						<li><a href="doctor/getDoctorInfo.do" target="mainframe">个人信息</a></li>
 					</ul>
 					</details> <details class="menu" open> <summary>综合查询</summary>
 					<ul>
-						<li><a href="seo/seo.jsp" target="mainframe">综合查询</a></li>
+						<li><a href="doctor/seo.do" target="mainframe">综合查询</a></li>
 					</ul>
 					</details> <details class="menu" open> <summary>辅助诊治</summary>
 					<ul>

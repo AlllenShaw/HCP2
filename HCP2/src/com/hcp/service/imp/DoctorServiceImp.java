@@ -122,4 +122,9 @@ public class DoctorServiceImp implements DoctorService {
 		return doctorDAO.getPatients(doctor);
 	}
 
+	@Override
+	public boolean updatePatient(Patient patient) {
+		return doctorDAO.updatePatient(patient);
+	}
+
 }
