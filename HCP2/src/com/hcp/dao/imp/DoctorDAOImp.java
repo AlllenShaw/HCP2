@@ -72,10 +72,12 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean isNameExist(String username) {
+	public boolean isExist(String username, String idNumber) {
 		// TODO Auto-generated method stub
-		List<Doctor> list = this.getHibernateTemplate().find("from Doctor as d where d.username = ?", new Object[] { username });
-		return list.isEmpty();
+		List<Doctor> list = this.getHibernateTemplate().find("from Doctor as d where d.username = ? or d.idNumber = ?",
+				new Object[] { username, idNumber });
+//		System.out.println("isExist?"+!list.isEmpty());
+		return !list.isEmpty();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -92,6 +94,7 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().save(doctor);
+			this.getHibernateTemplate().flush();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

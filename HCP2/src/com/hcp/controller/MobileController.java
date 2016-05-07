@@ -253,7 +253,7 @@ public class MobileController {
 		} else {
 			for (HdPatientRecord record : records) {
 				SimpleHdRecord sRecord = new SimpleHdRecord(record.getId(), record.getHeartRate(), record.getEcg(), record
-						.getMeasureTime().toString());
+						.getMeasureTime().toString(),record.getAnalysis());
 				list.add(sRecord);
 			}
 		}
@@ -343,7 +343,7 @@ public class MobileController {
 	public String getDoctor(String username) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
-		int error = 0;
+		String error = "0";
 		List<SimpleDoctor> list = new ArrayList<SimpleDoctor>();
 		List<Doctor> doctors = patientService.getDoctorListbyName(username);
 		if (doctors != null) {
@@ -354,7 +354,7 @@ public class MobileController {
 			}
 		} else {
 			state = 0;
-			error = 6;
+			error = "该用户暂时没有医生";
 		}
 		map.put("state", state);
 		map.put("list", list);
@@ -482,6 +482,9 @@ public class MobileController {
 					sex = 0;
 				}
 			}
+			System.out.println(doctor.getRealname()+" "+doctor.getProfession()+" "+doctor.getHospital().getName()+" "+sex+" "+
+					Integer.parseInt(doctor.getAge())+" "+doctor.getAddress()+" "+doctor.getNation()+" "+info+" "+doctor.getTele()+" "+
+					doctor.getMail());
 			doctorInfo = new DoctorInfo(doctor.getRealname(), doctor.getProfession(), doctor.getHospital().getName(), sex,
 					Integer.parseInt(doctor.getAge()), doctor.getAddress(), doctor.getNation(), info, doctor.getTele(),
 					doctor.getMail());
@@ -552,7 +555,7 @@ public class MobileController {
 				MedicineInfo medicineInfo = new MedicineInfo(medicine.getId().toString(), medicine.getName(), prescription
 						.getTakingMedicineWay().getTakingMedicineWay(), prescription.getTakingMedicineNumberEachtime(),
 						prescription.getMedicineUnit().getMedicineUnit(),
-						prescription.getTakingMedicineTimesEachday().toString(), prescription.getMealTime().toString(),
+						prescription.getTakingMedicineTimesEachday().toString(), prescription.getMealTime().getMealTime(),
 						prescription.getCreateTime().toString());
 				medicineInfos.add(medicineInfo);
 			}
@@ -564,8 +567,22 @@ public class MobileController {
 		return jo.toString();
 	}
 
+	@RequestMapping("/uploadRecord")
+	@ResponseBody
 	public String uploadRecord(String username, Integer type, String data) {
-		return null;
+		switch (type) {
+		case 0:
+			//心电数据
+			return this.uploadHdRecord(username, data);
+		case 1:
+			return null;
+		case 2:
+			return null;
+		case 3:
+			return null;
+		default:
+			return null;
+		}
 	}
 
 	public String uploadGluRecord() {
@@ -590,7 +607,7 @@ public class MobileController {
 		System.out.println("====" + time + " " + heartRate + " " + measureTime + " " + ecg);
 		Patient patient = patientService.getPatientByName(username);
 		System.out.println(patient);
-		HdPatientRecord hdPatientRecord = new HdPatientRecord(patient, heartRate, ecg, measureTime, uploadTime);
+		HdPatientRecord hdPatientRecord = new HdPatientRecord(patient, heartRate, ecg, measureTime, uploadTime,analysis);
 		Boolean f = patientService.uploadHdRecord(hdPatientRecord);
 		if (!f) {
 			state = 0;

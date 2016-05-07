@@ -61,6 +61,9 @@
         <property name="registerTime" type="java.sql.Timestamp">
             <column name="register_time" length="19" not-null="true" />
         </property>
+        <property name="picture" type="java.lang.String">
+            <column name="picture" length="400" />
+        </property>
         <set name="doctorGroups" inverse="true">
             <key>
                 <column name="doctor_id" not-null="true" />

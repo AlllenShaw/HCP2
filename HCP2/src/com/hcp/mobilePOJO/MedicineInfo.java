@@ -5,7 +5,7 @@ public class MedicineInfo {
 	private String id;
 	private String medicineName;
 	private String way;
-	private float number; // takingMedicineNumberEachtime
+	private Double number; // takingMedicineNumberEachtime
 	private String unit;
 	private String count; // takingMedicineTimesEachday
 	private String time;
@@ -14,7 +14,7 @@ public class MedicineInfo {
 	public MedicineInfo() {
 	}
 
-	public MedicineInfo(String id, String medicineName, String way, float number, String unit, String count, String time,
+	public MedicineInfo(String id, String medicineName, String way, Double number, String unit, String count, String time,
 			String createTime) {
 		super();
 		this.id = id;
@@ -51,11 +51,11 @@ public class MedicineInfo {
 		this.way = way;
 	}
 
-	public float getNumber() {
+	public Double getNumber() {
 		return number;
 	}
 
-	public void setNumber(float number) {
+	public void setNumber(Double number) {
 		this.number = number;
 	}
 

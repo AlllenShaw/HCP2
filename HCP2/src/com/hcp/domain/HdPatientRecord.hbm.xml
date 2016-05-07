@@ -17,13 +17,16 @@
             <column name="heart_rate" precision="12" scale="0" not-null="true" />
         </property>
         <property name="ecg" type="java.lang.String">
-            <column name="ecg" length="400" not-null="true" />
+            <column name="ecg" length="65535" not-null="true" />
         </property>
         <property name="measureTime" type="java.sql.Timestamp">
             <column name="measure_time" length="19" not-null="true" />
         </property>
         <property name="uploadTime" type="java.sql.Timestamp">
             <column name="upload_time" length="19" not-null="true" />
+        </property>
+        <property name="analysis" type="java.lang.Integer">
+            <column name="analysis" />
         </property>
     </class>
 </hibernate-mapping>

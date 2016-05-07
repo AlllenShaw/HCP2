@@ -1,6 +1,8 @@
 package com.hcp.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -42,13 +44,15 @@ public class DoctorController {
 	public String register(HttpServletRequest request, Model model) {
 		List<Hospital> hospitals = doctorService.getHospitals();
 		model.addAttribute("hospitals", hospitals);
-		return "/registered/registered.jsp?route=registered/registered_doctor";
+		return "/registered/registered_doctor";
+//		 return "/test/TestJSTL";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(HttpServletRequest request, Model model, String username, String password, String realname,
 			String gender, String nation, String age, String id2, String naddress, String profession, String tele, String mail,
 			String hospital_id, String certificate, String belongdepart) {
+		System.out.println("============注册====================");
 		Doctor doctor = new Doctor();
 		doctor.setAddress(naddress);
 		doctor.setAge(age);
@@ -68,10 +72,13 @@ public class DoctorController {
 		doctor.setTele(tele);
 		doctor.setCompany(belongdepart);
 		doctor.setUsername(username);
-		if (doctorService.register(doctor)) {
-			return "/main/main";
+		doctor.setRegisterTime(new Timestamp(new Date().getTime()));
+		Boolean flag = doctorService.register(doctor);
+		System.out.println(flag+"-=-=-=-=-=-=-=-=-=-=-");
+		if (flag) {
+			return "/registered/success";
 		} else {
-			return "/doctor/register.do";
+			return "/registered/failed";
 		}
 	}
 
@@ -156,7 +163,7 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-		// 血压
+			// 血压
 		case "2":
 			if (doctorService.isHasPermission(doctor, patient, 2)) {
 				flag = true;
@@ -168,7 +175,7 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-		// 血氧
+			// 血氧
 		case "3":
 			if (doctorService.isHasPermission(doctor, patient, 3)) {
 				flag = true;
@@ -180,7 +187,7 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-		// 心电
+			// 心电
 		case "8":
 			if (doctorService.isHasPermission(doctor, patient, 4)) {
 				flag = true;
@@ -192,7 +199,7 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-		// 用药记录
+			// 用药记录
 		case "9":
 			if (doctorService.isHasPermission(doctor, patient, 5)) {
 				flag = true;
@@ -210,7 +217,7 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-		// 病历
+			// 病历
 		case "10":
 			if (doctorService.isHasPermission(doctor, patient, 6)) {
 				flag = true;
@@ -222,7 +229,7 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-		// 处方
+			// 处方
 		case "11":
 			if (doctorService.isHasPermission(doctor, patient, 7)) {
 				flag = true;
@@ -239,19 +246,17 @@ public class DoctorController {
 			} else {
 				return "/error/withoutPermission";
 			}
-			
+
 		default:
 			break;
 		}
 		return "/doctor/seo.do";
 	}
-	
-	@RequestMapping(value="setWarning", method=RequestMethod.POST)
-	public String setWarning(){
-		//TODO 
-		return "/doctor/index.do";  
+
+	@RequestMapping(value = "setWarning", method = RequestMethod.POST)
+	public String setWarning() {
+		// TODO
+		return "/doctor/index.do";
 	}
-	
-	
-	
+
 }

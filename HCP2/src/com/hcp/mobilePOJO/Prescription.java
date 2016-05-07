@@ -16,7 +16,7 @@ public class Prescription {
 	private Doctor doctor;
 	private TakingMedicineWay takingMedicineWay;
 	private MedicineUnit medicineUnit;
-	private Integer takingMedicineNumberEachtime;
+	private Double takingMedicineNumberEachtime;
 	private Integer takingMedicineTimesEachday;
 	private String note;
 	private Integer mealTime;

@@ -68,7 +68,7 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		List<Patient> list = this.getHibernateTemplate().find(
 				"from Patient as p where p.username = ? or p.idNumber = ? or p.mail = ? or p.tele = ?",
 				new Object[] { username, idNumber, mail, tele });
-		return list.isEmpty();
+		return !list.isEmpty();
 	}
 
 	@SuppressWarnings("unchecked")

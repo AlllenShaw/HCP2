@@ -48,6 +48,10 @@ public class DoctorServiceImp implements DoctorService {
 	@Override
 	public boolean register(Doctor doctor) {
 		// TODO Auto-generated method stub
+		if (doctorDAO.isExist(doctor.getUsername(), doctor.getIdNumber())) {
+			System.out.println("Exist!");
+			return false;
+		}
 		return doctorDAO.register(doctor);
 	}
 

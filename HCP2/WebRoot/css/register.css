@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 
-body {
-	background-image: url(../picture/background.jpg);
-}
-
 #ti {
 	margin-top: 5px;
 	margin-left: 25px;

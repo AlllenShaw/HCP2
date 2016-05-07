@@ -45,7 +45,7 @@ $("#login").click(function(){
 $("#registered").click(function(){
 	if($("#li1").is(".current"))
 		{
-			top.window.location.href='registered/registered.jsp?route=registered/registered_doctor.jsp';
+			window.location.href='doctor/register.do';
 		}
 	else if($("#li2").is(".current"))
 		{

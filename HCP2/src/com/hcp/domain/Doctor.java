@@ -30,6 +30,7 @@ public class Doctor implements java.io.Serializable {
 	private String profession;
 	private String company;
 	private Timestamp registerTime;
+	private String picture;
 	private Set doctorGroups = new HashSet(0);
 	private Set examinationEmrs = new HashSet(0);
 	private Set patientHasDoctors = new HashSet(0);
@@ -57,7 +58,7 @@ public class Doctor implements java.io.Serializable {
 	/** full constructor */
 	public Doctor(Hospital hospital, String username, String realname, String idNumber, String password, String doctorLicense,
 			String mail, String tele, String gender, String age, String address, String height, String weight, String nation,
-			String profession, String company, Timestamp registerTime, Set doctorGroups, Set examinationEmrs,
+			String profession, String company, Timestamp registerTime, String picture, Set doctorGroups, Set examinationEmrs,
 			Set patientHasDoctors, Set emrs, Set prescriptions) {
 		this.hospital = hospital;
 		this.username = username;
@@ -76,6 +77,7 @@ public class Doctor implements java.io.Serializable {
 		this.profession = profession;
 		this.company = company;
 		this.registerTime = registerTime;
+		this.picture = picture;
 		this.doctorGroups = doctorGroups;
 		this.examinationEmrs = examinationEmrs;
 		this.patientHasDoctors = patientHasDoctors;
@@ -227,6 +229,14 @@ public class Doctor implements java.io.Serializable {
 
 	public void setRegisterTime(Timestamp registerTime) {
 		this.registerTime = registerTime;
+	}
+
+	public String getPicture() {
+		return this.picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public Set getDoctorGroups() {

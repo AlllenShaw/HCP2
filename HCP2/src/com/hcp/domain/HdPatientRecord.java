@@ -16,6 +16,7 @@ public class HdPatientRecord implements java.io.Serializable {
 	private String ecg;
 	private Timestamp measureTime;
 	private Timestamp uploadTime;
+	private Integer analysis;
 
 	// Constructors
 
@@ -23,13 +24,24 @@ public class HdPatientRecord implements java.io.Serializable {
 	public HdPatientRecord() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public HdPatientRecord(Patient patient, Float heartRate, String ecg, Timestamp measureTime, Timestamp uploadTime) {
 		this.patient = patient;
 		this.heartRate = heartRate;
 		this.ecg = ecg;
 		this.measureTime = measureTime;
 		this.uploadTime = uploadTime;
+	}
+
+	/** full constructor */
+	public HdPatientRecord(Patient patient, Float heartRate, String ecg, Timestamp measureTime, Timestamp uploadTime,
+			Integer analysis) {
+		this.patient = patient;
+		this.heartRate = heartRate;
+		this.ecg = ecg;
+		this.measureTime = measureTime;
+		this.uploadTime = uploadTime;
+		this.analysis = analysis;
 	}
 
 	// Property accessors
@@ -80,6 +92,14 @@ public class HdPatientRecord implements java.io.Serializable {
 
 	public void setUploadTime(Timestamp uploadTime) {
 		this.uploadTime = uploadTime;
+	}
+
+	public Integer getAnalysis() {
+		return this.analysis;
+	}
+
+	public void setAnalysis(Integer analysis) {
+		this.analysis = analysis;
 	}
 
 }

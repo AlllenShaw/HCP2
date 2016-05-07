@@ -25,7 +25,10 @@
         <many-to-one name="medicineUnit" class="com.hcp.domain.MedicineUnit" fetch="select">
             <column name="medicine_unit_id" not-null="true" />
         </many-to-one>
-        <property name="takingMedicineNumberEachtime" type="java.lang.Integer">
+        <many-to-one name="mealTime" class="com.hcp.domain.MealTime" fetch="select">
+            <column name="meal_time" not-null="true" />
+        </many-to-one>
+        <property name="takingMedicineNumberEachtime" type="java.lang.Double">
             <column name="taking_medicine_number_eachtime" not-null="true" />
         </property>
         <property name="takingMedicineTimesEachday" type="java.lang.Integer">
@@ -33,9 +36,6 @@
         </property>
         <property name="note" type="java.lang.String">
             <column name="note" length="200" />
-        </property>
-        <property name="mealTime" type="java.lang.Integer">
-            <column name="meal_time" />
         </property>
         <property name="createTime" type="java.sql.Timestamp">
             <column name="create_time" length="19" not-null="true" />

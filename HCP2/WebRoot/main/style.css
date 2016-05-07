@@ -6,6 +6,9 @@
     width: 375px;
 }
 
+form {
+    padding: 30px 20px 0;
+}
 
 .form-item {
     margin-bottom: 10px;

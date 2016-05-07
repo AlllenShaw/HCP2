@@ -32,7 +32,7 @@ public interface DoctorDAO {
 	// 获取医生所在用户组
 	public abstract List<DoctorGroup> getDoctorGroup(Doctor doctor);
 
-	public abstract boolean isNameExist(String username);
+	public abstract boolean isExist(String username,String idNumber);
 
 	public abstract Doctor login(String username, String password);
 

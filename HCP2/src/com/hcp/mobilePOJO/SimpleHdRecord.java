@@ -10,16 +10,18 @@ public class SimpleHdRecord {
 	private Float heartRate;
 	private String ecg;
 	private String measureTime;
+	private Integer analysis;
 
 	public SimpleHdRecord() {
 	}
 
-	public SimpleHdRecord(Integer id, Float heartRate, String ecg, String measureTime) {
+	public SimpleHdRecord(Integer id, Float heartRate, String ecg, String measureTime,Integer analysis) {
 		super();
 		this.id = id;
 		this.heartRate = heartRate;
 		this.ecg = ecg;
 		this.measureTime = measureTime;
+		this.analysis = analysis;
 	}
 
 	public Integer getId() {
@@ -52,6 +54,14 @@ public class SimpleHdRecord {
 
 	public void setMeasureTime(String measureTime) {
 		this.measureTime = measureTime;
+	}
+
+	public Integer getAnalysis() {
+		return analysis;
+	}
+
+	public void setAnalysis(Integer analysis) {
+		this.analysis = analysis;
 	}
 
 }

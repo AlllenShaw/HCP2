@@ -16,10 +16,10 @@ public class Prescription implements java.io.Serializable {
 	private Doctor doctor;
 	private TakingMedicineWay takingMedicineWay;
 	private MedicineUnit medicineUnit;
-	private Integer takingMedicineNumberEachtime;
+	private Double takingMedicineNumberEachtime;
 	private Integer takingMedicineTimesEachday;
 	private String note;
-	private Integer mealTime;
+	private MealTime mealTime;
 	private Timestamp createTime;
 
 	// Constructors
@@ -30,7 +30,7 @@ public class Prescription implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Prescription(Emr emr, Medicine medicine, Doctor doctor, TakingMedicineWay takingMedicineWay,
-			MedicineUnit medicineUnit, Integer takingMedicineNumberEachtime, Integer takingMedicineTimesEachday,
+			MedicineUnit medicineUnit, Double takingMedicineNumberEachtime, Integer takingMedicineTimesEachday,
 			Timestamp createTime) {
 		this.emr = emr;
 		this.medicine = medicine;
@@ -44,8 +44,8 @@ public class Prescription implements java.io.Serializable {
 
 	/** full constructor */
 	public Prescription(Emr emr, Medicine medicine, Doctor doctor, TakingMedicineWay takingMedicineWay,
-			MedicineUnit medicineUnit, Integer takingMedicineNumberEachtime, Integer takingMedicineTimesEachday, String note,
-			Integer mealTime, Timestamp createTime) {
+			MedicineUnit medicineUnit, Double takingMedicineNumberEachtime, Integer takingMedicineTimesEachday, String note,
+			MealTime mealTime, Timestamp createTime) {
 		this.emr = emr;
 		this.medicine = medicine;
 		this.doctor = doctor;
@@ -108,11 +108,11 @@ public class Prescription implements java.io.Serializable {
 		this.medicineUnit = medicineUnit;
 	}
 
-	public Integer getTakingMedicineNumberEachtime() {
+	public Double getTakingMedicineNumberEachtime() {
 		return this.takingMedicineNumberEachtime;
 	}
 
-	public void setTakingMedicineNumberEachtime(Integer takingMedicineNumberEachtime) {
+	public void setTakingMedicineNumberEachtime(Double takingMedicineNumberEachtime) {
 		this.takingMedicineNumberEachtime = takingMedicineNumberEachtime;
 	}
 
@@ -132,11 +132,11 @@ public class Prescription implements java.io.Serializable {
 		this.note = note;
 	}
 
-	public Integer getMealTime() {
+	public MealTime getMealTime() {
 		return this.mealTime;
 	}
 
-	public void setMealTime(Integer mealTime) {
+	public void setMealTime(MealTime mealTime) {
 		this.mealTime = mealTime;
 	}
 
