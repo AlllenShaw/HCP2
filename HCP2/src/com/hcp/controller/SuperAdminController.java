@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,11 +40,11 @@ public class SuperAdminController {
 		return "/index_smanager/index_smanager";
 	}
 
-	@RequestMapping("/getAllHospital")
+	@RequestMapping(value="/hospitalManage",method=RequestMethod.GET)
 	public String getAllHospital(HttpServletRequest request, Model model) {
 		List<Hospital> hospitals = superAdminService.getAllHospital();
 		model.addAttribute("hospitals", hospitals);
-		return "/index_smanager/index_smanager";
+		return "/index_smanager/hospital_management";
 	}
 
 	@RequestMapping(value = "/addHospital", method = RequestMethod.POST)
@@ -51,23 +52,49 @@ public class SuperAdminController {
 			String introduction) {
 		Hospital hospital = new Hospital(name, address, level, new Timestamp(new Date().getTime()));
 		hospital.setIntroduction(introduction);
-		superAdminService.addHospital(hospital);
-		return "/superAdmin/getAllHospital.do";
+		Boolean flag = superAdminService.addHospital(hospital);
+		System.out.println(flag);
+		return "/index_doctor/index";
 	}
 
 	@RequestMapping(value = "/removeHospital", method = RequestMethod.POST)
 	public String removeHospital(HttpServletRequest request, Model model, String hospital_id) {
 		superAdminService.removeHospital(hospital_id);
-		return "/superAdmin/getAllHospital.do";
+		return "redirect:getAllHospital.do";
 	}
 
-	@RequestMapping("/getAllHospitalAdmin")
+	
 	public String getAllHospitalAdmin(HttpServletRequest request, Model model) {
 		List<HospitalAdministrator> list = superAdminService.getAllHospitalAdmin();
 		model.addAttribute("list", list);
-		return "index_smanager/hmanager_form";
+		return "index_smanager/hmanager_management";
 	}
 
+	@RequestMapping(value="/HospitalAdminManage",method=RequestMethod.GET)
+	public String HospitalAdminManage(HttpServletRequest request, Model model){
+		List<Hospital> hospitals = superAdminService.getAllHospital();
+		model.addAttribute("hospitals", hospitals);
+		return "index_smanager/hmanager_management";
+	}
+	
+	
+	@RequestMapping(value="getHospitalAdminByHospital")
+	public String getHospitalAdminByHospital(HttpServletRequest request, Model model,String hospital_id){
+		List<HospitalAdministrator> hospitalAdministrators = superAdminService.getHospitalAdminByHospital(hospital_id);
+		model.addAttribute("hospitalAdministrators", hospitalAdministrators);
+		model.addAttribute("hospitals", superAdminService.getAllHospital());
+		return "/index_smanager/hmanager_form";
+	}
+	
+	@RequestMapping(value="/addHospitalAdmin",method=RequestMethod.GET)
+	public String addHospitalAdmin(HttpServletRequest request, Model model){
+		List<Hospital> hospitals = superAdminService.getAllHospital();
+		model.addAttribute("hospitals", hospitals);
+		return "/registered/registered_hmanager";
+	}
+			
+			
+	@RequestMapping(value="/addHospitalAdmin",method=RequestMethod.POST)
 	public String addHospitalAdmin(HttpServletRequest request, Model model, String hospital_id, String username, String realname,
 			String idNumber, String password, String mail, String tele) {
 		Hospital hospital = superAdminService.getHospitalById(hospital_id);
@@ -75,12 +102,13 @@ public class SuperAdminController {
 		hospitalAdministrator.setMail(mail);
 		hospitalAdministrator.setTele(tele);
 		superAdminService.addHospitalAdmin(hospitalAdministrator);
-		return "/superAdmin/getAllHospitalAdmin";
+		return "/registered/resetsuccess";
 	}
 
+	@RequestMapping("removeHospitalAdmin")
 	public String removeHospitalAdmin(HttpServletRequest request, Model model, String hospitalAdmin_id) {
 		HospitalAdministrator hospitalAdministrator = superAdminService.getAllHospitalAdminById(hospitalAdmin_id);
 		superAdminService.deleteHospitalAdmin(hospitalAdministrator);
-		return "/superAdmin/getAllHospitalAdmin";
+		return "/index_doctor/index";
 	}
 }

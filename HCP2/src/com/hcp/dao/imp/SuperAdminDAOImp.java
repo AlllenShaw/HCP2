@@ -172,4 +172,12 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 		return this.getHibernateTemplate().find("from HospitalAdministrator");
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id) {
+		// TODO Auto-generated method stub
+		Integer id = Integer.parseInt(hospital_id);
+		return this.getHibernateTemplate().find("from HospitalAdministrator as h where h.hospital.id = ?",new Object[]{id});
+	}
+
 }

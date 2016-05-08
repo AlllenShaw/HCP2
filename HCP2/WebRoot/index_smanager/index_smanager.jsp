@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -7,13 +8,13 @@
 			+ path + "/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<base href="<%=basePath%>">
+<base href="<%=basePath%>"/>
 <title>系统管理主界面</title>
 <link rel="stylesheet" type="text/css" href="css/index_style.css" />
-<link rel="stylesheet" type="text/css" href="css/folding_menu.css">
+<link rel="stylesheet" type="text/css" href="css/folding_menu.css"/>
 
 </head>
 
@@ -51,8 +52,9 @@
 					</ul>
 					</details> <details class="menu" open> <summary>资源管理</summary>
 					<ul>
-						<li><a  href="index_smanager/hospital_management.jsp" target="mainframe" >医院管理</a></li>
-						<li><a  href="index_smanager/hmanager_management.jsp" target="mainframe" >医院管理员管理</a></li>
+						<li><a href="superAdmin/hospitalManage.do" target="mainframe">医院管理</a></li>
+						<li><a href="superAdmin/HospitalAdminManage.do"
+							target="mainframe">医院管理员管理</a></li>
 					</ul>
 					</details>
 				</div>

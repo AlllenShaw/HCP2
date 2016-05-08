@@ -75,4 +75,10 @@ public class SuperAdminServiceImp implements SuperAdminService {
 		return superAdminDAO.deleteHospitalAdministrator(hospitalAdministrator);
 	}
 
+	@Override
+	public List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id) {
+		// TODO Auto-generated method stub
+		return superAdminDAO.getHospitalAdminByHospital(hospital_id);
+	}
+
 }

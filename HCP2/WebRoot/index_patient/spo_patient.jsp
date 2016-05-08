@@ -28,6 +28,7 @@
 				<th>血氧饱和度</th>
 				<th>灌注指数</th>
 			</tr>
+		</thead>
 			<c:forEach items="${boPatientRecords }" var="item">
 				<tr>
 					<td>${item.patient.id}</td>
@@ -37,31 +38,17 @@
 					<td>${item.pi }</td>
 				</tr>
 			</c:forEach>
-		</thead>
 	</table>
 	<br />
-	<div class="paging">
-		<input type="button" value="上一页" onclick="">
-		<%
-			int pagesize = 3;//一页显示几条记录
-			int pagenow = 1;//希望显示第几页
-			int rowcount = 0;//共有几条记录
-			int pagecount = 5;//共有几页(计算)
-
-			for (int i = pagenow; i < pagenow + pagecount; i++) {
-		%>
-		<input class="fb" type="button" value="<%=i%>" onclick="">
-		<%
-			}
-		%>
-		<input class="fb" type="button" value="下一页" onclick="">
+	<div class="paging"  id=paging>
 	</div>
 	
 	<script>
 	var arrdata=new Array();
+	var now;
 	function getdata()
    {
-      var objTable=document.getElementById("bp_form");
+      var objTable=document.getElementById("spo_form");
       if(objTable)
       {
   			z=0;
@@ -78,7 +65,8 @@
 	
 	function showdata(pagenow)
    {
-      var tableid=document.getElementById("bg_form");
+		now=pagenow;
+      var tableid=document.getElementById("spo_form");
 	  var rows = tableid.getElementsByTagName("tr");
 	  for(var i=rows.length-1;i>0;i--)
          {
@@ -87,31 +75,33 @@
 	var temp=15*(pagenow-1);
 	  for(var i=0;i<3;i++) 
 	{ 
+	
 		var rowobj=tableid.insertRow(tableid.rows.length);
-		
+		if(arrdata[temp+5*i])
+		{
 		var cell1=rowobj.insertCell(rowobj.cells.length);
 		var cell2=rowobj.insertCell(rowobj.cells.length);
 		var cell3=rowobj.insertCell(rowobj.cells.length);
-		var cell2=rowobj.insertCell(rowobj.cells.length);
-		var cell3=rowobj.insertCell(rowobj.cells.length);
+		var cell4=rowobj.insertCell(rowobj.cells.length);
+		var cell5=rowobj.insertCell(rowobj.cells.length);
 		
-		
-		cell1.innerHTML=arrdata[temp+3*i];
-		cell2.innerHTML=arrdata[temp+3*i+1];
-		cell3.innerHTML=arrdata[temp+3*i+2]+"次/min";
-		cell4.innerHTML=arrdata[temp+3*i+3];
-		cell5.innerHTML=arrdata[temp+3*i+4];
+		cell1.innerHTML=arrdata[temp+5*i];
+		cell2.innerHTML=arrdata[temp+5*i+1];
+		cell3.innerHTML=arrdata[temp+5*i+2]+"次/min";
+		cell4.innerHTML=arrdata[temp+5*i+3];
+		cell5.innerHTML=arrdata[temp+5*i+4];
+		}
 	} 
    }
 	
 	var jsPage = function(el, count, pageStep, pageNum, fnGo) {
     this.getLink = function(fnGo, index, pageNum, text) {
-        var s = '<input type="button" class="fb" value="'+index+'" onclick="' + fnGo + '(' + 'this' + ');" ';
+    	text=text||index;
+        var s = '<input type="button" class="fb" value="'+text+'" onclick="' + fnGo + '(' + 'this' + ');" ';
         if(index == pageNum) {
             s += 'style="color:red;" ';
         }
-        text=text||null;
-        s += '>' +text;            
+        s += '>';            
         return s;
     };
     
@@ -157,10 +147,28 @@
 
 	function gopage(pageIndex) {
 		showdata(pageIndex);
-		jsPage('paging',arrdata.length, 3, pageIndex, 'gopage1');
+		var temp=(arrdata.length)%5;
+		if (temp==0)
+			{
+				temp=(arrdata.length)/5;
+			}
+		else
+			{
+			temp=(arrdata.length)/5+1;
+			}
+		jsPage('paging',temp, 3, pageIndex, 'gopage1');
 	}
 	
 	function gopage1(pageIndex) {
+		if(pageIndex.value=="上一页")
+		{
+		gopage(now-1);
+		}
+	else if(pageIndex.value=="下一页")
+		{
+		gopage(now+1);
+		}
+	else
 		gopage(pageIndex.value);
 	}
 	getdata();

@@ -97,7 +97,7 @@ public class UserController {
 			// model.addAttribute("username", superAdministrator.getUsername());
 			// model.addAttribute("userid", superAdministrator.getId());
 			model.addAttribute("superAdministrator", superAdministrator);
-			return "redirect:/superAdministrator/index.do";
+			return "redirect:/superAdmin/index.do";
 		default:
 			break;
 		}

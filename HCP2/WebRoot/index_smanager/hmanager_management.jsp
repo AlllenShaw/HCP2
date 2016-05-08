@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -31,21 +32,28 @@
 		 <summary>医院管理员管理</summary>
 		 <img style="margin-left:50px;margin-top:20px" src="picture/smanager_logo.jpg"></img>
 		<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
+		
 	<div align="center">
-		<table class="tip">
+	<form action="superAdmin/getHospitalAdminByHospital.do" method="post">
+		<table class="tip" align="left">
 				<tr>
-					<td>医院ID</td>
-					<td><input/><td>
 					<td>医院名称</td>
-					<td><input/><td>
+					<td>
+						<select name="hospital_id">
+							<c:forEach items="${hospitals }" var="item">
+								<option value="${item.id }">${item.name }</option>
+							</c:forEach>
+						</select> 
+					<td>
 				</tr>
 		</table>
-		<button class="fb" onclick="javascrtpt:window.location.href='index_smanager/hmanager_form.jsp'">查看</button>
+		<button class="fb" type="submit">查看</button>
+	</form>	
 		<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
 		 <div class="tip" align="left">   
 		    	医院管理员
 		 </div>
-		<button class="fb" onclick="javascrtpt:window.open('registered/registered.jsp?route=registered/registered_hmanager.jsp')">添加</button>
+		<button class="fb" onclick="javascrtpt:window.open('superAdmin/addHospitalAdmin.do')">添加</button>
 		</div>
 	</details>
 

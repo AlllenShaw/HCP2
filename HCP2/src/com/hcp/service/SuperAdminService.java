@@ -25,4 +25,6 @@ public interface SuperAdminService {
 	public abstract HospitalAdministrator getAllHospitalAdminById(String hospitalAdmin_id);
 
 	public abstract boolean deleteHospitalAdmin(HospitalAdministrator hospitalAdministrator);
+
+	public abstract List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id);
 }

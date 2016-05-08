@@ -30,6 +30,7 @@
 				<th>舒张压</th>
 				<th>心率</th>
 			</tr>
+		</thead>
 			<c:forEach items="${htnPatientRecords }" var="item">
 				<tr>
 					<td>${item.patient.id}</td>
@@ -39,11 +40,9 @@
 					<td>${item.heartRate }</td>
 				</tr>
 			</c:forEach>
-		</thead>
 	</table>
 	<br/>
-	<div class="paging">
-	
+	<div class="paging"  id=paging>
 	 </div>
 	
 	 <hr style="height:5px;border:none;margin-top:50px;border-top:1px ridge #ccc;" />
@@ -63,6 +62,7 @@
 	
 	<script>
 	var arrdata=new Array();
+	var now;
 	function getdata()
    {
       var objTable=document.getElementById("bp_form");
@@ -82,7 +82,8 @@
 	
 	function showdata(pagenow)
    {
-      var tableid=document.getElementById("bg_form");
+		now=pagenow;
+      var tableid=document.getElementById("bp_form");
 	  var rows = tableid.getElementsByTagName("tr");
 	  for(var i=rows.length-1;i>0;i--)
          {
@@ -91,33 +92,35 @@
 	var temp=15*(pagenow-1);
 	  for(var i=0;i<3;i++) 
 	{ 
+	
 		var rowobj=tableid.insertRow(tableid.rows.length);
-		
+		if(arrdata[temp+5*i])
+		{	
 		var cell1=rowobj.insertCell(rowobj.cells.length);
 		var cell2=rowobj.insertCell(rowobj.cells.length);
 		var cell3=rowobj.insertCell(rowobj.cells.length);
-		var cell2=rowobj.insertCell(rowobj.cells.length);
-		var cell3=rowobj.insertCell(rowobj.cells.length);
-		
-		
-		cell1.innerHTML=arrdata[temp+3*i];
-		cell2.innerHTML=arrdata[temp+3*i+1];
-		cell3.innerHTML=arrdata[temp+3*i+2]+"mmHg";
-		cell4.innerHTML=arrdata[temp+3*i+3]+"mmHg";
-		cell5.innerHTML=arrdata[temp+3*i+4]+"次/秒";
+		var cell4=rowobj.insertCell(rowobj.cells.length);
+		var cell5=rowobj.insertCell(rowobj.cells.length);
+	
+		cell1.innerHTML=arrdata[temp+5*i];
+		cell2.innerHTML=arrdata[temp+5*i+1];
+		cell3.innerHTML=arrdata[temp+5*i+2]+"mmHg";
+		cell4.innerHTML=arrdata[temp+5*i+3]+"mmHg";
+		cell5.innerHTML=arrdata[temp+5*i+4]+"次/秒";
+		}
 	} 
    }
 	
 	var jsPage = function(el, count, pageStep, pageNum, fnGo) {
     this.getLink = function(fnGo, index, pageNum, text) {
-        var s = '<input type="button" class="fb" value="'+index+'" onclick="' + fnGo + '(' + 'this' + ');" ';
+    	text=text||index;
+        var s = '<input type="button" class="fb" value="'+text+'" onclick="' + fnGo + '(' + 'this' + ');" ';
         if(index == pageNum) {
             s += 'style="color:red;" ';
         }
-        text=text||null;
-        s += '>' +text;            
+        s += '>';            
         return s;
-    };
+    }
     
     //总页数
     var pageNumAll = Math.ceil(count / pageStep);
@@ -161,10 +164,28 @@
 
 	function gopage(pageIndex) {
 		showdata(pageIndex);
-		jsPage('paging',arrdata.length, 3, pageIndex, 'gopage1');
+		var temp=(arrdata.length)%5;
+		if (temp==0)
+			{
+				temp=(arrdata.length)/5;
+			}
+		else
+			{
+			temp=(arrdata.length)/5+1;
+			}
+		jsPage('paging',temp, 3, pageIndex, 'gopage1');;
 	}
 	
 	function gopage1(pageIndex) {
+		if(pageIndex.value=="上一页")
+			{
+			gopage(now-1);
+			}
+		else if(pageIndex.value=="下一页")
+			{
+			gopage(now+1);
+			}
+		else
 		gopage(pageIndex.value);
 	}
 	getdata();

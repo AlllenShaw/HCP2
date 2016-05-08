@@ -36,4 +36,6 @@ public interface SuperAdminDAO {
 
 	public abstract List<HospitalAdministrator> getHospitalAdministratorsList();
 
+	public abstract List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id);
+
 }
