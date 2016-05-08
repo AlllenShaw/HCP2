@@ -251,7 +251,7 @@ public class DoctorController {
 				if (selector1.equals("3")) {
 					return "/index_patient/spo_patient";
 				} else if (selector1.equals("7")) {
-					return "/chart/sop_ichart";
+					return "/chart/spo_ichart";
 				}
 			} else {
 				return "/error/withoutPermission";

@@ -12,6 +12,7 @@ public class UserGroup implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private Hospital hospital;
 	private String name;
 	private String description;
 	private Set userGroupPermissionsForUserGroup1Id = new HashSet(0);
@@ -31,8 +32,9 @@ public class UserGroup implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public UserGroup(String name, String description, Set userGroupPermissionsForUserGroup1Id, Set patientGroups,
-			Set doctorGroups, Set userGroupPermissionsForUserGroup2Id) {
+	public UserGroup(Hospital hospital, String name, String description, Set userGroupPermissionsForUserGroup1Id,
+			Set patientGroups, Set doctorGroups, Set userGroupPermissionsForUserGroup2Id) {
+		this.hospital = hospital;
 		this.name = name;
 		this.description = description;
 		this.userGroupPermissionsForUserGroup1Id = userGroupPermissionsForUserGroup1Id;
@@ -49,6 +51,14 @@ public class UserGroup implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Hospital getHospital() {
+		return this.hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
 	}
 
 	public String getName() {

@@ -1,10 +1,9 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -37,9 +36,9 @@
 
 			<hr
 				style="height:5px;border:none;margin-right:30px;border-top:5px ridge black;" />
-			<span class="tip">XX医院协同诊治平台</span>
-			<img style="margin-left:5px" src="picture/slider_photo1.png"
-				width="965" height="150" alt="" />
+			<span class="tip">${hospitalAdministrator.hospital.name }协同诊治平台</span> <img
+				style="margin-left:5px" src="picture/slider_photo1.png" width="965"
+				height="150" alt="" />
 
 
 			<div class="center_content">
@@ -49,19 +48,19 @@
 					<ul>
 						<li><a href="index_doctor/index.jsp" target="mainframe">首页</a></li>
 					</ul>
-					</details><details class="menu" open> <summary>综合查询</summary>
-					<ul>
-						<li><a href="seo/seo.jsp" target="mainframe">综合查询</a></li>
-					</ul>
 					</details> <details class="menu" open> <summary>资源管理</summary>
 					<ul>
-						<li><a href="medical_manage/hmanager_mmed.jsp" target="mainframe">药物管理</a></li>
-						<li><a href="index_hmanager/co_resource.jsp" target="mainframe">协同资源管理</a></li>
-						<li><a href="index_hmanager/authority_management.jsp" target="mainframe">权限管理</a></li>
+						<li><a href="index_hmanager/med_search.jsp"
+							target="mainframe">药物管理</a></li>
+						<li><a href="hospitalAdmin/toGroupAuthority.do"
+							target="mainframe">权限管理</a></li>
+						<li><a href="index_hmanager/authority_management.jsp"
+							target="mainframe">用户组管理</a></li>
 					</ul>
 				</div>
 				<iframe name="mainframe" src="index_doctor/index.jsp"
-						onload="this.height=this.contentWindow.document.documentElement.scrollHeight"> </iframe>
+					onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
+				</iframe>
 
 			</div>
 

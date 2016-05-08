@@ -86,7 +86,7 @@ public class UserController {
 			// model.addAttribute("username", hospitalAdministrator.getUsername());
 			// model.addAttribute("userid", hospitalAdministrator.getId());
 			model.addAttribute("hospitalAdministrator", hospitalAdministrator);
-			return "redirect:/hospitalAdministrator/index.do";
+			return "redirect:/hospitalAdmin/index.do";
 		case "4":
 			SuperAdministrator superAdministrator = superAdminService.login(username, password);
 			if (superAdministrator == null) {

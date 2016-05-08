@@ -1,15 +1,21 @@
-$(function() {
+function draw(temp){
 	var value = [];
-	for ( var i = 0; i < 7; i++) {
-		value.push(Math.floor(Math.random() *10));
-	}
+	var labels = [];
+	
+	for(var j=0;j<7;j++)
+		{
+			value.push(temp[1+3*j]);
+			labels.push(temp[2+3*j].substr(0,10));
+		}
+	
 	var data = [ {
 		name : '血糖',
 		value : value,
 		color : '#1f7e92',
 		line_width : 3
 	} ];
-	var labels = [ "2016/02/01", "2016/02/02", "2016/02/03", "2016/02/04", "2016/02/05", "2016/02/06", "2016/02/07" ];
+	
+	
 	var med=["药物a","药物b","药物c","药物d","药物e","药物f","药物g"];
 	var event="没吃药";
 	var chart = new iChart.LineBasic2D(
@@ -138,7 +144,7 @@ $(function() {
 		}
 	}));
 	chart.draw();
-});
+}
 
 
 

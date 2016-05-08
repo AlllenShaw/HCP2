@@ -96,4 +96,14 @@ public interface HospitalAdminDAO {
 	public abstract boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission);
 
 	public abstract Hospital getHospitalById(int id);
+
+	public abstract List<DoctorGroup> getDoctorGroupByHospital(Integer hospital_id);
+
+	public abstract List<PatientGroup> getPatientGroupByHospital(Integer hospital_id);
+
+	public abstract List<UserGroup> getUserGroupByHospital(Integer hospital_id);
+
+	public abstract List<UserGroup> getPatientUserGroupByHospital(Integer hospital_id);
+
+	public abstract List<UserGroup> getDoctorUserGroupByHospital(Integer hospital_id);
 }

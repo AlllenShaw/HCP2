@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -16,6 +17,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/ichart.sign.js"></script>
 	<script type="text/javascript" src="js/spo_ichart.js" charset="utf-8"></script>
 	
+	<script>
+	var arrdata=new Array();
+	var num=0;
+	function getdata(temp)
+   {
+
+      arrdata[num]=temp;
+      num++;
+    }
+	</script>
   </head>
   <style>
   	.tip input{width:150px;}
@@ -24,6 +35,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 		<div id='ichart'></div>
 		<br/>
+		
+		<c:forEach items="${boPatientRecords }" var="item">
+				<script>
+					tem='${item.measureTime }';
+					getdata(tem);
+					tem='${item.spo2 }';
+					getdata(tem);
+				</script>
+			</c:forEach>
+		
 		<div class="box">
 			<div>
 				<table class="tip">
@@ -49,5 +70,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 			</div>
 		</div>
+		
+	<script>
+	 draw(arrdata);
+	</script>
   </body>
 </html>

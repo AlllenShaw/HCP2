@@ -145,4 +145,22 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 		return hospitalAdminDAO.getHospitalById(id);
 	}
 
+	@Override
+	public List<DoctorGroup> getDoctorGroupByHospital(Integer hospital_id) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getDoctorGroupByHospital(hospital_id);
+	}
+
+	@Override
+	public List<PatientGroup> getPatientGroupByHospital(Integer hospital_id) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getPatientGroupByHospital(hospital_id);
+	}
+
+	@Override
+	public List<UserGroup> getUserGroupByHospital(Integer hospital_id) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getUserGroupByHospital(hospital_id);
+	}
+
 }

@@ -16,7 +16,7 @@ public class Medicine implements java.io.Serializable {
 	private String constituent;
 	private String adaptationDisease;
 	private String usage;
-	private Float dosage;
+	private String dosage;
 	private String adverseReaction;
 	private String taboo;
 	private String attentions;
@@ -39,7 +39,7 @@ public class Medicine implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Medicine(String name, String constituent, String adaptationDisease, String usage, Float dosage,
+	public Medicine(String name, String constituent, String adaptationDisease, String usage, String dosage,
 			String adverseReaction, String taboo, String attentions, String direction, Set prescriptions,
 			Set hplPatientMedicineRecords, Set hdPatientMedicineRecords, Set htnPatientMedicineRecords,
 			Set gluPatientMedicineRecords) {
@@ -60,6 +60,17 @@ public class Medicine implements java.io.Serializable {
 	}
 
 	// Property accessors
+
+	public Medicine(String name, String adaptationDisease, String usage, String dosage,
+			String adverseReaction, String taboo, String attentions) {
+		this.name = name;
+		this.adaptationDisease = adaptationDisease;
+		this.usage = usage;
+		this.dosage = dosage;
+		this.adverseReaction = adverseReaction;
+		this.taboo = taboo;
+		this.attentions = attentions;
+	}
 
 	public Integer getId() {
 		return this.id;
@@ -101,11 +112,11 @@ public class Medicine implements java.io.Serializable {
 		this.usage = usage;
 	}
 
-	public Float getDosage() {
+	public String getDosage() {
 		return this.dosage;
 	}
 
-	public void setDosage(Float dosage) {
+	public void setDosage(String dosage) {
 		this.dosage = dosage;
 	}
 

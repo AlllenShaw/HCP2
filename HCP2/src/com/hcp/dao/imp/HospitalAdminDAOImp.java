@@ -176,7 +176,8 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	@Override
 	public Medicine getMedicineByName(String medicine_name) {
 		// TODO Auto-generated method stub
-		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.name =?",new Object[]{medicine_name});
+		List<Medicine> list = this.getHibernateTemplate().find("from Medicine as m where m.name =?",
+				new Object[] { medicine_name });
 		return list.isEmpty() ? null : list.get(0);
 	}
 
@@ -329,10 +330,10 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	@Override
 	public boolean addUserGroup(UserGroup userGroup) {
 		// TODO Auto-generated method stub
-		try{
+		try {
 			this.getHibernateTemplate().save(userGroup);
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -353,7 +354,7 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		} 
+		}
 	}
 
 	@Override
@@ -371,7 +372,7 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		} 
+		}
 	}
 
 	@Override
@@ -396,5 +397,64 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	public Hospital getHospitalById(int id) {
 		// TODO Auto-generated method stub
 		return this.getHibernateTemplate().load(Hospital.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DoctorGroup> getDoctorGroupByHospital(Integer hospital_id) {
+		// TODO Auto-generated method stub
+		List<DoctorGroup> list = this.getHibernateTemplate().find("from DoctorGroup as dg where dg.userGroup.hospital.id = ?",
+				new Object[] { hospital_id });
+		return list.isEmpty() ? null : list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PatientGroup> getPatientGroupByHospital(Integer hospital_id) {
+		List<PatientGroup> list = this.getHibernateTemplate().find("from PatientGroup as pg where pg.userGroup.hospital.id = ?",
+				new Object[] { hospital_id });
+		return list.isEmpty() ? null : list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserGroup> getPatientUserGroupByHospital(final Integer hospital_id) {
+//		List<UserGroup> list = this.getHibernateTemplate().find("select dg.userGroup from PatientGroup as pg where pg.userGroup.hospital.id = ?",
+//				new Object[] { hospital_id });
+		
+		List<UserGroup> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<UserGroup>>() {
+			@Override
+			public List<UserGroup> doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query = session.createQuery("select pg.userGroup form PatientGroup as pg where pg.userGroup.hospital.id =:hospital_id");
+				query.setInteger("hospital_id", hospital_id);
+				return query.list();
+			}
+		});
+		return list.isEmpty() ? null : list;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserGroup> getDoctorUserGroupByHospital(final Integer hospital_id) {
+//		List<UserGroup> list = this.getHibernateTemplate().find("select dg.userGroup from DoctorGroup as dg where dg.userGroup.hospital.id = ?",
+//				new Object[] { hospital_id });
+		List<UserGroup> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<UserGroup>>() {
+			@Override
+			public List<UserGroup> doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query = session.createQuery("select dg.userGroup form DoctorGroup as dg where dg.userGroup.hospital.id =:hospital_id");
+				query.setInteger("hospital_id", hospital_id);
+				return query.list();
+			}
+		});
+		return list.isEmpty() ? null : list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserGroup> getUserGroupByHospital(Integer hospital_id) {
+		List<UserGroup> list = this.getHibernateTemplate().find("from UserGroup as ug where ug.hospital.id = ?",
+				new Object[] { hospital_id });
+		return list.isEmpty() ? null : list;
 	}
 }

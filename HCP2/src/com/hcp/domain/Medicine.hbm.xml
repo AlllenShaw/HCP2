@@ -11,31 +11,31 @@
             <generator class="increment" />
         </id>
         <property name="name" type="java.lang.String">
-            <column name="name" length="45" not-null="true" />
+            <column name="medicine_name" length="45" not-null="true" />
         </property>
         <property name="constituent" type="java.lang.String">
-            <column name="constituent" length="45" />
+            <column name="medicine_constituent" length="45" />
         </property>
         <property name="adaptationDisease" type="java.lang.String">
             <column name="adaptation_disease" length="200" />
         </property>
         <property name="usage" type="java.lang.String">
-            <column name="usage" length="200" />
+            <column name="medicine_usage" length="200" />
         </property>
-        <property name="dosage" type="java.lang.Float">
-            <column name="dosage" precision="12" scale="0" />
+        <property name="dosage" type="java.lang.String">
+            <column name="medicine_dosage" length="200" />
         </property>
         <property name="adverseReaction" type="java.lang.String">
             <column name="adverse_reaction" length="200" />
         </property>
         <property name="taboo" type="java.lang.String">
-            <column name="taboo" length="200" />
+            <column name="medicine_taboo" length="200" />
         </property>
         <property name="attentions" type="java.lang.String">
-            <column name="attentions" length="200" />
+            <column name="medicine_attentions" length="200" />
         </property>
         <property name="direction" type="java.lang.String">
-            <column name="direction" length="200" />
+            <column name="medicine_direction" length="200" />
         </property>
         <set name="prescriptions" inverse="true">
             <key>

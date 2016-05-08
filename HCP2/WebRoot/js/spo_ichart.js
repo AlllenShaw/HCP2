@@ -1,7 +1,9 @@
-$(function() {
+function draw(temp){
 	var value = [];
+	var labels = [];
 	for ( var i = 0; i < 7; i++) {
-		value.push(Math.floor(Math.random() *10)+90);
+		labels.push(temp[i*2].substr(0,10));
+		value.push(temp[i*2+1]);
 	}
 	var data = [ {
 		name : '血氧饱和度',
@@ -9,7 +11,6 @@ $(function() {
 		color : '#1f7e92',
 		line_width : 3
 	} ];
-	var labels = [ "2016/02/01", "2016/02/02", "2016/02/03", "2016/02/04", "2016/02/05", "2016/02/06", "2016/02/07" ];
 	var chart = new iChart.LineBasic2D(
 			{
 				render : 'ichart',
@@ -124,4 +125,4 @@ $(function() {
 		}
 	}));
 	chart.draw();
-});
+}

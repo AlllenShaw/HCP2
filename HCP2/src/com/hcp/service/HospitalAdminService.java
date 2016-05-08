@@ -52,4 +52,10 @@ public interface HospitalAdminService {
 	public abstract boolean deleteUserGroupPermission(UserGroupPermission userGroupPermission);
 
 	public abstract Hospital getHospitalById(String hospital_id);
+
+	public abstract List<DoctorGroup> getDoctorGroupByHospital(Integer hospital_id);
+
+	public abstract List<PatientGroup> getPatientGroupByHospital(Integer hospital_id);
+
+	public abstract List<UserGroup> getUserGroupByHospital(Integer hospital_id);
 }

@@ -1,9 +1,11 @@
-$(function() {
+function draw(temp){
 	var sbp = [],dbp=[],hr=[];
+	var labels=[];
 	for ( var i = 0; i < 7; i++) {
-		sbp.push(Math.floor(Math.random() *120));
-		dbp.push(Math.floor(Math.random() *80));
-		hr.push(Math.floor(Math.random() *90));
+		labels.push(temp[4*i].substr(0,10));
+		sbp.push(temp[4*i+1]);
+		dbp.push(temp[4*i+2]);
+		hr.push(temp[4*i+3]);
 	}
 	var data = [ {
 		name : '收缩压(mmHg)',
@@ -26,7 +28,6 @@ $(function() {
 		line_width : 1,
 		sign:'round-bar'
 	} ];
-	var labels = [ "2016/02/01", "2016/02/02", "2016/02/03", "2016/02/04", "2016/02/05", "2016/02/06", "2016/02/07" ];
 	var chart = new iChart.LineBasic2D(
 			{
 				render : 'ichart',
@@ -128,4 +129,4 @@ $(function() {
 		}
 	}));
 	chart.draw();
-});
+}
