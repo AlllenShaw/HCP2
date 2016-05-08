@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -350,6 +351,21 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 				"from HdPatientRecord as h where h.patient.username = ? and h.measureTime >= ? and h.measureTime <= ?",
 				new Object[] { username, startTime, endTime });
 		return list.isEmpty() ? null : list;
+	}
+
+	@Override
+	public boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor) {
+		try {
+			this.getHibernateTemplate().save(family1);
+			this.getHibernateTemplate().save(family2);
+			this.getHibernateTemplate().save(patient);
+			this.getHibernateTemplate().save(patientHasDoctor);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 }

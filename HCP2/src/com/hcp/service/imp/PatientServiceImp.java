@@ -2,6 +2,7 @@ package com.hcp.service.imp;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.hcp.dao.PatientDAO;
 import com.hcp.domain.Doctor;
+import com.hcp.domain.Family;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
@@ -154,6 +156,16 @@ public class PatientServiceImp implements PatientService {
 		Timestamp sTime = Timestamp.valueOf(startTime);
 		Timestamp eTime = Timestamp.valueOf(endTime);
 		return patientDAO.getHdPatientRecordsByTime(username, sTime, eTime);
+	}
+
+	@Override
+	public boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor) {
+		System.out.println("patientService register");
+		if (patientDAO.isExist(patient.getUsername(), patient.getIdNumber(), patient.getMail(), patient.getTele())) {
+			System.out.println("用户名或者身份证重复");
+			return false;
+		}
+		return patientDAO.register(patient,family1,family2,patientHasDoctor);
 	}
 
 }

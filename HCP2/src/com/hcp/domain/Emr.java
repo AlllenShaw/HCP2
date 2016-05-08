@@ -17,6 +17,7 @@ public class Emr implements java.io.Serializable {
 	private Patient patient;
 	private String illnessStateDesc;
 	private Timestamp createTime;
+	private String diagnosisSuggestion;
 	private Set examinationEmrs = new HashSet(0);
 	private Set prescriptions = new HashSet(0);
 
@@ -35,12 +36,13 @@ public class Emr implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Emr(Doctor doctor, Patient patient, String illnessStateDesc, Timestamp createTime, Set examinationEmrs,
-			Set prescriptions) {
+	public Emr(Doctor doctor, Patient patient, String illnessStateDesc, Timestamp createTime, String diagnosisSuggestion,
+			Set examinationEmrs, Set prescriptions) {
 		this.doctor = doctor;
 		this.patient = patient;
 		this.illnessStateDesc = illnessStateDesc;
 		this.createTime = createTime;
+		this.diagnosisSuggestion = diagnosisSuggestion;
 		this.examinationEmrs = examinationEmrs;
 		this.prescriptions = prescriptions;
 	}
@@ -85,6 +87,14 @@ public class Emr implements java.io.Serializable {
 
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getDiagnosisSuggestion() {
+		return this.diagnosisSuggestion;
+	}
+
+	public void setDiagnosisSuggestion(String diagnosisSuggestion) {
+		this.diagnosisSuggestion = diagnosisSuggestion;
 	}
 
 	public Set getExaminationEmrs() {

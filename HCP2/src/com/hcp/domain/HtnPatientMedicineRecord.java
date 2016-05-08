@@ -15,7 +15,7 @@ public class HtnPatientMedicineRecord implements java.io.Serializable {
 	private TakingMedicineWay takingMedicineWay;
 	private MedicineUnit medicineUnit;
 	private Patient patient;
-	private Integer takingMedicineNumberEachtime;
+	private Double takingMedicineNumberEachtime;
 	private Timestamp takingMedicineTime;
 	private Timestamp uploadTime;
 
@@ -27,7 +27,7 @@ public class HtnPatientMedicineRecord implements java.io.Serializable {
 
 	/** full constructor */
 	public HtnPatientMedicineRecord(Medicine medicine, TakingMedicineWay takingMedicineWay, MedicineUnit medicineUnit,
-			Patient patient, Integer takingMedicineNumberEachtime, Timestamp takingMedicineTime, Timestamp uploadTime) {
+			Patient patient, Double takingMedicineNumberEachtime, Timestamp takingMedicineTime, Timestamp uploadTime) {
 		this.medicine = medicine;
 		this.takingMedicineWay = takingMedicineWay;
 		this.medicineUnit = medicineUnit;
@@ -79,11 +79,11 @@ public class HtnPatientMedicineRecord implements java.io.Serializable {
 		this.patient = patient;
 	}
 
-	public Integer getTakingMedicineNumberEachtime() {
+	public Double getTakingMedicineNumberEachtime() {
 		return this.takingMedicineNumberEachtime;
 	}
 
-	public void setTakingMedicineNumberEachtime(Integer takingMedicineNumberEachtime) {
+	public void setTakingMedicineNumberEachtime(Double takingMedicineNumberEachtime) {
 		this.takingMedicineNumberEachtime = takingMedicineNumberEachtime;
 	}
 

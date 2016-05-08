@@ -22,7 +22,7 @@
         <many-to-one name="patient" class="com.hcp.domain.Patient" fetch="select">
             <column name="patient_id" not-null="true" />
         </many-to-one>
-        <property name="takingMedicineNumberEachtime" type="java.lang.Integer">
+        <property name="takingMedicineNumberEachtime" type="java.lang.Double">
             <column name="taking_medicine_number_eachtime" not-null="true" />
         </property>
         <property name="takingMedicineTime" type="java.sql.Timestamp">

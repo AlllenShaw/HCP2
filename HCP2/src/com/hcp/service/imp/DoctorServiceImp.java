@@ -11,6 +11,9 @@ import com.hcp.dao.DoctorDAO;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Hospital;
+import com.hcp.domain.MealTime;
+import com.hcp.domain.Medicine;
+import com.hcp.domain.MedicineUnit;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.service.DoctorService;
@@ -125,6 +128,21 @@ public class DoctorServiceImp implements DoctorService {
 	@Override
 	public boolean updatePatient(Patient patient) {
 		return doctorDAO.updatePatient(patient);
+	}
+
+	@Override
+	public List<MedicineUnit> getmedicineUnitList() {
+		return doctorDAO.getmedicineUnitList();
+	}
+
+	@Override
+	public List<MealTime> getMealTimeList() {
+		return doctorDAO.getMealTimeList();
+	}
+
+	@Override
+	public List<Medicine> getMedicineList() {
+		return doctorDAO.getMedicineList();
 	}
 
 }

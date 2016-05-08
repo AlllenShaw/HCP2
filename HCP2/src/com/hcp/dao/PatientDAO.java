@@ -2,9 +2,11 @@ package com.hcp.dao;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
+import com.hcp.domain.Family;
 import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientMedicineRecord;
@@ -83,4 +85,6 @@ public interface PatientDAO {
 	public abstract List<Timestamp> getAllHdRecordTime(String username);
 
 	public abstract List<HdPatientRecord> getHdPatientRecordsByTime(String username, Timestamp startTime, Timestamp endTime);
+
+	public abstract boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor);
 }

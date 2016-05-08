@@ -30,7 +30,9 @@ import com.hcp.domain.HplPatientRecord;
 import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
+import com.hcp.domain.MealTime;
 import com.hcp.domain.Medicine;
+import com.hcp.domain.MedicineUnit;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
@@ -509,6 +511,23 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<MedicineUnit> getmedicineUnitList() {
+		return this.getHibernateTemplate().find("from MedicineUnit");
+	}
+
+	@Override
+	public List<MealTime> getMealTimeList() {
+		// TODO Auto-generated method stub
+		return this.getHibernateTemplate().find("from MealTime");
+	}
+
+	@Override
+	public List<Medicine> getMedicineList() {
+		// TODO Auto-generated method stub
+		return this.getHibernateTemplate().find("from Medicine");
 	}
 
 }

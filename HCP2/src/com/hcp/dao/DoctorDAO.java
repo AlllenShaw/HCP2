@@ -18,7 +18,9 @@ import com.hcp.domain.HplPatientRecord;
 import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
+import com.hcp.domain.MealTime;
 import com.hcp.domain.Medicine;
+import com.hcp.domain.MedicineUnit;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
@@ -117,5 +119,11 @@ public interface DoctorDAO {
 	public abstract Patient getPatientByIdNumber(String idNumber);
 
 	public abstract boolean updatePatient(Patient patient);
+
+	public abstract List<MedicineUnit> getmedicineUnitList();
+
+	public abstract List<MealTime> getMealTimeList();
+
+	public abstract List<Medicine> getMedicineList();
 
 }

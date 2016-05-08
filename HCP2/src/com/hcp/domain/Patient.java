@@ -18,6 +18,7 @@ public class Patient implements java.io.Serializable {
 	private Family familyByFamlily2;
 	private Security securityBySecurity2;
 	private Security securityBySecurity1;
+	private Hospital hospital;
 	private String username;
 	private String realname;
 	private String idNumber;
@@ -34,7 +35,6 @@ public class Patient implements java.io.Serializable {
 	private String address;
 	private String birAddress;
 	private String nation;
-	private String hospital;
 	private String profession;
 	private String company;
 	private Boolean marriage;
@@ -84,9 +84,9 @@ public class Patient implements java.io.Serializable {
 
 	/** full constructor */
 	public Patient(Security securityBySecurity3, Family familyByFamlily1, Family familyByFamlily2, Security securityBySecurity2,
-			Security securityBySecurity1, String username, String realname, String idNumber, String password, String token,
-			String mail, String hin, String tele, String gender, String age, String height, String weight, String education,
-			String address, String birAddress, String nation, String hospital, String profession, String company,
+			Security securityBySecurity1, Hospital hospital, String username, String realname, String idNumber, String password,
+			String token, String mail, String hin, String tele, String gender, String age, String height, String weight,
+			String education, String address, String birAddress, String nation, String profession, String company,
 			Boolean marriage, Timestamp registerTime, Boolean gluState, Boolean hplState, Boolean htnState, Boolean hdState,
 			String illnessHis, String allergicHis, String familyHis, String answer1, String answer2, String answer3,
 			String picture, Set htnPatientRecords, Set emrs, Set hplPatientInfos, Set patientGroups, Set hdPatientInfos,
@@ -98,6 +98,7 @@ public class Patient implements java.io.Serializable {
 		this.familyByFamlily2 = familyByFamlily2;
 		this.securityBySecurity2 = securityBySecurity2;
 		this.securityBySecurity1 = securityBySecurity1;
+		this.hospital = hospital;
 		this.username = username;
 		this.realname = realname;
 		this.idNumber = idNumber;
@@ -114,7 +115,6 @@ public class Patient implements java.io.Serializable {
 		this.address = address;
 		this.birAddress = birAddress;
 		this.nation = nation;
-		this.hospital = hospital;
 		this.profession = profession;
 		this.company = company;
 		this.marriage = marriage;
@@ -198,6 +198,14 @@ public class Patient implements java.io.Serializable {
 
 	public void setSecurityBySecurity1(Security securityBySecurity1) {
 		this.securityBySecurity1 = securityBySecurity1;
+	}
+
+	public Hospital getHospital() {
+		return this.hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
 	}
 
 	public String getUsername() {
@@ -326,14 +334,6 @@ public class Patient implements java.io.Serializable {
 
 	public void setNation(String nation) {
 		this.nation = nation;
-	}
-
-	public String getHospital() {
-		return this.hospital;
-	}
-
-	public void setHospital(String hospital) {
-		this.hospital = hospital;
 	}
 
 	public String getProfession() {

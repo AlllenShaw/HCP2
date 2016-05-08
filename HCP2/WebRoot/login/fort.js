@@ -49,7 +49,7 @@ $("#registered").click(function(){
 		}
 	else if($("#li2").is(".current"))
 		{
-			top.window.location.href='registered/registered.jsp?route=registered/registered_patient.jsp';
+			window.location.href='patient/register.do';
 		}
 	else if($("#li3").is(".current"))
 		{

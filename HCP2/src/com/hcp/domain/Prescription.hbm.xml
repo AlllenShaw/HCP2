@@ -10,7 +10,7 @@
             <column name="id" />
             <generator class="increment" />
         </id>
-        <many-to-one name="emr" class="com.hcp.domain.Emr" fetch="select">
+        <many-to-one name="emr" class="com.hcp.domain.Emr" fetch="select" >
             <column name="emr_id" not-null="true" />
         </many-to-one>
         <many-to-one name="medicine" class="com.hcp.domain.Medicine" fetch="select">

@@ -25,6 +25,9 @@
         <many-to-one name="securityBySecurity1" class="com.hcp.domain.Security" fetch="select">
             <column name="security1" />
         </many-to-one>
+        <many-to-one name="hospital" class="com.hcp.domain.Hospital" fetch="select" lazy="false">
+            <column name="hospital" />
+        </many-to-one>
         <property name="username" type="java.lang.String">
             <column name="username" length="45" not-null="true" unique="true" />
         </property>
@@ -73,9 +76,6 @@
         <property name="nation" type="java.lang.String">
             <column name="nation" length="45" />
         </property>
-        <property name="hospital" type="java.lang.String">
-            <column name="hospital" length="45" />
-        </property>
         <property name="profession" type="java.lang.String">
             <column name="profession" length="45" />
         </property>
@@ -121,109 +121,109 @@
         <property name="picture" type="java.lang.String">
             <column name="picture" length="200" />
         </property>
-        <set name="htnPatientRecords" inverse="true">
+        <set name="htnPatientRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HtnPatientRecord" />
         </set>
-        <set name="emrs" inverse="true">
+        <set name="emrs" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.Emr" />
         </set>
-        <set name="hplPatientInfos" inverse="true">
+        <set name="hplPatientInfos" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" unique="true" />
             </key>
             <one-to-many class="com.hcp.domain.HplPatientInfo" />
         </set>
-        <set name="patientGroups" inverse="true">
+        <set name="patientGroups" inverse="true" >
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.PatientGroup" />
         </set>
-        <set name="hdPatientInfos" inverse="true">
+        <set name="hdPatientInfos" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" unique="true" />
             </key>
             <one-to-many class="com.hcp.domain.HdPatientInfo" />
         </set>
-        <set name="boPatientInfos" inverse="true">
+        <set name="boPatientInfos" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" unique="true" />
             </key>
             <one-to-many class="com.hcp.domain.BoPatientInfo" />
         </set>
-        <set name="htnPatientMedicineRecords" inverse="true">
+        <set name="htnPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HtnPatientMedicineRecord" />
         </set>
-        <set name="hdPatientRecords" inverse="true">
+        <set name="hdPatientRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HdPatientRecord" />
         </set>
-        <set name="gluPatientRecords" inverse="true">
+        <set name="gluPatientRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.GluPatientRecord" />
         </set>
-        <set name="gluPatientInfos" inverse="true">
+        <set name="gluPatientInfos" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" unique="true" />
             </key>
             <one-to-many class="com.hcp.domain.GluPatientInfo" />
         </set>
-        <set name="boPatientMedicineRecords" inverse="true">
+        <set name="boPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.BoPatientMedicineRecord" />
         </set>
-        <set name="boPatientRecords" inverse="true">
+        <set name="boPatientRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.BoPatientRecord" />
         </set>
-        <set name="patientHasDoctors" inverse="true">
+        <set name="patientHasDoctors" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.PatientHasDoctor" />
         </set>
-        <set name="hplPatientMedicineRecords" inverse="true">
+        <set name="hplPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HplPatientMedicineRecord" />
         </set>
-        <set name="gluPatientMedicineRecords" inverse="true">
+        <set name="gluPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.GluPatientMedicineRecord" />
         </set>
-        <set name="hdPatientMedicineRecords" inverse="true">
+        <set name="hdPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HdPatientMedicineRecord" />
         </set>
-        <set name="hplPatientRecords" inverse="true">
+        <set name="hplPatientRecords" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HplPatientRecord" />
         </set>
-        <set name="htnPatientInfos" inverse="true">
+        <set name="htnPatientInfos" inverse="true" lazy="false">
             <key>
                 <column name="patient_id" not-null="true" unique="true" />
             </key>

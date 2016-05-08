@@ -11,6 +11,9 @@ import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HplPatientInfo;
 import com.hcp.domain.HtnPatientInfo;
+import com.hcp.domain.MealTime;
+import com.hcp.domain.Medicine;
+import com.hcp.domain.MedicineUnit;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
 
@@ -46,5 +49,11 @@ public interface DoctorService {
 	public abstract List<Patient> getPatientByDoctor(Doctor doctor);
 
 	public abstract boolean updatePatient(Patient patient);
+
+	public abstract List<MedicineUnit> getmedicineUnitList();
+
+	public abstract List<MealTime> getMealTimeList();
+
+	public abstract List<Medicine> getMedicineList();
 	
 }

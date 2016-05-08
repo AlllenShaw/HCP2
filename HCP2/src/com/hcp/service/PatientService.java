@@ -2,8 +2,10 @@ package com.hcp.service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import com.hcp.domain.Doctor;
+import com.hcp.domain.Family;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
@@ -56,4 +58,6 @@ public interface PatientService {
 	public abstract List<Timestamp> getAllHdRecordTime(String username);
 
 	public abstract List<HdPatientRecord> getHdPatientRecords(String username, String startTime, String endTime);
+
+	public abstract boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor);
 }
