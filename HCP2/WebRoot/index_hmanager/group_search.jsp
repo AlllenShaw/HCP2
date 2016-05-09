@@ -39,6 +39,7 @@
 	width: 180px;
 	font: 18px Arial, Helvetica;
 }
+
 </style>
 
 <body>
@@ -54,6 +55,7 @@
 						<th>用户组名称</th>
 						<th>用户组描述</th>
 						<th>操作</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<c:forEach items="${userGroups }" var="item">
@@ -61,9 +63,8 @@
 						<td>${item.id }</td>
 						<td>${item.name }</td>
 						<td>${item.description }</td>
-						<td><a
-							href="hospitalAdmin/showGroupDetail.do?group_id=${item.id }">查看详情</a><a
-							href="hospitalAdmin/deleteUserGroup.do?group_id=${item.id }">删除</a></td>
+						<td><a href="hospitalAdmin/showGroupDetail.do?group_id=${item.id }">查看详情</a></td>
+						<td><a href="hospitalAdmin/deleteUserGroup.do?group_id=${item.id }">删除</a></td>
 					</tr>
 				</c:forEach>
 

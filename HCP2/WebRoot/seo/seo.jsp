@@ -12,7 +12,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="css/info_style.css">
-<script src="../js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
 
 </head>
 

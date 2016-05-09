@@ -278,8 +278,10 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	public void deleteDoctorGroup(String doctor_id, String group_id) {
 		// TODO Auto-generated method stub
 		// 根据doctor_id和group_id找到doctorGroup
+		Integer did = Integer.parseInt(doctor_id);
+		Integer gid = Integer.parseInt(group_id);
 		List<DoctorGroup> list = this.getHibernateTemplate().find(
-				"from DoctorGroup as dg where dg.doctor.id = ? and dg.userGroup.id = ? ", new Object[] { doctor_id, group_id });
+				"from DoctorGroup as dg where dg.doctor.id = ? and dg.userGroup.id = ? ", new Object[] { did, gid });
 		DoctorGroup doctorGroup = list.isEmpty() ? null : list.get(0);
 		// 删除doctorGroup
 		this.getHibernateTemplate().delete(doctorGroup);

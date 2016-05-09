@@ -78,7 +78,7 @@ public class HospitalAdminController {
 		Hospital hospital = hospitalAdministrator.getHospital();
 		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(hospital.getId());
 		model.addAttribute("userGroups", userGroups);
-		model.addAttribute("hospital",hospital);
+		model.addAttribute("hospital", hospital);
 		return "/index_hmanager/group_search";
 	}
 
@@ -86,16 +86,24 @@ public class HospitalAdminController {
 	public String showGroupDetail(HttpServletRequest request, Model model, String group_id) {
 		UserGroup group = hospitalAdminService.getUserGroupById(group_id);
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxx+++  " + group);
+		model.addAttribute("hospital", group.getHospital());
 		model.addAttribute("group", group);
 		model.addAttribute("patientGroups", group.getPatientGroups());
 		model.addAttribute("doctorGroups", group.getDoctorGroups());
 		return "/index_hmanager/group_info";
 	}
 
-	@RequestMapping(value = "/deleteUserGroup,method=RequestMethod.GET")
+	@RequestMapping(value = "/deleteUserGroup", method = RequestMethod.GET)
 	public String deleteUserGroup(HttpServletRequest request, Model model, String group_id) {
-		hospitalAdminService.deleteUserGroup(group_id);
-		return "redirect:showUserGroups.do";
+		try {
+			// TDOO
+			
+			hospitalAdminService.deleteUserGroup(group_id);
+			return "redirect:showUserGroups.do";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
 	}
 
 	@RequestMapping(value = "/addUserGroup", method = RequestMethod.GET)
@@ -122,8 +130,8 @@ public class HospitalAdminController {
 		}
 	}
 
-	@RequestMapping(value="addUser2Group", method=RequestMethod.GET)
-	public String addUser2Group(HttpServletRequest request, Model model,String hospital_id){
+	@RequestMapping(value = "/addUser2Group", method = RequestMethod.GET)
+	public String addUser2Group(HttpServletRequest request, Model model, String hospital_id) {
 		Integer id = Integer.parseInt(hospital_id);
 		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(id);
 		List<Doctor> doctors = hospitalAdminService.getDoctorByHospital(id);
@@ -133,25 +141,25 @@ public class HospitalAdminController {
 		model.addAttribute("patients", patients);
 		return "index_hmanager/group_member_add";
 	}
-	
-	
-	@RequestMapping(value="addUser2Group", method=RequestMethod.POST)
-	public String addUser2Group(HttpServletRequest request, Model model,String groupId,String type,String userId){
+
+	@RequestMapping(value = "/addUser2Group", method = RequestMethod.POST)
+	public String addUser2Group(HttpServletRequest request, Model model, String groupId, String type, String userId1,
+			String userId2) {
 		try {
-			if(groupId.equals("-1")){
+			if (groupId.equals("-1")) {
 				System.out.println("没有选择用户组");
 				return "/tips/operation_failed";
-			}else if(userId.equals("-1")){
+			} else if (userId1.equals("-1") && userId2.equals("-1")) {
 				System.out.println("没有选择用户");
 				return "/tips/operation_failed";
 			}
-			if(type.equals("0")){
-				//医生
-				this.addDoctor2Group(userId, groupId);
+			if (type.equals("0")) {
+				// 医生
+				this.addDoctor2Group(userId1, groupId);
 				System.out.println("添加医生成功");
-			}else{
-				//患者
-				this.addPatient2Group(userId, groupId);
+			} else {
+				// 患者
+				this.addPatient2Group(userId2, groupId);
 				System.out.println("添加患者成功");
 			}
 			return "/tips/operation_success";
@@ -160,9 +168,7 @@ public class HospitalAdminController {
 			return "/tips/operation_failed";
 		}
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/addDoctor2Group", method = RequestMethod.POST)
 	public String addDoctor2Group(String doctor_id, String group_id) {
 		UserGroup userGroup = hospitalAdminService.getUserGroupById(group_id);
@@ -181,21 +187,33 @@ public class HospitalAdminController {
 		return "#";
 	}
 
-	@RequestMapping(value = "/deleteDoctorFromGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteDoctorFromGroup", method = RequestMethod.GET)
 	public String deleteDoctorFromGroup(HttpServletRequest request, Model model, String doctor_id, String group_id) {
-		hospitalAdminService.deleteDoctorGroup(doctor_id, group_id);
-		return "#";
+		try {
+			hospitalAdminService.deleteDoctorGroup(doctor_id, group_id);
+			return "/tips/operation_success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
 	}
 
-	@RequestMapping(value = "/deletePatientFromGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletePatientFromGroup", method = RequestMethod.GET)
 	public String deletePatientFromGroup(HttpServletRequest request, Model model, String patient_id, String group_id) {
-		hospitalAdminService.deletePatientGroup(patient_id, group_id);
-		return "#";
+		try {
+			hospitalAdminService.deletePatientGroup(patient_id, group_id);
+			return "/tips/operation_success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
+
 	}
 
 	@RequestMapping(value = "/showDoctorGroupMember", method = RequestMethod.POST)
 	public String showDoctorGroupMember(HttpServletRequest request, Model model, String group_id) {
 		// TODO
+		// 删除这个用户组的所有成员(doctorGroup和patientGroup)
 		List<Doctor> doctors = hospitalAdminService.getNumberByGroupId(group_id);
 		model.addAttribute("doctors", doctors);
 		return "#";
@@ -272,7 +290,6 @@ public class HospitalAdminController {
 	}
 
 	private void addGroupPermission(String permission_id, String group_id1, String group_id2) {
-		// TODO
 		UserGroup userGroup1 = hospitalAdminService.getUserGroupById(group_id1);
 		Permission permission = hospitalAdminService.getPermissionById(permission_id);
 		UserGroup userGroup2 = hospitalAdminService.getUserGroupById(group_id2);
@@ -285,7 +302,6 @@ public class HospitalAdminController {
 	}
 
 	private void removeGroupPermission(String permission_id, String group_id1, String group_id2) {
-		// TODO
 		UserGroupPermission userGroupPermission = hospitalAdminService.getGroupPermission(group_id1, group_id2, permission_id);
 		if (userGroupPermission != null) {
 			hospitalAdminService.deleteUserGroupPermission(userGroupPermission);

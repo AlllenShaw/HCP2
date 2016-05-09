@@ -37,7 +37,7 @@
         <property name="direction" type="java.lang.String">
             <column name="medicine_direction" length="200" />
         </property>
-        <set name="prescriptions" inverse="true">
+        <set name="prescriptions" inverse="true" lazy="false">
             <key>
                 <column name="medicine_id" not-null="true" />
             </key>

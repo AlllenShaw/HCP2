@@ -2,7 +2,7 @@ function draw(temp){
 	var value = [];
 	var labels = [];
 	for ( var i = 0; i < 7; i++) {
-		labels.push(temp[i*2].substr(0,10));
+		labels.push(temp[i*2]);
 		value.push(temp[i*2+1]);
 	}
 	var data = [ {

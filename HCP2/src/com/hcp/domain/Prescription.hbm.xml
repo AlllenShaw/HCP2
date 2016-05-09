@@ -10,22 +10,22 @@
             <column name="id" />
             <generator class="increment" />
         </id>
-        <many-to-one name="emr" class="com.hcp.domain.Emr" fetch="select" >
+        <many-to-one name="emr" class="com.hcp.domain.Emr" fetch="select" lazy="false" >
             <column name="emr_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="medicine" class="com.hcp.domain.Medicine" fetch="select">
+        <many-to-one name="medicine" class="com.hcp.domain.Medicine" fetch="select" lazy="false">
             <column name="medicine_id" not-null="true" />
         </many-to-one>
         <many-to-one name="doctor" class="com.hcp.domain.Doctor" fetch="select">
             <column name="doctor_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="takingMedicineWay" class="com.hcp.domain.TakingMedicineWay" fetch="select">
+        <many-to-one name="takingMedicineWay" class="com.hcp.domain.TakingMedicineWay" fetch="select" lazy="false">
             <column name="taking_medicine_way_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="medicineUnit" class="com.hcp.domain.MedicineUnit" fetch="select">
+        <many-to-one name="medicineUnit" class="com.hcp.domain.MedicineUnit" fetch="select" lazy="false">
             <column name="medicine_unit_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="mealTime" class="com.hcp.domain.MealTime" fetch="select">
+        <many-to-one name="mealTime" class="com.hcp.domain.MealTime" fetch="select" lazy="false">
             <column name="meal_time" not-null="true" />
         </many-to-one>
         <property name="takingMedicineNumberEachtime" type="java.lang.Double">

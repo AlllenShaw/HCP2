@@ -592,6 +592,7 @@ public class MobileController {
 	@RequestMapping("/uploadHdRecord")
 	@ResponseBody
 	public String uploadHdRecord(String username, String data) {
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx上传心电数据*************");
 		System.out.println("=========================" + username);
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;

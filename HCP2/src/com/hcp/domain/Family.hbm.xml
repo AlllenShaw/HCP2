@@ -25,13 +25,13 @@
         <property name="email" type="java.lang.String">
             <column name="email" length="45" />
         </property>
-        <set name="patientsForFamlily2" inverse="true">
+        <set name="patientsForFamlily2" inverse="true" lazy="false">
             <key>
                 <column name="famlily2" />
             </key>
             <one-to-many class="com.hcp.domain.Patient" />
         </set>
-        <set name="patientsForFamlily1" inverse="true">
+        <set name="patientsForFamlily1" inverse="true" lazy="false">
             <key>
                 <column name="famlily1" />
             </key>

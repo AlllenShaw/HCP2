@@ -74,7 +74,7 @@
 					<ul>
 						<li><a href="#" title="">首页</a></li>
 						<li><a href="javascript:void(0)" onclick="show('light')">关于</a></li>
-						<li><a href="registered/registered.jsp?route=registered/request_pw.jsp">找回密码</a></li>
+						<li><a href="registered/request_pw.jsp">忘记密码</a></li>
 					</ul>
 				</div>
 			</div>

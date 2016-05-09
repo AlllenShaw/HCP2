@@ -13,7 +13,7 @@
         <many-to-one name="doctor" class="com.hcp.domain.Doctor" fetch="select">
             <column name="doctor_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="patient" class="com.hcp.domain.Patient" fetch="select">
+        <many-to-one name="patient" class="com.hcp.domain.Patient" fetch="select" lazy="false">
             <column name="patient_id" not-null="true" />
         </many-to-one>
         <property name="illnessStateDesc" type="java.lang.String">
@@ -31,7 +31,7 @@
             </key>
             <one-to-many class="com.hcp.domain.ExaminationEmr" />
         </set>
-        <set name="prescriptions" inverse="true">
+        <set name="prescriptions" inverse="true" lazy="false">
             <key>
                 <column name="emr_id" not-null="true" />
             </key>

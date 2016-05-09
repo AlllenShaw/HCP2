@@ -97,7 +97,7 @@
 					<td>${item.doctor.id}</td>
 					<td>${item.doctor.username}</td>
 					<td>${item.doctor.realname}</td>
-					<td><a href="hospitalAdmin/deleteDoctorFromGroup.do">移除此成员</a></td>
+					<td><a href="hospitalAdmin/deleteDoctorFromGroup.do?doctor_id=${item.doctor.id}&group_id=${item.doctor.hospital.id}">移除此成员</a></td>
 				</tr>
 			</c:forEach>
 			<c:forEach items="${ patientGroups}" var="item">
@@ -105,7 +105,7 @@
 					<td>${item.patient.id}</td>
 					<td>${item.patient.username}</td>
 					<td>${item.patient.realname}</td>
-					<td><a href="hospitalAdmin/deletePatientFromGroup.do">移除此成员</a></td>
+					<td><a href="hospitalAdmin/deletePatientFromGroup.do?patient_id=${item.patient.id}&group_id=${item.patient.hospital.id}">移除此成员</a></td>
 				</tr>
 			</c:forEach>
 		</table>

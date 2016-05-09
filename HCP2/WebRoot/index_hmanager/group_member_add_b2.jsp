@@ -15,7 +15,16 @@
 <link rel="stylesheet" type="text/css" href="css/info_style.css">
 <link rel="stylesheet" type="text/css" href="css/record_style.css">
 <script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script>
+	var arrdata=new Array();
+	var num=0;
+	function getdata(temp)
+   {
 
+      arrdata[num]=temp;
+      num++;
+    }
+</script>
 </head>
 
 <style>
@@ -45,15 +54,6 @@
 	height: 100px;
 	width: 400px;
 }
-.show
-{
-	display:block;
-}
-
-.hidden
-{
-	display:none;
-}
 </style>
 
 <body>
@@ -62,7 +62,7 @@
 
 	<form action="hospitalAdmin/addUser2Group.do" method="post">
 		<div>
-			<table class="tip">
+			<table class="tip" id="group_member_add">
 				<tr>
 					<td>选择用户组</td>
 					<td><select id="group_id" name="groupId">
@@ -76,31 +76,9 @@
 				<tr>
 					<td>选择用户组类型</td>
 					<td><select id="type" name="type">
-							<option value="0" selected="selected">医生用户组</option>
+							<option value="-1" selected="selected">请选择用户组</option>
+							<option value="0">医生用户组</option>
 							<option value="1">患者用户组</option>
-					</select>
-					<td>
-				</tr>
-				<!-- 下面两个下拉框根据上面的用户类型显示 -->
-				<tr>
-					<td>选择医生用户</td>
-					<td><select id="userId1" name="userId1">
-							<option value="-1" selected="selected" >请选择用户</option>
-							<c:forEach items="${doctors}" var="item">
-								<option value="${item.id }">${item.username}:
-									${item.realname}</option>
-							</c:forEach>
-					</select>
-					<td>
-				</tr>
-				<tr>
-					<td>选择患者用户</td>
-					<td><select id="userId2" name="userId2" class="hidden">
-							<option value="-1" selected="selected">请选择用户</option>
-							<c:forEach items="${patients}" var="item">
-								<option value="${item.id }">${item.username}:
-									${item.realname}</option>
-							</c:forEach>
 					</select>
 					<td>
 				</tr>
@@ -109,8 +87,18 @@
 			<input class="fb" type="submit" value="添加" />
 		</div>
 	</form>
-
 	</details> </section> </section>
+	
+	<c:forEach items="${doctors}" var='item'>
+	<script>
+			tem='${item.id }';
+			getdata(tem);
+			tem='${item.username}';
+			getdata(tem);
+			tem='${item.realname}';
+			getdata(tem);
+	</script>
+	</c:forEach>
 	<script type="text/javascript" src="js/group.js" charset="utf-8"></script>
 </body>
 </html>

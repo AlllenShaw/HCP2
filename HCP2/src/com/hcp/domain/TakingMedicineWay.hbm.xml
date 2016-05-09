@@ -13,31 +13,31 @@
         <property name="takingMedicineWay" type="java.lang.String">
             <column name="taking_medicine_way" length="45" not-null="true" unique="true" />
         </property>
-        <set name="hplPatientMedicineRecords" inverse="true">
+        <set name="hplPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="taking_medicine_way_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HplPatientMedicineRecord" />
         </set>
-        <set name="prescriptions" inverse="true">
+        <set name="prescriptions" inverse="true" lazy="false">
             <key>
                 <column name="taking_medicine_way_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.Prescription" />
         </set>
-        <set name="hdPatientMedicineRecords" inverse="true">
+        <set name="hdPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="taking_medicine_way_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HdPatientMedicineRecord" />
         </set>
-        <set name="htnPatientMedicineRecords" inverse="true">
+        <set name="htnPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="taking_medicine_way_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.HtnPatientMedicineRecord" />
         </set>
-        <set name="gluPatientMedicineRecords" inverse="true">
+        <set name="gluPatientMedicineRecords" inverse="true" lazy="false">
             <key>
                 <column name="taking_medicine_way_id" not-null="true" />
             </key>

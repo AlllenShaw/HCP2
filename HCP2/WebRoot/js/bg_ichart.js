@@ -5,7 +5,7 @@ function draw(temp){
 	for(var j=0;j<7;j++)
 		{
 			value.push(temp[1+3*j]);
-			labels.push(temp[2+3*j].substr(0,10));
+			labels.push(temp[2+3*j]);
 		}
 	
 	var data = [ {

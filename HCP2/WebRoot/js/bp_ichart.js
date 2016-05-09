@@ -2,7 +2,7 @@ function draw(temp){
 	var sbp = [],dbp=[],hr=[];
 	var labels=[];
 	for ( var i = 0; i < 7; i++) {
-		labels.push(temp[4*i].substr(0,10));
+		labels.push(temp[4*i]);
 		sbp.push(temp[4*i+1]);
 		dbp.push(temp[4*i+2]);
 		hr.push(temp[4*i+3]);

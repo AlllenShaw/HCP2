@@ -36,11 +36,11 @@
 					<div id="pat">
 
 						<form id="request_pw" name="request_pw"
-										action="/patient/forgetPassword.do" method="post"
+										action="patient/forgetPassword.do" method="post"
 										onsubmit="">
 							<table border="0" cellspacing="2px" cellpadding="2px">
 								<tr>
-									<td colspan="6" class="td_1">找回密码</td>
+									<td colspan="6" class="td_1">忘记密码</td>
 								</tr>
 								<tr><td>&nbsp; </td></tr>
 								<tr>

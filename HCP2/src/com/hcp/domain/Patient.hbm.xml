@@ -13,10 +13,10 @@
         <many-to-one name="securityBySecurity3" class="com.hcp.domain.Security" fetch="select">
             <column name="security3" />
         </many-to-one>
-        <many-to-one name="familyByFamlily1" class="com.hcp.domain.Family" fetch="select">
+        <many-to-one name="familyByFamlily1" class="com.hcp.domain.Family" fetch="select" lazy="false">
             <column name="famlily1" />
         </many-to-one>
-        <many-to-one name="familyByFamlily2" class="com.hcp.domain.Family" fetch="select">
+        <many-to-one name="familyByFamlily2" class="com.hcp.domain.Family" fetch="select" lazy="false">
             <column name="famlily2" />
         </many-to-one>
         <many-to-one name="securityBySecurity2" class="com.hcp.domain.Security" fetch="select">

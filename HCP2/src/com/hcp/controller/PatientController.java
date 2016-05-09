@@ -331,7 +331,7 @@ public class PatientController {
 			if (selector1.equals("3")) {
 				return "/index_patient/spo_patient";
 			} else if (selector1.equals("7")) {
-				return "/chart/sop_ichart";
+				return "/chart/spo_ichart";
 			}
 
 		} else if (selector1.equals("4")) {
