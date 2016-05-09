@@ -474,4 +474,18 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 			return false;
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Doctor> getDoctorByHospital(Integer id) {
+		List<Doctor> list = this.getHibernateTemplate().find("from Doctor as d where d.hospital.id = ?", new Object[] { id });
+		return list.isEmpty() ? null : list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Patient> getPatientByHospital(Integer id) {
+		// TODO Auto-generated method stub
+		return this.getHibernateTemplate().find("from Patient as p where p.hospital.id = ?", new Object[] { id });
+	}
 }

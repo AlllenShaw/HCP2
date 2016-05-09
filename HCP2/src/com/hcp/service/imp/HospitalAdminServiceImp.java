@@ -169,4 +169,16 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 		return hospitalAdminDAO.deleteUserGroup(userGroup);
 	}
 
+	@Override
+	public List<Doctor> getDoctorByHospital(Integer id) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getDoctorByHospital(id);
+	}
+
+	@Override
+	public List<Patient> getPatientByHospital(Integer id) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getPatientByHospital(id);
+	}
+
 }

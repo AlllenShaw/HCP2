@@ -24,7 +24,7 @@
 
 .tip td {
 	height: 50px;
-	width: 80px;
+	width: 150px;
 	font-size: 18px;
 }
 
@@ -36,7 +36,7 @@
 
 .tip select {
 	height: 40px;
-	width: 180px;
+	width: 150px;
 	font: 18px Arial, Helvetica;
 }
 
@@ -48,28 +48,46 @@
 
 <body>
 	<section id="conter"> <section id="help-left"> <details
-		class="menu" open> <summary>用户组信息</summary>
+		class="menu" open> <summary>用户组成员添加</summary>
 
-	<form action="hospitalAdmin/addUserGroup.do" method="post">
+	<form action="hospitalAdmin/addUser2Group.do" method="post">
 		<div>
 			<table class="tip">
 				<tr>
-					<td>组名称</td>
-					<td><input type="text" name="groupName" />
+					<td>选择用户组</td>
+					<td><select id="group_id" name="groupId">
+							<option value="-1" selected="selected">请选择用户组</option>
+							<c:forEach items="${userGroups}" var="item">
+								<option value="${item.id }">${item.name }</option>
+							</c:forEach>
+					</select>
 					<td>
 				</tr>
 				<tr>
-					<td>用户组描述</td>
+					<td>选择用户组类型</td>
+					<td><select id="type" name="type">
+							<option value="0" selected="selected">医生用户组</option>
+							<option value="1">患者用户组</option>
+					</select>
+					<td>
 				</tr>
+				<!-- 下面两个下拉框根据上面的用户类型显示 -->
 				<tr>
-					<td colspan="4" rowspan="2"><textarea name="description"></textarea></td>
+					<td>选择医生用户</td>
+					<td><select id="userId" name="userId">
+							<option value="-1" selected="selected">请选择用户</option>
+							<c:forEach items="${doctors}" var="item">
+								<option value="${item.id }">${item.username}: ${item.realname}</option>
+							</c:forEach>
+					</select>
+					<td>
 				</tr>
+
 			</table>
-			<input type="hidden" name="hospital_id" value="${hospital.id }">
+			<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
 			<input class="fb" type="submit" value="添加" />
 		</div>
 	</form>
-	<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
 
 	</details> </section> </section>
 </body>

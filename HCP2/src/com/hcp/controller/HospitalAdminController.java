@@ -78,6 +78,7 @@ public class HospitalAdminController {
 		Hospital hospital = hospitalAdministrator.getHospital();
 		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(hospital.getId());
 		model.addAttribute("userGroups", userGroups);
+		model.addAttribute("hospital",hospital);
 		return "/index_hmanager/group_search";
 	}
 
@@ -121,8 +122,49 @@ public class HospitalAdminController {
 		}
 	}
 
+	@RequestMapping(value="addUser2Group", method=RequestMethod.GET)
+	public String addUser2Group(HttpServletRequest request, Model model,String hospital_id){
+		Integer id = Integer.parseInt(hospital_id);
+		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(id);
+		List<Doctor> doctors = hospitalAdminService.getDoctorByHospital(id);
+		List<Patient> patients = hospitalAdminService.getPatientByHospital(id);
+		model.addAttribute("userGroups", userGroups);
+		model.addAttribute("doctors", doctors);
+		model.addAttribute("patients", patients);
+		return "index_hmanager/group_member_add";
+	}
+	
+	
+	@RequestMapping(value="addUser2Group", method=RequestMethod.POST)
+	public String addUser2Group(HttpServletRequest request, Model model,String groupId,String type,String userId){
+		try {
+			if(groupId.equals("-1")){
+				System.out.println("没有选择用户组");
+				return "/tips/operation_failed";
+			}else if(userId.equals("-1")){
+				System.out.println("没有选择用户");
+				return "/tips/operation_failed";
+			}
+			if(type.equals("0")){
+				//医生
+				this.addDoctor2Group(userId, groupId);
+				System.out.println("添加医生成功");
+			}else{
+				//患者
+				this.addPatient2Group(userId, groupId);
+				System.out.println("添加患者成功");
+			}
+			return "/tips/operation_success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
+	}
+	
+	
+	
 	@RequestMapping(value = "/addDoctor2Group", method = RequestMethod.POST)
-	public String addDoctor2Group(HttpServletRequest request, Model model, String doctor_id, String group_id) {
+	public String addDoctor2Group(String doctor_id, String group_id) {
 		UserGroup userGroup = hospitalAdminService.getUserGroupById(group_id);
 		Doctor doctor = hospitalAdminService.getDoctorById(doctor_id);
 		DoctorGroup doctorGroup = new DoctorGroup(doctor, userGroup);
@@ -131,7 +173,7 @@ public class HospitalAdminController {
 	}
 
 	@RequestMapping(value = "/addPatient2Group", method = RequestMethod.POST)
-	public String addPatient2Group(HttpServletRequest request, Model model, String patient_id, String group_id) {
+	public String addPatient2Group(String patient_id, String group_id) {
 		UserGroup userGroup = hospitalAdminService.getUserGroupById(group_id);
 		Patient patient = hospitalAdminService.getPatientById(patient_id);
 		PatientGroup patientGroup = new PatientGroup(userGroup, patient);

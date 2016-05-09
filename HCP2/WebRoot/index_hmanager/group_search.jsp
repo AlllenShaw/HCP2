@@ -72,7 +72,9 @@
 		</div>
 	</form>
 	<button class="fb"
-				onclick="javascript:window.location.href='hospitalAdmin/addUserGroup.do'">添加组</button>
+		onclick="javascript:window.location.href='hospitalAdmin/addUserGroup.do'">添加组</button>
+	<button class="fb"
+		onclick="javascript:window.location.href='hospitalAdmin/addUser2Group.do?hospital_id=${hospital.id}'">添加组成员</button>
 	</details> </section> </section>
 </body>
 </html>
