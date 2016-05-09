@@ -58,4 +58,6 @@ public interface HospitalAdminService {
 	public abstract List<PatientGroup> getPatientGroupByHospital(Integer hospital_id);
 
 	public abstract List<UserGroup> getUserGroupByHospital(Integer hospital_id);
+
+	public abstract boolean deleteUserGroup(String group_id);
 }

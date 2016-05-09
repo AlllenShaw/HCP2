@@ -54,7 +54,7 @@
 							target="mainframe">药物管理</a></li>
 						<li><a href="hospitalAdmin/toGroupAuthority.do"
 							target="mainframe">权限管理</a></li>
-						<li><a href="index_hmanager/authority_management.jsp"
+						<li><a href="hospitalAdmin/showUserGroups.do"
 							target="mainframe">用户组管理</a></li>
 					</ul>
 				</div>

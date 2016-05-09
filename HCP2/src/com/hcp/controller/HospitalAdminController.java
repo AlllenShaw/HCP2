@@ -1,5 +1,6 @@
 package com.hcp.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,13 +71,54 @@ public class HospitalAdminController {
 		return "/index_doctor/index";
 	}
 
+	@RequestMapping(value = "/showUserGroups", method = RequestMethod.GET)
+	public String showUserGroups(HttpServletRequest request, Model model) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		HospitalAdministrator hospitalAdministrator = (HospitalAdministrator) sessionUtil.getAttribute("USERMODEL");
+		Hospital hospital = hospitalAdministrator.getHospital();
+		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(hospital.getId());
+		model.addAttribute("userGroups", userGroups);
+		return "/index_hmanager/group_search";
+	}
+
+	@RequestMapping(value = "/showGroupDetail", method = RequestMethod.GET)
+	public String showGroupDetail(HttpServletRequest request, Model model, String group_id) {
+		UserGroup group = hospitalAdminService.getUserGroupById(group_id);
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxx+++  " + group);
+		model.addAttribute("group", group);
+		model.addAttribute("patientGroups", group.getPatientGroups());
+		model.addAttribute("doctorGroups", group.getDoctorGroups());
+		return "/index_hmanager/group_info";
+	}
+
+	@RequestMapping(value = "/deleteUserGroup,method=RequestMethod.GET")
+	public String deleteUserGroup(HttpServletRequest request, Model model, String group_id) {
+		hospitalAdminService.deleteUserGroup(group_id);
+		return "redirect:showUserGroups.do";
+	}
+
+	@RequestMapping(value = "/addUserGroup", method = RequestMethod.GET)
+	public String addUserGroup(HttpServletRequest request, Model model) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		HospitalAdministrator hospitalAdministrator = (HospitalAdministrator) sessionUtil.getAttribute("USERMODEL");
+		Hospital hospital = hospitalAdministrator.getHospital();
+		model.addAttribute("hospital", hospital);
+		return "index_hmanager/group_add";
+	}
+
 	@RequestMapping(value = "/addUserGroup", method = RequestMethod.POST)
-	public String addUserGroup(HttpServletRequest request, Model model, String groupName, String description) {
-		UserGroup userGroup = new UserGroup(groupName);
-		userGroup.setDescription(description);
-		hospitalAdminService.addUserGroup(userGroup);
-		model.addAttribute("userGroup", userGroup);
-		return "/hospitalAdmin/listUserGroup.do";
+	public String addUserGroup(HttpServletRequest request, Model model, String groupName, String description, String hospital_id) {
+		try {
+			UserGroup userGroup = new UserGroup(groupName);
+			userGroup.setDescription(description);
+			userGroup.setHospital(hospitalAdminService.getHospitalById(hospital_id));
+			hospitalAdminService.addUserGroup(userGroup);
+			model.addAttribute("userGroup", userGroup);
+			return "/tips/operation_success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
 	}
 
 	@RequestMapping(value = "/addDoctor2Group", method = RequestMethod.POST)
@@ -194,7 +236,8 @@ public class HospitalAdminController {
 		UserGroup userGroup2 = hospitalAdminService.getUserGroupById(group_id2);
 		UserGroupPermission userGroupPermission = new UserGroupPermission(userGroup1, permission, userGroup2);
 		UserGroupPermission ugp = hospitalAdminService.getGroupPermission(group_id1, group_id2, permission_id);
-		if(ugp==null){
+		System.out.println("++++++++++++++++++++++++++++++++ugp" + ugp);
+		if (ugp == null) {
 			hospitalAdminService.addUserGroupPermission(userGroupPermission);
 		}
 	}
@@ -202,7 +245,7 @@ public class HospitalAdminController {
 	private void removeGroupPermission(String permission_id, String group_id1, String group_id2) {
 		// TODO
 		UserGroupPermission userGroupPermission = hospitalAdminService.getGroupPermission(group_id1, group_id2, permission_id);
-		if(userGroupPermission!=null){
+		if (userGroupPermission != null) {
 			hospitalAdminService.deleteUserGroupPermission(userGroupPermission);
 		}
 	}

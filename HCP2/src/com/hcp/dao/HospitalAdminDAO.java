@@ -106,4 +106,6 @@ public interface HospitalAdminDAO {
 	public abstract List<UserGroup> getPatientUserGroupByHospital(Integer hospital_id);
 
 	public abstract List<UserGroup> getDoctorUserGroupByHospital(Integer hospital_id);
+
+	public abstract boolean deleteUserGroup(UserGroup userGroup);
 }

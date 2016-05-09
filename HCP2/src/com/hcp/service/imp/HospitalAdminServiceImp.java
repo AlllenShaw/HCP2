@@ -163,4 +163,10 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 		return hospitalAdminDAO.getUserGroupByHospital(hospital_id);
 	}
 
+	@Override
+	public boolean deleteUserGroup(String group_id) {
+		UserGroup userGroup = this.getUserGroupById(group_id);
+		return hospitalAdminDAO.deleteUserGroup(userGroup);
+	}
+
 }

@@ -2,9 +2,7 @@
 	contentType="text/html; charset=utf-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -19,48 +17,59 @@
 </head>
 
 <style>
-	.fb{margin-left:530px;}
-	.tip td{height:50px;width:80px;font-size:18px;}
-	.tip input{height:35px;width:140px;font: 18px Arial, Helvetica;}
-	.tip select{height:40px;width:180px;font: 18px Arial, Helvetica;}
-	.tip textarea{height:100px;width:400px;}
+.fb {
+	margin-left: 530px;
+}
+
+.tip td {
+	height: 50px;
+	width: 80px;
+	font-size: 18px;
+}
+
+.tip input {
+	height: 35px;
+	width: 140px;
+	font: 18px Arial, Helvetica;
+}
+
+.tip select {
+	height: 40px;
+	width: 180px;
+	font: 18px Arial, Helvetica;
+}
+
+.tip textarea {
+	height: 100px;
+	width: 400px;
+}
 </style>
 
 <body>
 	<section id="conter"> <section id="help-left"> <details
-		class="menu" open>
-		 <summary>用户组信息</summary>
-		 
-	<form>
-	<div>
-		<table class="tip">
-				<tr>
-					<td>所属医院</td>
-					<td><input/><td>
-				</tr>
+		class="menu" open> <summary>用户组信息</summary>
+
+	<form action="hospitalAdmin/addUserGroup.do" method="post">
+		<div>
+			<table class="tip">
 				<tr>
 					<td>组名称</td>
-					<td><input/><td>
-					<td>组ID</td>
-					<td><input/><td>
+					<td><input type="text" name="groupName" />
+					<td>
 				</tr>
 				<tr>
-					<td>用户组描述<td>
+					<td>用户组描述</td>
 				</tr>
 				<tr>
-					<td colspan="4" rowspan="2">
-						<textarea></textarea>
-					</td>
+					<td colspan="4" rowspan="2"><textarea name="description"></textarea></td>
 				</tr>
-		</table>
-		<input class="fb" type="submit" value="添加" />
-	</div>
+			</table>
+			<input type="hidden" name="hospital_id" value="${hospital.id }">
+			<input class="fb" type="submit" value="添加" />
+		</div>
 	</form>
 	<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
-	
-	</details>
-	
-	</section>
-	</section>
+
+	</details> </section> </section>
 </body>
 </html>

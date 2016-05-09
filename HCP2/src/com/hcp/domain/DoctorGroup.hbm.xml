@@ -10,10 +10,10 @@
             <column name="id" />
             <generator class="increment" />
         </id>
-        <many-to-one name="doctor" class="com.hcp.domain.Doctor" fetch="select">
+        <many-to-one name="doctor" class="com.hcp.domain.Doctor" fetch="select" lazy="false">
             <column name="doctor_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="userGroup" class="com.hcp.domain.UserGroup" fetch="select">
+        <many-to-one name="userGroup" class="com.hcp.domain.UserGroup" fetch="select" lazy="false">
             <column name="user_group_id" not-null="true" />
         </many-to-one>
     </class>

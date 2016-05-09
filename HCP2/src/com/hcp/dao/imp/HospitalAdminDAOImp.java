@@ -320,10 +320,13 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	@Override
 	public UserGroupPermission getGroupPermissionn(String group_id1, String group_id2, String permission_id) {
 		// TODO Auto-generated method stub
+		Integer id1 = Integer.parseInt(group_id1);
+		Integer id2 = Integer.parseInt(group_id2);
+		Integer pid = Integer.parseInt(permission_id);
 		List<UserGroupPermission> list = this
 				.getHibernateTemplate()
 				.find("from UserGroupPermission as p where p.userGroupByUserGroup1Id.id = ? and p.userGroupByUserGroup2Id.id = ? and p.permission.id = ?",
-						new Object[] { group_id1, group_id2, permission_id });
+						new Object[] { id1, id2, pid });
 		return list.isEmpty() ? null : list.get(0);
 	}
 
@@ -415,34 +418,37 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 				new Object[] { hospital_id });
 		return list.isEmpty() ? null : list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserGroup> getPatientUserGroupByHospital(final Integer hospital_id) {
-//		List<UserGroup> list = this.getHibernateTemplate().find("select dg.userGroup from PatientGroup as pg where pg.userGroup.hospital.id = ?",
-//				new Object[] { hospital_id });
-		
+		// List<UserGroup> list =
+		// this.getHibernateTemplate().find("select dg.userGroup from PatientGroup as pg where pg.userGroup.hospital.id = ?",
+		// new Object[] { hospital_id });
+
 		List<UserGroup> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<UserGroup>>() {
 			@Override
 			public List<UserGroup> doInHibernate(Session session) throws HibernateException, SQLException {
-				Query query = session.createQuery("select pg.userGroup form PatientGroup as pg where pg.userGroup.hospital.id =:hospital_id");
+				Query query = session
+						.createQuery("select pg.userGroup form PatientGroup as pg where pg.userGroup.hospital.id =:hospital_id");
 				query.setInteger("hospital_id", hospital_id);
 				return query.list();
 			}
 		});
 		return list.isEmpty() ? null : list;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserGroup> getDoctorUserGroupByHospital(final Integer hospital_id) {
-//		List<UserGroup> list = this.getHibernateTemplate().find("select dg.userGroup from DoctorGroup as dg where dg.userGroup.hospital.id = ?",
-//				new Object[] { hospital_id });
+		// List<UserGroup> list =
+		// this.getHibernateTemplate().find("select dg.userGroup from DoctorGroup as dg where dg.userGroup.hospital.id = ?",
+		// new Object[] { hospital_id });
 		List<UserGroup> list = this.getHibernateTemplate().executeFind(new HibernateCallback<List<UserGroup>>() {
 			@Override
 			public List<UserGroup> doInHibernate(Session session) throws HibernateException, SQLException {
-				Query query = session.createQuery("select dg.userGroup form DoctorGroup as dg where dg.userGroup.hospital.id =:hospital_id");
+				Query query = session
+						.createQuery("select dg.userGroup form DoctorGroup as dg where dg.userGroup.hospital.id =:hospital_id");
 				query.setInteger("hospital_id", hospital_id);
 				return query.list();
 			}
@@ -456,5 +462,16 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 		List<UserGroup> list = this.getHibernateTemplate().find("from UserGroup as ug where ug.hospital.id = ?",
 				new Object[] { hospital_id });
 		return list.isEmpty() ? null : list;
+	}
+
+	@Override
+	public boolean deleteUserGroup(UserGroup userGroup) {
+		try {
+			this.getHibernateTemplate().delete(userGroup);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
