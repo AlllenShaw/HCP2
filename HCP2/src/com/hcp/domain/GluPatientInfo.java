@@ -15,6 +15,7 @@ public class GluPatientInfo implements java.io.Serializable {
 	private Float bloodGlucoseMax;
 	private Float bloodGlucoseMin;
 	private Timestamp upgradeTime;
+	private Integer remainTime;
 
 	// Constructors
 
@@ -75,6 +76,14 @@ public class GluPatientInfo implements java.io.Serializable {
 
 	public void setUpgradeTime(Timestamp upgradeTime) {
 		this.upgradeTime = upgradeTime;
+	}
+
+	public Integer getRemainTime() {
+		return this.remainTime;
+	}
+
+	public void setRemainTime(Integer remainTime) {
+		this.remainTime = remainTime;
 	}
 
 }

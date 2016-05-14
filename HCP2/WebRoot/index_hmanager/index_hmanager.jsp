@@ -56,6 +56,8 @@
 							target="mainframe">权限管理</a></li>
 						<li><a href="hospitalAdmin/showUserGroups.do"
 							target="mainframe">用户组管理</a></li>
+						<li><a href="hospitalAdmin/showCopHospital.do"
+							target="mainframe">合作医院管理</a></li>
 					</ul>
 				</div>
 				<iframe name="mainframe" src="index_doctor/index.jsp"

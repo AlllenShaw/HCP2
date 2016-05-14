@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
+import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Family;
 import com.hcp.domain.GluPatientRecord;
@@ -54,10 +56,16 @@ public interface PatientService {
 	public abstract boolean uploadHplRecord(HplPatientRecord hplPatientRecord);
 
 	public abstract boolean uploadHtnRecord(HtnPatientRecord htnPatientRecord);
+	
+	public abstract Boolean uploadBoRecord(BoPatientRecord boPatientRecord);
 
 	public abstract List<Timestamp> getAllHdRecordTime(String username);
 
 	public abstract List<HdPatientRecord> getHdPatientRecords(String username, String startTime, String endTime);
 
 	public abstract boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor);
+
+	public abstract AppVersion getAppVersion();
+
+	
 }

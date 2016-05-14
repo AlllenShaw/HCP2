@@ -48,21 +48,20 @@
 
 			<br />
 			<div class="question">病情描述</div>
-			<span>补充:</span>
-			<div class="test_box" contenteditable="true" id="order">
-				<input type="text" name="illnessStateDesc"
-					class="test_box">
+			<span>补充:</span><br/>
+			<div style="margin-left:15px;">
+				<textarea name="illnessStateDesc"
+					class="test_box"></textarea>
 			</div>
 			<br />
 			<table class="bordered" id="med_form">
 				<thead>
 					<tr>
+						<th>类型</th>
 						<th>药物ID</th>
 						<th>药物名称</th>
 						<th>服用方式</th>
 						<th>服用量</th>
-						<th>服用时间</th>
-						<th>服用次数</th>
 					</tr>
 				</thead>	
 					
@@ -73,9 +72,9 @@
 
 			<br />
 			<div class="question">诊断和建议</div>
-			<span>补充:</span>
-			<div class="test_box" contenteditable="true" id="dac">
-				<br />
+			<span>补充:</span><br/>
+			<div style="margin-left:15px;">
+			<textarea class="test_box" id="dac"></textarea>
 			</div>
 			<br />
 

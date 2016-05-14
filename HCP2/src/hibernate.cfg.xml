@@ -63,6 +63,8 @@
 		<mapping
 			resource="com/hcp/domain/BoPatientMedicineRecord.hbm.xml" />
 		<mapping resource="com/hcp/domain/BoPatientInfo.hbm.xml" />
+		<mapping resource="com/hcp/domain/AppVersion.hbm.xml" />
+		<mapping resource="com/hcp/domain/HospitalHasHospital.hbm.xml" />
 
 	</session-factory>
 

@@ -55,9 +55,8 @@
 		<br />
 		<div class="question">病情描述</div>
 		<span>补充:</span>
-		<div class="test_box" contenteditable="false" id="order"
-			readonly="readonly">
-			<p>${emrs[0].illnessStateDesc }</p>
+		<div class="test_box" contenteditable="false" id="order">
+			${emrs[0].illnessStateDesc }
 			<br />
 		</div>
 		<br />
@@ -86,7 +85,7 @@
 		<div class="question">诊断和建议</div>
 		<span>补充:</span>
 		<div class="test_box" contenteditable="false" id="dac">
-			<p>${emrs[0].diagnosisSuggestion }</p>
+			${emrs[0].diagnosisSuggestion }
 		</div>
 		<br />
 

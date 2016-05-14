@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.hcp.domain.*;
 import com.hcp.service.DoctorService;
 import com.hcp.util.SessionUtil;
+import com.hcp.util.TimeUtil;
 
 /**
  * 
@@ -149,7 +150,7 @@ public class DoctorController {
 
 	@SuppressWarnings({ "unchecked" })
 	@RequestMapping(value = "/seo", method = RequestMethod.POST)
-	public String seo(HttpServletRequest request, Model model, String selector1, String selector2, String text1) {
+	public String seo(HttpServletRequest request, Model model, String selector1, String selector2, String text1,String type) {
 		SessionUtil sessionUtil = new SessionUtil(request);
 		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
 		// System.out.println("----------------"+doctor.getUsername()+" "+doctor.getRealname()+" "+doctor.getAddress());
@@ -166,7 +167,7 @@ public class DoctorController {
 			// by身份证
 			patient = doctorService.getPatientByIdNumber(text1);
 		} else if (selector2.equals("4")) {
-			return this.seoAll(doctor, selector1, model);
+			return this.seoAll(doctor, selector1, model,type);
 		} else {
 			return "redirect:/doctor/seo.do";
 		}
@@ -198,7 +199,11 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				ArrayList<GluPatientInfo> tempList = new ArrayList<GluPatientInfo>();
+				tempList.addAll(patient.getGluPatientInfos());
+				model.addAttribute("gluPatientInfo", tempList.get(0));
 				model.addAttribute("gluPatientRecords", gluPatientRecords);
+
 				// 返回血糖显示页面
 				if (selector1.equals("1")) {
 					return "/index_patient/bg_patient";
@@ -223,7 +228,12 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				ArrayList<HtnPatientInfo> tempList = new ArrayList<HtnPatientInfo>();
+				tempList.addAll(patient.getHtnPatientInfos());
+				HtnPatientInfo htnPatientInfo = tempList.get(0);
+				model.addAttribute("htnPatientInfo", htnPatientInfo);
 				model.addAttribute("htnPatientRecords", htnPatientRecords);
+				model.addAttribute("remainDay", TimeUtil.remainDays(htnPatientInfo.getRemainTime()));
 				if (selector1.equals("2")) {
 					return "/index_patient/bp_patient";
 				} else if (selector1.equals("6")) {
@@ -247,6 +257,11 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				ArrayList<BoPatientInfo> tempList = new ArrayList<BoPatientInfo>();
+				tempList.addAll(patient.getBoPatientInfos());
+				BoPatientInfo boPatientInfo = tempList.get(0);
+				model.addAttribute("boPatientInfo", boPatientInfo);
+				model.addAttribute("remainDay", TimeUtil.remainDays(boPatientInfo.getRemainTime()));
 				model.addAttribute("boPatientRecords", boPatientRecords);
 				if (selector1.equals("3")) {
 					return "/index_patient/spo_patient";
@@ -271,6 +286,10 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				ArrayList<HplPatientInfo> tempList = new ArrayList<HplPatientInfo>();
+				HplPatientInfo hplPatientInfo = tempList.get(0);
+				model.addAttribute("hplPatientInfo", tempList.get(0));
+				model.addAttribute("remainDay", TimeUtil.remainDays(hplPatientInfo.getRemainTime()));
 				model.addAttribute("hplPatientRecords", hplPatientRecords);
 				if (selector1.equals("4")) {
 					return "/index_patient/tg_patient";
@@ -295,6 +314,10 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				ArrayList<HdPatientInfo> tempList = new ArrayList<HdPatientInfo>();
+				HdPatientInfo hdPatientInfo = tempList.get(0);
+				model.addAttribute("hdPatientInfo", hdPatientInfo);
+				model.addAttribute("remainDay", TimeUtil.remainDays(hdPatientInfo.getRemainTime()));
 				model.addAttribute("hdPatientRecords", hdPatientRecords);
 				return "/index_patient/hd_patient";
 			} else {
@@ -436,12 +459,13 @@ public class DoctorController {
 	}
 
 	@SuppressWarnings("unchecked")
-	private String seoAll(Doctor doctor, String selecter, Model model) {
+	private String seoAll(Doctor doctor, String selecter, Model model, String type) {
 		List<Patient> patients = doctorService.getPatientByDoctor(doctor);
 		switch (selecter) {
 		// 血糖
 		case "1":
 			List<GluPatientRecord> gluPatientRecords = new ArrayList<>();
+			List<GluPatientInfo> gluPatientInfos = new ArrayList<GluPatientInfo>();
 			for (Patient patient : patients) {
 				List<GluPatientRecord> list = new ArrayList<GluPatientRecord>();
 				Set<GluPatientRecord> gluPatientRecordsSet = patient.getGluPatientRecords();
@@ -452,14 +476,22 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				gluPatientInfos.add(new ArrayList<GluPatientInfo>(patient.getGluPatientInfos()).get(0));
+				System.out.println(gluPatientInfos);
 				gluPatientRecords.add(list.get(0));
 			}
+			model.addAttribute("gluPatientInfos", gluPatientInfos);
 			model.addAttribute("gluPatientRecords", gluPatientRecords);
 			// 返回血糖显示页面
-			return "/all_form/bg_form";
+			if (type.equals("0")) {
+				return "/all_form/bg_form";
+			} else {
+				return "/warning_setting/bg_monitor";
+			}
 			// 血压
 		case "2":
 			List<HtnPatientRecord> htnPatientRecords = new ArrayList<>();
+			List<HtnPatientInfo> htnPatientInfos = new ArrayList<HtnPatientInfo>();
 			for (Patient patient : patients) {
 				List<HtnPatientRecord> list = new ArrayList<HtnPatientRecord>();
 				Set<HtnPatientRecord> htnPatientRecordsSet = patient.getHtnPatientRecords();
@@ -470,14 +502,21 @@ public class DoctorController {
 						return o2.getId() - o1.getId();
 					}
 				});
+				htnPatientInfos.add(new ArrayList<HtnPatientInfo>(patient.getHtnPatientInfos()).get(0));
 				htnPatientRecords.add(list.get(0));
 			}
+			model.addAttribute("htnPatientInfos", htnPatientInfos);
 			model.addAttribute("htnPatientRecords", htnPatientRecords);
 			// 返回血糖显示页面
-			return "/all_form/bp_form";
+			if (type.equals("0")) {
+				return "/all_form/bp_form";
+			} else {
+				return "/warning_setting/bp_monitor";
+			}
 			// 血氧
 		case "3":
-			List<BoPatientRecord> boPatientRecords = new ArrayList<>();
+			List<BoPatientRecord> boPatientRecords = new ArrayList<BoPatientRecord>();
+			List<BoPatientInfo> boPatientInfos = new ArrayList<BoPatientInfo>();
 			for (Patient patient : patients) {
 				List<BoPatientRecord> list = new ArrayList<BoPatientRecord>();
 				Set<BoPatientRecord> boPatientRecordsSet = patient.getBoPatientRecords();
@@ -489,10 +528,16 @@ public class DoctorController {
 					}
 				});
 				System.out.println(list.get(0));
+				boPatientInfos.add(new ArrayList<BoPatientInfo>(patient.getBoPatientInfos()).get(0));
 				boPatientRecords.add(list.get(0));
 			}
+			model.addAttribute("boPatientInfos", boPatientInfos);
 			model.addAttribute("boPatientRecords", boPatientRecords);
-			return "/all_form/spo_form";
+			if (type.equals("0")) {
+				return "/all_form/spo_form";
+			} else {
+				return "/warning_setting/spo_monitor";
+			}
 			// 心电
 		case "8":
 
@@ -546,9 +591,8 @@ public class DoctorController {
 		return "/warning_setting/warning_search";
 	}
 
-	
-	@RequestMapping(value="/addEmr.do",method=RequestMethod.GET)
-	public String addEmr(HttpServletRequest request, Model model,String id){
+	@RequestMapping(value = "/addEmr.do", method = RequestMethod.GET)
+	public String addEmr(HttpServletRequest request, Model model, String id) {
 		Patient patient = doctorService.getPatientByID(id);
 		SessionUtil sessionUtil = new SessionUtil(request);
 		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
@@ -562,9 +606,9 @@ public class DoctorController {
 		model.addAttribute("medicines", medicines);
 		return "/medical_manage/doctor_mmed";
 	}
-	
-	@RequestMapping(value="/addEmr.do",method=RequestMethod.POST)
-	public String addEmr(HttpServletRequest request, Model model){
+
+	@RequestMapping(value = "/addEmr.do", method = RequestMethod.POST)
+	public String addEmr(HttpServletRequest request, Model model) {
 		Emr emr = new Emr();
 		// TODO
 		return "redirect:addEmr.do";

@@ -19,7 +19,11 @@ public class Hospital implements java.io.Serializable {
 	private String introduction;
 	private Timestamp registerTime;
 	private Set hospitalAdministrators = new HashSet(0);
+	private Set hospitalHasHospitalsForHospital1 = new HashSet(0);
 	private Set doctors = new HashSet(0);
+	private Set hospitalHasHospitalsForHospital2 = new HashSet(0);
+	private Set userGroups = new HashSet(0);
+	private Set patients = new HashSet(0);
 
 	// Constructors
 
@@ -37,14 +41,19 @@ public class Hospital implements java.io.Serializable {
 
 	/** full constructor */
 	public Hospital(String name, String address, String level, String introduction, Timestamp registerTime,
-			Set hospitalAdministrators, Set doctors) {
+			Set hospitalAdministrators, Set hospitalHasHospitalsForHospital1, Set doctors, Set hospitalHasHospitalsForHospital2,
+			Set userGroups, Set patients) {
 		this.name = name;
 		this.address = address;
 		this.level = level;
 		this.introduction = introduction;
 		this.registerTime = registerTime;
 		this.hospitalAdministrators = hospitalAdministrators;
+		this.hospitalHasHospitalsForHospital1 = hospitalHasHospitalsForHospital1;
 		this.doctors = doctors;
+		this.hospitalHasHospitalsForHospital2 = hospitalHasHospitalsForHospital2;
+		this.userGroups = userGroups;
+		this.patients = patients;
 	}
 
 	// Property accessors
@@ -105,12 +114,44 @@ public class Hospital implements java.io.Serializable {
 		this.hospitalAdministrators = hospitalAdministrators;
 	}
 
+	public Set getHospitalHasHospitalsForHospital1() {
+		return this.hospitalHasHospitalsForHospital1;
+	}
+
+	public void setHospitalHasHospitalsForHospital1(Set hospitalHasHospitalsForHospital1) {
+		this.hospitalHasHospitalsForHospital1 = hospitalHasHospitalsForHospital1;
+	}
+
 	public Set getDoctors() {
 		return this.doctors;
 	}
 
 	public void setDoctors(Set doctors) {
 		this.doctors = doctors;
+	}
+
+	public Set getHospitalHasHospitalsForHospital2() {
+		return this.hospitalHasHospitalsForHospital2;
+	}
+
+	public void setHospitalHasHospitalsForHospital2(Set hospitalHasHospitalsForHospital2) {
+		this.hospitalHasHospitalsForHospital2 = hospitalHasHospitalsForHospital2;
+	}
+
+	public Set getUserGroups() {
+		return this.userGroups;
+	}
+
+	public void setUserGroups(Set userGroups) {
+		this.userGroups = userGroups;
+	}
+
+	public Set getPatients() {
+		return this.patients;
+	}
+
+	public void setPatients(Set patients) {
+		this.patients = patients;
 	}
 
 }

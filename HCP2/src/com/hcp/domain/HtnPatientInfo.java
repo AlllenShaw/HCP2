@@ -19,6 +19,7 @@ public class HtnPatientInfo implements java.io.Serializable {
 	private Float heartRateMax;
 	private Float heartRateMin;
 	private Timestamp upgradeTime;
+	private Timestamp remainTime;
 
 	// Constructors
 
@@ -116,6 +117,14 @@ public class HtnPatientInfo implements java.io.Serializable {
 
 	public void setUpgradeTime(Timestamp upgradeTime) {
 		this.upgradeTime = upgradeTime;
+	}
+
+	public Timestamp getRemainTime() {
+		return this.remainTime;
+	}
+
+	public void setRemainTime(Timestamp remainTime) {
+		this.remainTime = remainTime;
 	}
 
 }

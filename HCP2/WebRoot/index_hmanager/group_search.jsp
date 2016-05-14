@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/info_style.css">
 <link rel="stylesheet" type="text/css" href="css/record_style.css">
+<link rel="stylesheet" type="text/css" href="css/form_style.css">
 
 </head>
 
@@ -31,13 +32,13 @@
 .tip input {
 	height: 35px;
 	width: 140px;
-	font: 18px Arial, Helvetica;
+	font: 18px 微软雅黑;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font: 18px 微软雅黑;
 }
 
 </style>
@@ -46,8 +47,8 @@
 	<section id="conter"> <section id="help-left"> <details
 		class="menu" open> <summary>用户组管理</summary>
 	<form action="" method="post">
-		<div>
-			<table class="tip">
+		<div style="margin-top:30px;margin-bottom:10px;">
+			<table class="bordered">
 				<!-- 调一下表格的样式 -->
 				<thead>
 					<tr>
@@ -69,12 +70,14 @@
 				</c:forEach>
 
 			</table>
-			<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
 		</div>
 	</form>
 	<button class="fb"
 		onclick="javascript:window.location.href='hospitalAdmin/addUserGroup.do'">添加组</button>
-	<button class="fb"
+	
+	<hr style="height:1px;border:none;border-top:1px ridge #ccc;" />
+		
+	<button class="fb" style="width:150;margin-left:510px;"
 		onclick="javascript:window.location.href='hospitalAdmin/addUser2Group.do?hospital_id=${hospital.id}'">添加组成员</button>
 	</details> </section> </section>
 </body>

@@ -2,6 +2,7 @@ package com.hcp.dao;
 
 import java.util.List;
 
+import com.hcp.domain.AppVersion;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.SuperAdministrator;
@@ -37,5 +38,7 @@ public interface SuperAdminDAO {
 	public abstract List<HospitalAdministrator> getHospitalAdministratorsList();
 
 	public abstract List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id);
+
+	public abstract boolean addAppVersion(AppVersion appVersion);
 
 }

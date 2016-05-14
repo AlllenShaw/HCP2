@@ -31,11 +31,35 @@
             </key>
             <one-to-many class="com.hcp.domain.HospitalAdministrator" />
         </set>
-        <set name="doctors" inverse="true" lazy="false">
+        <set name="hospitalHasHospitalsForHospital1" inverse="true">
+            <key>
+                <column name="hospital1" unique="true" />
+            </key>
+            <one-to-many class="com.hcp.domain.HospitalHasHospital" />
+        </set>
+        <set name="doctors" inverse="true">
             <key>
                 <column name="hospital_id" not-null="true" />
             </key>
             <one-to-many class="com.hcp.domain.Doctor" />
+        </set>
+        <set name="hospitalHasHospitalsForHospital2" inverse="true">
+            <key>
+                <column name="hospital2" unique="true" />
+            </key>
+            <one-to-many class="com.hcp.domain.HospitalHasHospital" />
+        </set>
+        <set name="userGroups" inverse="true">
+            <key>
+                <column name="ghospital" />
+            </key>
+            <one-to-many class="com.hcp.domain.UserGroup" />
+        </set>
+        <set name="patients" inverse="true">
+            <key>
+                <column name="hospital" />
+            </key>
+            <one-to-many class="com.hcp.domain.Patient" />
         </set>
     </class>
 </hibernate-mapping>

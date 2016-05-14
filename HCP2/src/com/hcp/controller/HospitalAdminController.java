@@ -97,7 +97,7 @@ public class HospitalAdminController {
 	public String deleteUserGroup(HttpServletRequest request, Model model, String group_id) {
 		try {
 			// TDOO
-			
+
 			hospitalAdminService.deleteUserGroup(group_id);
 			return "redirect:showUserGroups.do";
 		} catch (Exception e) {
@@ -135,7 +135,21 @@ public class HospitalAdminController {
 		Integer id = Integer.parseInt(hospital_id);
 		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(id);
 		List<Doctor> doctors = hospitalAdminService.getDoctorByHospital(id);
+		List<Hospital> coHospitals = hospitalAdminService.getCopHospital(Integer.parseInt(hospital_id));
 		List<Patient> patients = hospitalAdminService.getPatientByHospital(id);
+		System.out.println("合作医院列表===============================" + coHospitals);
+		if (!coHospitals.isEmpty()) {
+			for (Hospital cohospital : coHospitals) {
+				List<Doctor> doctorList = hospitalAdminService.getDoctorByHospital(cohospital.getId());
+				if (doctorList != null) {
+					doctors.addAll(doctorList);
+				}
+				// List<Patient> patientList = hospitalAdminService.getPatientByHospital(cohospital.getId());
+				// if (patientList != null) {
+				// patients.addAll(patientList);
+				// }
+			}
+		}
 		model.addAttribute("userGroups", userGroups);
 		model.addAttribute("doctors", doctors);
 		model.addAttribute("patients", patients);
@@ -338,5 +352,45 @@ public class HospitalAdminController {
 		model.addAttribute("paientGroups", patientGroups);
 		return "/index_hmanager/group_authority";
 	}
+
+	@RequestMapping(value = "/showCopHospital", method = RequestMethod.GET)
+	public String showCopHospital(HttpServletRequest request, Model model) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		HospitalAdministrator hospitalAdministrator = (HospitalAdministrator) sessionUtil.getAttribute("USERMODEL");
+		System.out.println("============================" + hospitalAdministrator.getUsername() + "===========================");
+		Hospital hospital = hospitalAdministrator.getHospital();
+		Integer hospital_id = hospital.getId();
+		List<Hospital> coHospitals = hospitalAdminService.getCopHospital(hospital_id);
+		List<Hospital> allHospitals = hospitalAdminService.getAllHospital();
+		model.addAttribute("allHospitals", allHospitals);
+		model.addAttribute("hospital", hospital);
+		model.addAttribute("coHospitals", coHospitals);
+		return "/index_hmanager/co_hospital";
+	}
+
+	@RequestMapping(value = "/addCoHospital.do", method = RequestMethod.POST)
+	public String addCoHospital(HttpServletRequest request, Model model, String hospital_id) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		HospitalAdministrator hospitalAdministrator = (HospitalAdministrator) sessionUtil.getAttribute("USERMODEL");
+		System.out.println("============================" + hospitalAdministrator.getUsername() + "===========================");
+		Hospital hospital = hospitalAdministrator.getHospital();
+		hospitalAdminService.addCoHospital(hospital_id, hospital);
+		return "/tips/operation_success";
+	}
+
+	@RequestMapping(value = "/deleteCoHospital.do", method = RequestMethod.GET)
+	public String deleteCoHospital(HttpServletRequest request, Model model, String hospital_id) {
+		SessionUtil sessionUtil = new SessionUtil(request);
+		HospitalAdministrator hospitalAdministrator = (HospitalAdministrator) sessionUtil.getAttribute("USERMODEL");
+		System.out.println("============================" + hospitalAdministrator.getUsername() + "===========================");
+		Hospital hospital = hospitalAdministrator.getHospital();
+		if (hospitalAdminService.deleteCoHospital(hospital_id, hospital)) {
+			return "/tips/operation_success";
+		} else {
+			return "/tips/operation_failed";
+		}
+	}
+
+	
 
 }

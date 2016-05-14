@@ -469,17 +469,29 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 		return this.getHibernateTemplate().load(Hospital.class, hospital_id);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "finally" })
 	@Override
 	public boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup, int permission_id) {
 		// TODO Auto-generated method stub
 		int doctorGroupId = doctorGroup.getUserGroup().getId();
 		int patientGroupId = patientGroup.getUserGroup().getId();
-		List<UserGroupPermission> list = this
-				.getHibernateTemplate()
-				.find("form UserGroupPermission as p where p.userGroupByUserGroup1Id.id = ? and p.userGroupByUserGroup2Id.id = ? and p.permission.id = ?",
-						new Object[] { doctorGroupId, patientGroupId, permission_id });
-		return list.isEmpty() ? false : true;
+		Boolean flag = false;
+		try {
+			List<UserGroupPermission> list = this
+					.getHibernateTemplate()
+					.find("form UserGroupPermission as p where p.userGroupByUserGroup1Id.id = ? and p.userGroupByUserGroup2Id.id = ? and p.permission.id = ?",
+							new Object[] { doctorGroupId, patientGroupId, permission_id });
+			if (!list.isEmpty()) {
+				flag = true;
+			}
+			System.out.println(flag);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(flag);
+			flag = false;
+		} finally {
+			return flag;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -489,7 +501,7 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 		List<PatientHasDoctor> list = this.getHibernateTemplate().find(
 				"from PatientHasDoctor as phd where phd.id.patient.id = ? and phd.id.doctor.id = ?",
 				new Object[] { patient_id, doctor_id });
-		return !list.isEmpty();
+		return list.isEmpty() ? false : true;
 	}
 
 	@SuppressWarnings("unchecked")

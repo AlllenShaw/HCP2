@@ -22,5 +22,11 @@
         <property name="upgradeTime" type="java.sql.Timestamp">
             <column name="upgrade_time" length="19" />
         </property>
+        <property name="hdPatientInfocol" type="java.lang.String">
+            <column name="hd_patient_infocol" length="45" />
+        </property>
+        <property name="remainTime" type="java.sql.Timestamp">
+            <column name="remain_time" length="19" />
+        </property>
     </class>
 </hibernate-mapping>

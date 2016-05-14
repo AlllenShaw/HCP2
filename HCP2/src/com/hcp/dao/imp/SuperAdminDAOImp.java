@@ -14,6 +14,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.hcp.dao.SuperAdminDAO;
+import com.hcp.domain.AppVersion;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.Patient;
@@ -178,6 +179,18 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 		// TODO Auto-generated method stub
 		Integer id = Integer.parseInt(hospital_id);
 		return this.getHibernateTemplate().find("from HospitalAdministrator as h where h.hospital.id = ?",new Object[]{id});
+	}
+
+	@Override
+	public boolean addAppVersion(AppVersion appVersion) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().save(appVersion);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

@@ -11,6 +11,7 @@ import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
+import com.hcp.domain.HospitalHasHospital;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
@@ -24,7 +25,7 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 
 	@Resource
 	private HospitalAdminDAO hospitalAdminDAO;
-	
+
 	@Override
 	public HospitalAdministrator login(String username, String password) {
 		// TODO Auto-generated method stub
@@ -129,7 +130,7 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	@Override
 	public UserGroupPermission getGroupPermission(String group_id1, String group_id2, String permission_id) {
 		// TODO Auto-generated method stub
-		return hospitalAdminDAO.getGroupPermissionn(group_id1,group_id2,permission_id);
+		return hospitalAdminDAO.getGroupPermissionn(group_id1, group_id2, permission_id);
 	}
 
 	@Override
@@ -179,6 +180,32 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	public List<Patient> getPatientByHospital(Integer id) {
 		// TODO Auto-generated method stub
 		return hospitalAdminDAO.getPatientByHospital(id);
+	}
+
+	@Override
+	public List<Hospital> getCopHospital(Integer hospital_id) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getCopHospital(hospital_id);
+	}
+
+	@Override
+	public List<Hospital> getAllHospital() {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.getAllHospital();
+	}
+
+	@Override
+	public boolean addCoHospital(String hospital_id, Hospital hospital) {
+		// TODO Auto-generated method stub
+		Hospital coHospital = this.getHospitalById(hospital_id);
+		HospitalHasHospital hospitalHasHospital = new HospitalHasHospital(hospital, coHospital);
+		return hospitalAdminDAO.addCoHospital(hospitalHasHospital);
+	}
+
+	@Override
+	public boolean deleteCoHospital(String hospital_id, Hospital hospital) {
+		HospitalHasHospital hospitalHasHospitals = hospitalAdminDAO.getCopHospital(hospital);
+		return hospitalAdminDAO.deleteCoHospital(hospitalHasHospitals);
 	}
 
 }

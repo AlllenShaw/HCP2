@@ -1,10 +1,11 @@
 function draw(temp){
 	var value = [];
 	var labels = [];
-	for ( var i = 0; i < 7; i++) {
-		labels.push(temp[i*2]);
-		value.push(temp[i*2+1]);
-	}
+	for(var j=0;j<7;j++)
+		{
+			value.push(temp[2*j+1]);
+			labels.push(temp[2*j].substr(0,10));
+		}
 	var data = [ {
 		name : '血氧饱和度',
 		value : value,

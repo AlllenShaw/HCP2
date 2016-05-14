@@ -1,6 +1,7 @@
 package com.hcp.dao.imp;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
+import com.hcp.domain.HospitalHasHospital;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
@@ -487,7 +489,56 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Patient> getPatientByHospital(Integer id) {
-		// TODO Auto-generated method stub
 		return this.getHibernateTemplate().find("from Patient as p where p.hospital.id = ?", new Object[] { id });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Hospital> getCopHospital(Integer hospital_id) {
+		List<HospitalHasHospital> list = this.getHibernateTemplate().find(
+				"from HospitalHasHospital as h where h.hospitalByHospital1.id = ?", new Object[] { hospital_id });
+		List<Hospital> hospitals = new ArrayList<Hospital>();
+		for (HospitalHasHospital h : list) {
+			hospitals.add(h.getHospitalByHospital2());
+		}
+		return hospitals.isEmpty() ? null : hospitals;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Hospital> getAllHospital() {
+		List<Hospital> list = this.getSession().createQuery("from Hospital").list();
+		return list.isEmpty() ? null : list;
+	}
+
+	@Override
+	public boolean addCoHospital(HospitalHasHospital hospitalHasHospital) {
+		try {
+			this.getHibernateTemplate().save(hospitalHasHospital);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public HospitalHasHospital getCopHospital(Hospital hospital) {
+		List<HospitalHasHospital> list = this.getHibernateTemplate().find(
+				"from HospitalHasHospital as h where h.hospitalByHospital1.id = ?", new Object[] { hospital.getId() });
+		return list.isEmpty()?null:list.get(0);
+	}
+
+	@Override
+	public boolean deleteCoHospital(HospitalHasHospital hospitalHasHospitals) {
+		try {
+			this.getHibernateTemplate().delete(hospitalHasHospitals);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

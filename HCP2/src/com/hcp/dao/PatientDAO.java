@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
+import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
 import com.hcp.domain.Family;
@@ -61,6 +63,8 @@ public interface PatientDAO {
 	public abstract boolean saveHplPatientRecord(HplPatientRecord hplPatientRecord);
 
 	public abstract boolean saveHdPatientRecord(HdPatientRecord hdPatientRecord);
+	
+	public abstract boolean saveBoPatientRecord(BoPatientRecord boPatientRecord);
 
 	public abstract List<Emr> getPatientEmrsList(Integer patient_id, String startTime, String endTime);
 
@@ -87,4 +91,8 @@ public interface PatientDAO {
 	public abstract List<HdPatientRecord> getHdPatientRecordsByTime(String username, Timestamp startTime, Timestamp endTime);
 
 	public abstract boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor);
+
+	public abstract AppVersion getAppVersion();
+
+	
 }

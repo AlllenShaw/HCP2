@@ -43,7 +43,7 @@
 	 <hr style="height:5px;border:none;margin-top:50px;border-top:1px ridge #ccc;" />
 	 
 	 <div style="margin-top:50px">
-	 <h2 style="float:right">${name}剩下的血糖测试次数：X次</h2>
+	 <h2 style="float:right">${name}剩下的血糖测试次数：${gluPatientInfo.remainTime}次</h2>
 	 </div>
 	 
 	 <script>

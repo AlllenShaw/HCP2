@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.hcp.dao.PatientDAO;
+import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Family;
 import com.hcp.domain.GluPatientRecord;
@@ -145,6 +147,12 @@ public class PatientServiceImp implements PatientService {
 	}
 
 	@Override
+	public Boolean uploadBoRecord(BoPatientRecord boPatientRecord) {
+		// TODO Auto-generated method stub
+		return  patientDAO.saveBoPatientRecord(boPatientRecord);
+	}
+	
+	@Override
 	public List<Timestamp> getAllHdRecordTime(String username) {
 		// TODO Auto-generated method stub
 		return patientDAO.getAllHdRecordTime(username);
@@ -167,5 +175,12 @@ public class PatientServiceImp implements PatientService {
 		}
 		return patientDAO.register(patient,family1,family2,patientHasDoctor);
 	}
+
+	@Override
+	public AppVersion getAppVersion() {
+		return patientDAO.getAppVersion();
+	}
+
+	
 
 }

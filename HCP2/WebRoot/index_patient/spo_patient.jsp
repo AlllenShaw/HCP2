@@ -42,7 +42,9 @@
 	<br />
 	<div class="paging"  id=paging>
 	</div>
-	
+	<div style="margin-top:50px">
+		<h2 style="float:right">${name}剩下的血氧测试时间：${remainDay}天</h2>
+	</div>
 	<script>
 	var arrdata=new Array();
 	var now;

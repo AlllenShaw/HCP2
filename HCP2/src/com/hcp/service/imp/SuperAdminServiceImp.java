@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.hcp.dao.SuperAdminDAO;
+import com.hcp.domain.AppVersion;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.SuperAdministrator;
@@ -79,6 +80,12 @@ public class SuperAdminServiceImp implements SuperAdminService {
 	public List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id) {
 		// TODO Auto-generated method stub
 		return superAdminDAO.getHospitalAdminByHospital(hospital_id);
+	}
+
+	@Override
+	public boolean addAppVersion(AppVersion appVersion) {
+		// TODO Auto-generated method stub
+		return superAdminDAO.addAppVersion(appVersion);
 	}
 
 }

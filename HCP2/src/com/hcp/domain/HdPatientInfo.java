@@ -15,6 +15,8 @@ public class HdPatientInfo implements java.io.Serializable {
 	private Float heartRateMax;
 	private Float heartRateMin;
 	private Timestamp upgradeTime;
+	private String hdPatientInfocol;
+	private Timestamp remainTime;
 
 	// Constructors
 
@@ -28,11 +30,14 @@ public class HdPatientInfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public HdPatientInfo(Patient patient, Float heartRateMax, Float heartRateMin, Timestamp upgradeTime) {
+	public HdPatientInfo(Patient patient, Float heartRateMax, Float heartRateMin, Timestamp upgradeTime, String hdPatientInfocol,
+			Timestamp remainTime) {
 		this.patient = patient;
 		this.heartRateMax = heartRateMax;
 		this.heartRateMin = heartRateMin;
 		this.upgradeTime = upgradeTime;
+		this.hdPatientInfocol = hdPatientInfocol;
+		this.remainTime = remainTime;
 	}
 
 	// Property accessors
@@ -75,6 +80,22 @@ public class HdPatientInfo implements java.io.Serializable {
 
 	public void setUpgradeTime(Timestamp upgradeTime) {
 		this.upgradeTime = upgradeTime;
+	}
+
+	public String getHdPatientInfocol() {
+		return this.hdPatientInfocol;
+	}
+
+	public void setHdPatientInfocol(String hdPatientInfocol) {
+		this.hdPatientInfocol = hdPatientInfocol;
+	}
+
+	public Timestamp getRemainTime() {
+		return this.remainTime;
+	}
+
+	public void setRemainTime(Timestamp remainTime) {
+		this.remainTime = remainTime;
 	}
 
 }

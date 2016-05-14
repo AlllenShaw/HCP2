@@ -18,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientInfo;
+import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
 import com.hcp.domain.GluPatientInfo;
@@ -26,6 +29,10 @@ import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
+import com.hcp.domain.HplPatientInfo;
+import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientInfo;
+import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.Prescription;
@@ -37,6 +44,7 @@ import com.hcp.mobilePOJO.SimpleHdRecord;
 import com.hcp.mobilePOJO.SimplePatient;
 import com.hcp.service.DoctorService;
 import com.hcp.service.PatientService;
+import com.hcp.util.TimeUtil;
 
 @Controller
 @RequestMapping("/mobile")
@@ -253,7 +261,7 @@ public class MobileController {
 		} else {
 			for (HdPatientRecord record : records) {
 				SimpleHdRecord sRecord = new SimpleHdRecord(record.getId(), record.getHeartRate(), record.getEcg(), record
-						.getMeasureTime().toString(),record.getAnalysis());
+						.getMeasureTime().toString(), record.getAnalysis());
 				list.add(sRecord);
 			}
 		}
@@ -482,9 +490,9 @@ public class MobileController {
 					sex = 0;
 				}
 			}
-			System.out.println(doctor.getRealname()+" "+doctor.getProfession()+" "+doctor.getHospital().getName()+" "+sex+" "+
-					Integer.parseInt(doctor.getAge())+" "+doctor.getAddress()+" "+doctor.getNation()+" "+info+" "+doctor.getTele()+" "+
-					doctor.getMail());
+			System.out.println(doctor.getRealname() + " " + doctor.getProfession() + " " + doctor.getHospital().getName() + " "
+					+ sex + " " + Integer.parseInt(doctor.getAge()) + " " + doctor.getAddress() + " " + doctor.getNation() + " "
+					+ info + " " + doctor.getTele() + " " + doctor.getMail());
 			doctorInfo = new DoctorInfo(doctor.getRealname(), doctor.getProfession(), doctor.getHospital().getName(), sex,
 					Integer.parseInt(doctor.getAge()), doctor.getAddress(), doctor.getNation(), info, doctor.getTele(),
 					doctor.getMail());
@@ -497,10 +505,6 @@ public class MobileController {
 		map.put("error", error);
 		JSONObject jo = JSONObject.fromObject(map);
 		return jo.toString();
-	}
-
-	public String getHospitals() {
-		return null;
 	}
 
 	@RequestMapping("/getMedicineById")
@@ -572,10 +576,11 @@ public class MobileController {
 	public String uploadRecord(String username, Integer type, String data) {
 		switch (type) {
 		case 0:
-			//心电数据
+			// 心电数据
 			return this.uploadHdRecord(username, data);
 		case 1:
-			return null;
+			// 血糖数据
+			return this.uploadGluRecord(username, data);
 		case 2:
 			return null;
 		case 3:
@@ -585,10 +590,50 @@ public class MobileController {
 		}
 	}
 
-	public String uploadGluRecord() {
-		return null;
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/uploadGluRecord")
+	@ResponseBody
+	public String uploadGluRecord(String username, String data) {
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx上传血糖数据*************");
+		System.out.println("=========================" + username);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
+		JSONObject json = JSONObject.fromObject(data);
+		System.out.println("json------" + json);
+		String time = json.getString("time");
+		// 等待数据 TODO
+		Float bloodGlucose = Float.parseFloat(json.getString("bloodGlucose"));
+		Timestamp measureTime = Timestamp.valueOf(time);
+		Timestamp uploadTime = new Timestamp(new Date().getTime());
+		Patient patient = patientService.getPatientByName(username);
+		System.out.println(patient);
+		GluPatientRecord gluPatientRecord = new GluPatientRecord(patient, bloodGlucose, measureTime, uploadTime);
+		Boolean f = patientService.uploadGluRecord(gluPatientRecord);
+		if (!f) {
+			state = 0;
+			error = "储存用户血糖数据失败";
+		} else {
+			Set<GluPatientInfo> gluPatientInfos = patient.getGluPatientInfos();
+			for (GluPatientInfo gluPatientInfo : gluPatientInfos) {
+				gluPatientInfo.setRemainTime(gluPatientInfo.getRemainTime() - 1);
+				if (gluPatientInfo.getRemainTime() < 3) {
+					state = 1;
+					error = "血糖测试次数剩余3次，请注意";
+					if (gluPatientInfo.getRemainTime() < 0) {
+						state = 1;
+						error = "血糖测试次数已用完";
+					}
+				}
+			}
+		}
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@RequestMapping("/uploadHdRecord")
 	@ResponseBody
 	public String uploadHdRecord(String username, String data) {
@@ -608,11 +653,25 @@ public class MobileController {
 		System.out.println("====" + time + " " + heartRate + " " + measureTime + " " + ecg);
 		Patient patient = patientService.getPatientByName(username);
 		System.out.println(patient);
-		HdPatientRecord hdPatientRecord = new HdPatientRecord(patient, heartRate, ecg, measureTime, uploadTime,analysis);
+		HdPatientRecord hdPatientRecord = new HdPatientRecord(patient, heartRate, ecg, measureTime, uploadTime, analysis);
 		Boolean f = patientService.uploadHdRecord(hdPatientRecord);
 		if (!f) {
 			state = 0;
 			error = "储存用户心电数据失败";
+		} else {
+			Set<HdPatientInfo> hdPatientInfos = patient.getHdPatientInfos();
+			for (HdPatientInfo hdPatientInfo : hdPatientInfos) {
+				Timestamp endTime = hdPatientInfo.getRemainTime();
+				System.out.println(endTime);
+				if (TimeUtil.remainDays(endTime) < 3) {
+					state = 1;
+					error = "心电测试天数数剩余不足3天，请注意";
+					if (TimeUtil.remainDays(endTime) < 0) {
+						state = 1;
+						error = "心电测试天数已到";
+					}
+				}
+			}
 		}
 		map.put("state", state);
 		map.put("error", error);
@@ -620,11 +679,159 @@ public class MobileController {
 		return jo.toString();
 	}
 
-	public String uploadHplRecord() {
-		return null;
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@RequestMapping("/uploadHplRecord")
+	public String uploadHplRecord(String username, String data) {
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx上传血脂数据*************");
+		System.out.println("=========================" + username);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
+		JSONObject json = JSONObject.fromObject(data);
+		System.out.println("json------" + json);
+		String time = json.getString("time");
+		// 等待数据 TODO
+		Float tc = Float.parseFloat(json.getString("tc"));
+		Float tg = Float.parseFloat(json.getString("tg"));
+		Float hdl = Float.parseFloat(json.getString("hdl"));
+		Float ldl = Float.parseFloat(json.getString("ldl"));
+		Timestamp measureTime = Timestamp.valueOf(time);
+		Timestamp uploadTime = new Timestamp(new Date().getTime());
+		Patient patient = patientService.getPatientByName(username);
+		System.out.println(patient);
+		HplPatientRecord hplPatientRecord = new HplPatientRecord(patient, tc, tg, hdl, ldl, measureTime, uploadTime);
+		Boolean f = patientService.uploadHplRecord(hplPatientRecord);
+		if (!f) {
+			state = 0;
+			error = "储存用户血脂数据失败";
+		} else {
+			Set<HplPatientInfo> hplPatientInfos = patient.getHplPatientInfos();
+			for (HplPatientInfo hplPatientInfo : hplPatientInfos) {
+				Timestamp endTime = hplPatientInfo.getRemainTime();
+				System.out.println(endTime);
+				if (TimeUtil.remainDays(endTime) < 3) {
+					state = 1;
+					error = "血脂测试天数数剩余不足3天，请注意";
+					if (TimeUtil.remainDays(endTime) < 0) {
+						state = 1;
+						error = "血脂测试天数已到";
+					}
+				}
+			}
+		}
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
 
-	public String uploadHtnRecord() {
-		return null;
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@RequestMapping("/uploadHtnRecord")
+	public String uploadHtnRecord(String username, String data) {
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx上传血压数据*************");
+		System.out.println("=========================" + username);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
+		JSONObject json = JSONObject.fromObject(data);
+		System.out.println("json------" + json);
+		String time = json.getString("time");
+		// 等待数据 TODO
+		Float diastolicPressure = Float.parseFloat(json.getString("diastolicPressure"));
+		Float systolicPressure = Float.parseFloat(json.getString("systolicPressure"));
+		Float heartRate = Float.parseFloat(json.getString("heartRate"));
+		Timestamp measureTime = Timestamp.valueOf(time);
+		Timestamp uploadTime = new Timestamp(new Date().getTime());
+		Patient patient = patientService.getPatientByName(username);
+		System.out.println(patient);
+		HtnPatientRecord htnPatientRecord = new HtnPatientRecord(patient, diastolicPressure, systolicPressure, heartRate,
+				measureTime, uploadTime);
+		Boolean f = patientService.uploadHtnRecord(htnPatientRecord);
+		if (!f) {
+			state = 0;
+			error = "储存用户血压数据失败";
+		} else {
+			Set<HtnPatientInfo> htnPatientInfos = patient.getHtnPatientInfos();
+			for (HtnPatientInfo htnPatientInfo : htnPatientInfos) {
+				Timestamp endTime = htnPatientInfo.getRemainTime();
+				System.out.println(endTime);
+				if (TimeUtil.remainDays(endTime) < 3) {
+					state = 1;
+					error = "血压测试天数数剩余不足3天，请注意";
+					if (TimeUtil.remainDays(endTime) < 0) {
+						state = 1;
+						error = "血压测试天数已到";
+					}
+				}
+			}
+		}
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
 	}
+
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@RequestMapping("/uploadBoRecord")
+	public String uploadBoRecord(String username, String data) {
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx上传血氧数据*************");
+		System.out.println("=========================" + username);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
+		JSONObject json = JSONObject.fromObject(data);
+		System.out.println("json------" + json);
+		String time = json.getString("time");
+		// 等待数据 TODO
+		Float pulseRate = Float.parseFloat(json.getString("pulseRate"));
+		Float spo2 = Float.parseFloat(json.getString("spo2"));
+		Float pi = Float.parseFloat(json.getString("pi"));
+		Timestamp measureTime = Timestamp.valueOf(time);
+		Timestamp uploadTime = new Timestamp(new Date().getTime());
+		Patient patient = patientService.getPatientByName(username);
+		System.out.println(patient);
+		BoPatientRecord boPatientRecord = new BoPatientRecord(patient, pulseRate, spo2, pi, measureTime, uploadTime);
+		Boolean f = patientService.uploadBoRecord(boPatientRecord);
+		if (!f) {
+			state = 0;
+			error = "储存用户血氧数据失败";
+		} else {
+			Set<BoPatientInfo> boPatientInfos = patient.getBoPatientInfos();
+			for (BoPatientInfo boPatientInfo : boPatientInfos) {
+				Timestamp endTime = boPatientInfo.getRemainTime();
+				System.out.println(endTime);
+				if (TimeUtil.remainDays(endTime) < 3) {
+					state = 1;
+					error = "血氧测试天数数剩余不足3天，请注意";
+					if (TimeUtil.remainDays(endTime) < 0) {
+						state = 1;
+						error = "血氧测试天数已到";
+					}
+				}
+			}
+		}
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
+
+	@RequestMapping("/getAppVersion")
+	@ResponseBody
+	public String getAppVersion() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int state = 1;
+		String error = "0";
+		AppVersion version = patientService.getAppVersion();
+		if (version == null) {
+			state = 0;
+			error = "获取最新版本号错误";
+		}
+		map.put("version", version);
+		map.put("state", state);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
+
 }

@@ -24,11 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     This is Test JSP page. <br>
-    <form action="mobile/login.do" method="post">
-    	<input type="hidden" name="usertype" value="1">
-    	username: <input type="text" name="username" /><br>
-    	password: <input type="password" name="password"><br>
-    	<input type="submit" value="submit"> 
-    </form>
+	<a href="mobile/uploadHplRecord.do" >测试</a>
   </body>
 </html>

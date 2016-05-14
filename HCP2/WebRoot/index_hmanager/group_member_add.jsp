@@ -87,8 +87,7 @@
 					<td><select id="userId1" name="userId1">
 							<option value="-1" selected="selected" >请选择用户</option>
 							<c:forEach items="${doctors}" var="item">
-								<option value="${item.id }">${item.username}:
-									${item.realname}</option>
+								<option value="${item.id }">${item.hospital.name}:${item.username}:${item.realname}</option>
 							</c:forEach>
 					</select>
 					<td>

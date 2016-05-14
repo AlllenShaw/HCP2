@@ -22,5 +22,8 @@
         <property name="upgradeTime" type="java.sql.Timestamp">
             <column name="upgrade_time" length="19" />
         </property>
+        <property name="remainTime" type="java.lang.Integer">
+            <column name="remain_time" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -64,4 +64,12 @@ public interface HospitalAdminService {
 	public abstract List<Doctor> getDoctorByHospital(Integer id);
 
 	public abstract List<Patient> getPatientByHospital(Integer id);
+
+	public abstract List<Hospital> getCopHospital(Integer hospital_id);
+
+	public abstract List<Hospital> getAllHospital();
+
+	public abstract boolean addCoHospital(String hospital_id, Hospital hospital);
+
+	public abstract boolean deleteCoHospital(String hospital_id, Hospital hospital);
 }

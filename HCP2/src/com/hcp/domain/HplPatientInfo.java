@@ -21,6 +21,7 @@ public class HplPatientInfo implements java.io.Serializable {
 	private Float ldlMax;
 	private Float ldlMin;
 	private Timestamp upgradeTime;
+	private Timestamp remainTime;
 
 	// Constructors
 
@@ -35,7 +36,7 @@ public class HplPatientInfo implements java.io.Serializable {
 
 	/** full constructor */
 	public HplPatientInfo(Patient patient, Float tcMax, Float tcMin, Float tgMax, Float tgMin, Float hdlMax, Float hdlMin,
-			Float ldlMax, Float ldlMin, Timestamp upgradeTime) {
+			Float ldlMax, Float ldlMin, Timestamp upgradeTime, Timestamp remainTime) {
 		this.patient = patient;
 		this.tcMax = tcMax;
 		this.tcMin = tcMin;
@@ -46,6 +47,7 @@ public class HplPatientInfo implements java.io.Serializable {
 		this.ldlMax = ldlMax;
 		this.ldlMin = ldlMin;
 		this.upgradeTime = upgradeTime;
+		this.remainTime = remainTime;
 	}
 
 	// Property accessors
@@ -136,6 +138,14 @@ public class HplPatientInfo implements java.io.Serializable {
 
 	public void setUpgradeTime(Timestamp upgradeTime) {
 		this.upgradeTime = upgradeTime;
+	}
+
+	public Timestamp getRemainTime() {
+		return this.remainTime;
+	}
+
+	public void setRemainTime(Timestamp remainTime) {
+		this.remainTime = remainTime;
 	}
 
 }

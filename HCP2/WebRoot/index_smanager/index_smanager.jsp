@@ -38,7 +38,6 @@
 
 			<hr
 				style="height:5px;border:none;margin-right:30px;border-top:5px ridge black;" />
-			<span class="tip">XX医院协同诊治平台</span>
 			<img style="margin-left:5px" src="picture/slider_photo1.png"
 				width="965" height="150" alt="" />
 
@@ -56,9 +55,13 @@
 						<li><a href="superAdmin/HospitalAdminManage.do"
 							target="mainframe">医院管理员管理</a></li>
 					</ul>
+					</details> <details class="menu" open> <summary>APP管理</summary>
+					<ul>
+						<li><a href="index_smanager/app_upload.jsp"  target="mainframe">APP上传</a></li>
+					</ul>
 					</details>
 				</div>
-				<iframe name="mainframe" src="index_doctor/index.jsp"
+				<iframe name="mainframe" src="index_doctor/index.jsp" scrolling="no"
 						onload="this.height=this.contentWindow.document.documentElement.scrollHeight"> </iframe>
 
 			</div>

@@ -6,6 +6,7 @@ import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
+import com.hcp.domain.HospitalHasHospital;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
 import com.hcp.domain.PatientGroup;
@@ -35,7 +36,7 @@ public interface HospitalAdminDAO {
 	public abstract Doctor getDoctorByID(Integer doctor_id);
 
 	public abstract Doctor getDoctorByName(String doctor_username);
-	
+
 	public List<Doctor> getDoctorByRealName(String realname, HospitalAdministrator hospitalAdministrator);
 
 	public abstract boolean deleteDoctor(Doctor doctor);
@@ -69,10 +70,10 @@ public interface HospitalAdminDAO {
 
 	// 获取权限信息
 	public abstract List<Permission> getPermissionsList();
-	
+
 	// 删除医生组
 	public abstract void deleteDoctorGroup(String doctor_id, String group_id);
-	
+
 	// 删除病人组
 	public abstract void deletePatientGroup(String patient_id, String group_id);
 
@@ -112,4 +113,14 @@ public interface HospitalAdminDAO {
 	public abstract List<Doctor> getDoctorByHospital(Integer id);
 
 	public abstract List<Patient> getPatientByHospital(Integer id);
+
+	public abstract List<Hospital> getCopHospital(Integer hospital_id);
+
+	public abstract List<Hospital> getAllHospital();
+
+	public abstract boolean addCoHospital(HospitalHasHospital hospitalHasHospital);
+
+	public abstract HospitalHasHospital getCopHospital(Hospital hospital);
+
+	public abstract boolean deleteCoHospital(HospitalHasHospital hospitalHasHospitals);
 }

@@ -17,6 +17,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.hcp.dao.PatientDAO;
+import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
 import com.hcp.domain.Emr;
@@ -249,6 +251,20 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		}
 	}
 
+	@Override
+	public boolean saveBoPatientRecord(BoPatientRecord boPatientRecord) {
+		try {
+			this.getHibernateTemplate().save(boPatientRecord);
+			// this.getHibernateTemplate().flush();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Emr> getPatientEmrsList(Integer patient_id, String startTime, String endTime) {
@@ -367,5 +383,20 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		}
 
 	}
+
+	@Override
+	public AppVersion getAppVersion() {
+		AppVersion appVersion = this.getHibernateTemplate().execute(new HibernateCallback<AppVersion>() {
+			@Override
+			public AppVersion doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query = session.createQuery("from AppVersion order by id");
+				query.setMaxResults(1);
+				return (AppVersion) query.uniqueResult();
+			}
+		});
+		return appVersion;
+	}
+
+	
 
 }

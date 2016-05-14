@@ -62,6 +62,7 @@
 					</details> <details class="menu" open> <summary>辅助诊治</summary>
 					<ul>
 						<li><a href="warning_setting/warning_search.jsp" target="mainframe">预警设置</a></li>
+						<li><a href="warning_setting/warning_monitor.jsp" target="mainframe">预警监控</a></li>
 					</ul>
 					</details><details class="menu" open> <summary>访谈记录</summary>
 					<ul>

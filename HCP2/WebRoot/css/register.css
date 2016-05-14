@@ -97,7 +97,7 @@ label {
     color: #fff;
     cursor: pointer;
     height: 50px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 微软雅黑;
     font-size: 1.2em;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -132,7 +132,7 @@ label {
     border-radius: 4px;
     padding: 4px 12px;
     overflow: hidden;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 微软雅黑;
     color: #fff;
     text-decoration: none;
     text-indent: 0;

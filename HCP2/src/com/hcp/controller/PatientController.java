@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,18 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
+import com.hcp.domain.BoPatientInfo;
 import com.hcp.domain.BoPatientMedicineRecord;
 import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
 import com.hcp.domain.Family;
+import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
+import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.HdPatientMedicineRecord;
 import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
+import com.hcp.domain.HplPatientInfo;
 import com.hcp.domain.HplPatientMedicineRecord;
 import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Patient;
@@ -39,6 +45,7 @@ import com.hcp.domain.PatientHasDoctorId;
 import com.hcp.domain.Prescription;
 import com.hcp.service.PatientService;
 import com.hcp.util.SessionUtil;
+import com.hcp.util.TimeUtil;
 
 /**
  * 
@@ -289,6 +296,9 @@ public class PatientController {
 					return o2.getId() - o1.getId();
 				}
 			});
+			ArrayList<GluPatientInfo> tempList = new ArrayList<GluPatientInfo>();
+			tempList.addAll(patient.getGluPatientInfos());
+			model.addAttribute("gluPatientInfo", tempList.get(0));
 			model.addAttribute("gluPatientRecords", gluPatientRecords);
 			// 返回血糖显示页面
 			if (selector1.equals("1")) {
@@ -308,7 +318,12 @@ public class PatientController {
 					return o2.getId() - o1.getId();
 				}
 			});
+			ArrayList<HtnPatientInfo> tempList = new ArrayList<HtnPatientInfo>();
+			tempList.addAll(patient.getHtnPatientInfos());
+			HtnPatientInfo htnPatientInfo = tempList.get(0);
+			model.addAttribute("htnPatientInfo", htnPatientInfo);
 			model.addAttribute("htnPatientRecords", htnPatientRecords);
+			model.addAttribute("remainDay", TimeUtil.remainDays(htnPatientInfo.getRemainTime()));
 			if (selector1.equals("2")) {
 				return "/index_patient/bp_patient";
 			} else if (selector1.equals("6")) {
@@ -327,6 +342,11 @@ public class PatientController {
 					return o2.getId() - o1.getId();
 				}
 			});
+			ArrayList<BoPatientInfo> tempList = new ArrayList<BoPatientInfo>();
+			tempList.addAll(patient.getBoPatientInfos());
+			BoPatientInfo boPatientInfo = tempList.get(0);
+			model.addAttribute("boPatientInfo", boPatientInfo);
+			model.addAttribute("remainDay", TimeUtil.remainDays(boPatientInfo.getRemainTime()));
 			model.addAttribute("boPatientRecords", boPatientRecords);
 			if (selector1.equals("3")) {
 				return "/index_patient/spo_patient";
@@ -346,6 +366,11 @@ public class PatientController {
 					return o2.getId() - o1.getId();
 				}
 			});
+			ArrayList<HplPatientInfo> tempList = new ArrayList<HplPatientInfo>();
+			tempList.addAll(patient.getHplPatientInfos());
+			HplPatientInfo hplPatientInfo = tempList.get(0);
+			model.addAttribute("hplPatientInfo", tempList.get(0));
+			model.addAttribute("remainDay", TimeUtil.remainDays(hplPatientInfo.getRemainTime()));
 			model.addAttribute("hplPatientRecords", hplPatientRecords);
 			if (selector1.equals("4")) {
 				return "/index_patient/tg_patient";
@@ -365,6 +390,11 @@ public class PatientController {
 					return o2.getId() - o1.getId();
 				}
 			});
+			ArrayList<HdPatientInfo> tempList = new ArrayList<HdPatientInfo>();
+			tempList.addAll(patient.getHdPatientInfos());
+			HdPatientInfo hdPatientInfo = tempList.get(0);
+			model.addAttribute("hdPatientInfo", hdPatientInfo);
+			model.addAttribute("remainDay", TimeUtil.remainDays(hdPatientInfo.getRemainTime()));
 			model.addAttribute("hdPatientRecords", hdPatientRecords);
 			return "/index_patient/hd_patient";
 

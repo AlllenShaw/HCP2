@@ -19,7 +19,7 @@
 <body>
 	<form action="doctor/seo.do" method="post">
 		<section id="conter"> <section id="help-left"> <details
-			class="menu" open> <summary>综合查询</summary> <img
+			class="menu" open> <summary>预警监控</summary> <img
 			align="middle" src="picture/seo_logo.jpg"></img>
 
 		<div align="center">
@@ -28,23 +28,12 @@
 				<option value="1">血糖表</option>
 				<option value="2">血压表</option>
 				<option value="3">血氧表</option>
-				<option value="5">血糖图</option>
-				<option value="6">血压图</option>
-				<option value="7">血氧图</option>
-				<option value="8">心电图</option>
-				<option value="9">用药记录</option>
-				<option value="10">病历</option>
-				<option value="11">医嘱</option>
 			</select> <select id="selector2" name="selector2" class="size1"
 				style="width:100px">
-				<option value="1">姓名</option>
-				<option value="2">ID</option>
-				<option value="3">身份证</option>
 				<option value="4">所有病人</option>
-			</select> 
-			<input type="text" id="text1" name="text1" class="size1"> <br />
-			<input type="hidden" name="type" value="0" />
-			<input id="search" class="fb" type="submit" value="查询">
+			</select>
+			<input type="hidden" name="type" value="1" />
+			<input id="search" class="fb" type="submit" value="确定">
 		</div>
 		</details>
 	</form>

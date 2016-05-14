@@ -59,7 +59,7 @@
 					<td>
 				</tr>
 				<tr>
-					<td>用户组描述</td>
+					<td>组描述</td>
 				</tr>
 				<tr>
 					<td colspan="4" rowspan="2"><textarea name="description"></textarea></td>

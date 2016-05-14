@@ -8,25 +8,26 @@
 }
 
 .tip{
-	font: bold 14px Arial, Helvetica;
+	font: 18px 微软雅黑;
 	margin-left: 25px;
 	margin-top: 10px;
 }
 
 .question{
-	font: bold 14px Arial, Helvetica;
+	font: 18px 微软雅黑;
 	margin-left: 25px;
 	margin-top: 10px;
 	margin-bottom:5px;
 }
 
 .box span{
-	font: 10px Arial, Helvetica;
+	font: 12px 微软雅黑;
 	color:#666;
 	margin-left: 25px;
 }
 
 .test_box {
+	font: 18px 微软雅黑;
 	width: 550px; 
 	min-height: 120px; 
 	max-height: 120px; 
@@ -38,7 +39,6 @@
 	padding: 3px; 
 	outline: 0;
 	border: 1px solid #ccc; 
-	font-size: 12px; 
 	word-wrap: break-word;
 	overflow-x: hidden; 
 	overflow-y: auto; 
@@ -49,7 +49,7 @@
 .fbt{
     
     height: 40px;
-    font: bold 14px Arial, Helvetica;
+    font: 14px 微软雅黑;
     width: 150px;
 	float:right;
 	margin: 0 20px 0 0;
@@ -58,16 +58,38 @@
 .fb {
 	margin-left:470px;
     -webkit-appearance: none;
-    background: #009dff;
     border: none;
     border-radius: 2px;
     color: #fff;
     cursor: pointer;
     height: 40px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 微软雅黑;
     font-size: 1.2em;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: background 0.3s ease-in-out;
     width: 100px;
+}
+
+.file {
+    position: relative;
+    display: inline-block;
+    background: #009dff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+	font-family: 微软雅黑;
+    color: #fff;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+	width:100px;
+    position: absolute;
+    font-size: 100px;
+	right: 0;
+    top: 0;
+    opacity: 0;
 }
