@@ -30,8 +30,7 @@
 					<ul>
 						<li><a href="#" title="">首页</a></li>
 						<li><a
-							href="registered/registered.jsp?route=registered/resetinfo_patient.jsp"
-							title="" target="_black">修改信息</a></li>
+							href="patient/updatePatientInfo.do?patient_id=${patient.id }" target="_black">修改信息</a></li>
 						<li><a href="#" title="">注销</a></li>
 					</ul>
 				</div>
@@ -67,11 +66,6 @@
 						<li><a href="patient/seo.do?selector1=7" target="mainframe">血氧</a></li>
 						<li><a href="">心电</a></li>
 					</ul>
-					</details> <details class="menu" open> <summary>访谈记录</summary>
-					<ul>
-						<li><a href="interview_record/patient_record.jsp"
-							target="mainframe">访谈记录</a></li>
-					</ul>
 					</details>
 				</div>
 				<iframe name="mainframe" src="index_doctor/index.jsp"
@@ -83,11 +77,11 @@
 
 			<div class="footer">
 				<div class="copyright">
-					<a href="#" target="_blank">汕头大学</a> | <a href="#" target="_blank">百度文科</a>
+					<a href="http://www.stu.edu.cn/" target="_blank">汕头大学</a> | <a href="http://www.baidu.com/" target="_blank">百度</a>
 				</div>
 
 				<div class="footer_links">
-					<a class="current" href="#" title="">首页</a>
+					<a class="current" href="#" title="">首页</a> <a href="#" title="">关于</a>
 				</div>
 			</div>
 

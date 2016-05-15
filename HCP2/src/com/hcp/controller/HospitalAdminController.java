@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
+import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HospitalAdministrator;
 import com.hcp.domain.Medicine;
@@ -391,6 +392,53 @@ public class HospitalAdminController {
 		}
 	}
 
-	
+	@RequestMapping(value = "/getPatient.do", method = RequestMethod.POST)
+	public String getPatient(HttpServletRequest request, Model model, String type, String patientInfo) {
+		System.err.println("type==" + type);
+		Patient patient = null;
+		if (type.equals("1")) {
+			// byUsername
+			patient = hospitalAdminService.getPatientByName(patientInfo);
+		} else if (type.equals("2")) {
+			// byID
+			patient = hospitalAdminService.getPatientById(patientInfo);
+		} else if (type.equals("3")) {
+			// by身份证
+			patient = hospitalAdminService.getPatientByIdNumber(patientInfo);
+		}
+		if (patient != null) {
+			model.addAttribute("patient", patient);
+			return "/index_hmanager/times_set";
+		} else {
+			return "/tips/operation_failed";
+		}
+	}
 
+	@RequestMapping(value = "/setMeasureTime.do", method = RequestMethod.POST)
+	public String setMeasureTime(HttpServletRequest request, Model model, String bg_remain_time, String patient_id,
+			String bp_remain_time, String spo_remain_time) {
+		Boolean flag1 = null;
+		Boolean flag2 = null;
+		Boolean flag3 = null;
+		try {
+			if (bg_remain_time != null) {
+				// 血糖剩余次数
+				flag1 = hospitalAdminService.setGluTime(patient_id, bg_remain_time);
+			}
+			if (bp_remain_time != null) {
+				flag2 = hospitalAdminService.setHtnTime(patient_id, bp_remain_time);
+			}
+			if (spo_remain_time != null) {
+				flag3 = hospitalAdminService.setBoTime(patient_id, spo_remain_time);
+			}
+			if (flag1 == true && flag2 == true && flag3 == true) {
+				return "/tips/operation_success";
+			} else {
+				return "/tips/operation_failed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
+	}
 }

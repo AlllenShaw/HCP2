@@ -163,6 +163,10 @@ public class PatientController {
 	@RequestMapping("/getPatientInfo")
 	public String getPatientInfo(HttpServletRequest request, Model model, Integer patient_id) {
 		Patient patient = patientService.getPatientById(patient_id);
+		List<Hospital> hospitals = patientService.getHospitals();
+		List<Doctor> doctors = patientService.getDoctorList();
+		model.addAttribute("hospitals", hospitals);
+		model.addAttribute("doctors", doctors);
 		model.addAttribute("patient", patient);
 		return "/registered/resetinfo_patient";
 	}
@@ -170,7 +174,11 @@ public class PatientController {
 	@RequestMapping(value = "/updatePatientInfo", method = RequestMethod.GET)
 	public String updatePatientInfo(HttpServletRequest request, Model model, Integer patient_id) {
 		Patient patient = patientService.getPatientById(patient_id);
-		model.addAttribute("doctor", patient);
+		List<Hospital> hospitals = patientService.getHospitals();
+		List<Doctor> doctors = patientService.getDoctorList();
+		model.addAttribute("patient", patient);
+		model.addAttribute("hospitals", hospitals);
+		model.addAttribute("doctors", doctors);
 		return "/registered/resetinfo_patient";
 	}
 
@@ -206,9 +214,9 @@ public class PatientController {
 		patient.setHplState(hplstate);
 		patient.setHtnState(htnstate);
 		if (patientService.updatePatient(patient)) {
-			return "/patient/getPatientInfo.do";
+			return "/tips/operation_success";
 		} else {
-			return "error/updateFail";
+			return "/tips/operation_failed";
 		}
 	}
 
@@ -419,7 +427,7 @@ public class PatientController {
 			Set<Emr> emrs = patient.getEmrs();
 			model.addAttribute("patient", patient);
 			model.addAttribute("emrs", emrs);
-			return "/index_patient/case_history";
+			return "/index_patient/pcase_history";
 
 		} else if (selector1.equals("11")) {
 			// 处方
@@ -444,7 +452,7 @@ public class PatientController {
 			model.addAttribute("id", patient.getId());
 			model.addAttribute("emrs", emrs);
 			model.addAttribute("set", set);
-			return "/medical_manage/patient_mmed";
+			return "/medical_manage/patient_iform";
 
 		} else {
 			return "redirect: seo.do";

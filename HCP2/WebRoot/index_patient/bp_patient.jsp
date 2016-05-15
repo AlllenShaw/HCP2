@@ -20,7 +20,7 @@
 </head>
 
 <body>
-	<h2>${name}的血压情况</h2>
+	<div class="formtitle">${name}的血压情况</div>
 	<table class="bordered" id="bp_form">
 		<thead>
 
@@ -49,7 +49,7 @@
 		style="height:5px;border:none;margin-top:50px;border-top:1px ridge #ccc;" />
 
 	<div style="margin-top:50px">
-		<h2 style="float:right">${name}剩下的血压测试时间：${remainDay}天</h2>
+		<div class="formtitle" style="float:right">${name}剩下的血压测试天数：${remainDay}</div>
 	</div>
 	<!-- 
 	 <div style="margin-top:28px">
@@ -68,6 +68,9 @@
 	<script>
 		var arrdata = new Array();
 		var now;
+		var sbp_max='${htnPatientInfo.systolicPressureMax }',sbp_min='${htnPatientInfo.systolicPressureMin }';
+		var dbp_max='${htnPatientInfo.diastolicPressureMax}',dbp_min='${htnPatientInfo.diastolicPressureMin}';
+		var hr_min='${htnPatientInfo.heartRateMin}',hr_max='${htnPatientInfo.heartRateMax}';
 		function getdata() {
 			var objTable = document.getElementById("bp_form");
 			if (objTable) {
@@ -101,9 +104,24 @@
 
 					cell1.innerHTML = arrdata[temp + 5 * i];
 					cell2.innerHTML = arrdata[temp + 5 * i + 1];
-					cell3.innerHTML = arrdata[temp + 5 * i + 2] + "mmHg";
-					cell4.innerHTML = arrdata[temp + 5 * i + 3] + "mmHg";
-					cell5.innerHTML = arrdata[temp + 5 * i + 4] + "次/秒";
+					var sbp_value=arrdata[temp + 5 * i + 2];
+					cell3.innerHTML = sbp_value + "mmHg";
+					var dbp_value=arrdata[temp + 5 * i + 3];
+					cell4.innerHTML = dbp_value + "mmHg";
+					var hr_value=arrdata[temp + 5 * i + 4];
+					cell5.innerHTML = hr_value + "次/秒";
+					if(sbp_value<sbp_min||sbp_value>sbp_max)
+					{
+						rows[i+1].style.color="#f00";
+					}
+					if(dbp_value<dbp_min||dbp_value>dbp_max)
+					{
+						rows[i+1].style.color="#f00";
+					}
+					if(hr_value<hr_min||hr_value>hr_max)
+					{
+						rows[i+1].style.color="#f00";
+					}
 				}
 			}
 		}

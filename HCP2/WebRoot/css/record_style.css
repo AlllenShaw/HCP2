@@ -5,6 +5,9 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border: 1px solid #ccc;
+	font-family:微软雅黑;
+	color:#353535;
+	
 }
 
 .tip{
@@ -22,7 +25,6 @@
 
 .box span{
 	font: 12px 微软雅黑;
-	color:#666;
 	margin-left: 25px;
 }
 
@@ -58,6 +60,7 @@
 .fb {
 	margin-left:470px;
     -webkit-appearance: none;
+	background: #009dff;
     border: none;
     border-radius: 2px;
     color: #fff;

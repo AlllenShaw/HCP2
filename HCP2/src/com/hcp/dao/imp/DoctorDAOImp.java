@@ -542,4 +542,10 @@ public class DoctorDAOImp extends HibernateDaoSupport implements DoctorDAO {
 		return this.getHibernateTemplate().find("from Medicine");
 	}
 
+	@Override
+	public Emr getEmrById(String emr_id) {
+		Integer id = Integer.parseInt(emr_id);
+		return this.getHibernateTemplate().load(Emr.class, id);
+	}
+
 }

@@ -1,8 +1,13 @@
 package com.hcp.dao.imp;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Resource;
 
@@ -528,7 +533,7 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 	public HospitalHasHospital getCopHospital(Hospital hospital) {
 		List<HospitalHasHospital> list = this.getHibernateTemplate().find(
 				"from HospitalHasHospital as h where h.hospitalByHospital1.id = ?", new Object[] { hospital.getId() });
-		return list.isEmpty()?null:list.get(0);
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 	@Override
@@ -541,4 +546,123 @@ public class HospitalAdminDAOImp extends HibernateDaoSupport implements Hospital
 			return false;
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Patient getPatientByIdNumber(String idNumber) {
+		List<Patient> list = null;
+		try {
+			list = this.getHibernateTemplate().find("from Patient as p where p.idNumber = ?", new Object[] { idNumber });
+			return list.isEmpty() ? null : list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Patient getPatientByName(String username) {
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		List<Patient> list = null;
+		try {
+			list = this.getHibernateTemplate().find("from Patient as p where p.username = ?", new Object[] { username });
+			System.out.println(list + "   " + list.get(0));
+			return list.isEmpty() ? null : list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean setGluTime(String patient_id, String bg_remain_time) {
+		final Integer remainTime = Integer.parseInt(bg_remain_time);
+		final Integer id = Integer.parseInt(patient_id);
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback<Objects>() {
+				@Override
+				public Objects doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session
+							.createQuery("update GluPatientInfo g set g.remainTime =:remainTime where g.patientId =:id");
+					query.setInteger("remainTime", remainTime);
+					query.setInteger("id", id);
+					query.executeUpdate();
+					return null;
+				}
+			});
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean setHtnTime(String patient_id, String bp_remain_time) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = simpleDateFormat.parse(bp_remain_time);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		if (date == null) {
+			return false;
+		}
+		final Timestamp remainTime = new Timestamp(date.getTime());
+		final Integer id = Integer.parseInt(patient_id);
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback<Objects>() {
+				@Override
+				public Objects doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session
+							.createQuery("update HtnPatientInfo g set g.remainTime =:remainTime where g.patientId =:id");
+					query.setTimestamp("remainTime", remainTime);
+					query.setInteger("id", id);
+					query.executeUpdate();
+					return null;
+				}
+			});
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean setBoTime(String patient_id, String spo_remain_time) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = simpleDateFormat.parse(spo_remain_time);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		if (date == null) {
+			return false;
+		}
+		final Timestamp remainTime = new Timestamp(date.getTime());
+		final Integer id = Integer.parseInt(patient_id);
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback<Objects>() {
+				@Override
+				public Objects doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session
+							.createQuery("update BoPatientInfo g set g.remainTime =:remainTime where g.patientId =:id");
+					query.setTimestamp("remainTime", remainTime);
+					query.setInteger("id", id);
+					query.executeUpdate();
+					return null;
+				}
+			});
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

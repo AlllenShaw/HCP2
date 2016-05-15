@@ -126,4 +126,6 @@ public interface DoctorDAO {
 
 	public abstract List<Medicine> getMedicineList();
 
+	public abstract Emr getEmrById(String emr_id);
+
 }

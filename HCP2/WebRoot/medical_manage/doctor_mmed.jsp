@@ -16,6 +16,22 @@
 <link rel="stylesheet" type="text/css" href="css/record_style.css">
 <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
+<script>
+	var arrdata=new Array();
+	var num=0;
+	function getdata(temp)
+  	{
+
+     arrdata[num]=temp;
+     num++;
+   	}
+   	function add_med1()
+   	{	
+   		var number=document.getElementById('med_select');
+   		number=number-1;
+   		add_med(arrdata,number);
+   	}
+	</script>
 
 </head>
 <style>
@@ -24,11 +40,33 @@
 	font-family: 'microsoft YaHei';
 	float: left
 }
+.selecttype1
+{
+	width:100px;
+	height:40px;
+	margin-left:330px;
+	margin-top:10px;
+	float:left;
+}
 </style>
 
 
 <body>
-
+	<c:forEach items="${medicines}" var="item">
+		<script>
+				var temp;
+				temp='${item.adaptationDisease}';
+				getdata(temp);
+				temp='${item.id }';
+				getdata(temp);
+				temp='${item.name }';
+				getdata(temp);
+				temp='${item.usage }';
+				getdata(temp);
+				temp='${item.dosage}';
+				getdata(temp);
+		</script>
+	</c:forEach>
 	<section id="conter"> <section id="help-left"> <details
 		class="menu" open> <summary>医嘱</summary>
 	<form action="doctor/addEmr.do" method="post">
@@ -67,8 +105,14 @@
 					
 			</table>
 			<br />
-
-			<button class="fb" style="margin-left:450px;" onclick="add_med()">添加</button>
+			
+			<select name="med_select" id="med_select" class="selecttype1">
+					<c:forEach items="${medicines}" var="item" varStatus="status">
+						<option value="${status.index+1}">${item.name}</option>
+					</c:forEach>
+			</select>
+			
+			<button class="fb" style="margin-left:20px;" onclick="add_med1()">添加</button>
 
 			<br />
 			<div class="question">诊断和建议</div>
@@ -82,7 +126,7 @@
 				医嘱时间 <input class="fbt" type="date" />
 			</div>
 			<br />
-
+			
 			<button class="fb" style="margin-left:450px;">提交</button>
 
 		</div>

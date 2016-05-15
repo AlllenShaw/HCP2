@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hcp.dao.DoctorDAO;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
+import com.hcp.domain.Emr;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.MealTime;
 import com.hcp.domain.Medicine;
@@ -143,6 +144,11 @@ public class DoctorServiceImp implements DoctorService {
 	@Override
 	public List<Medicine> getMedicineList() {
 		return doctorDAO.getMedicineList();
+	}
+
+	@Override
+	public Emr getEmrById(String emr_id) {
+		return doctorDAO.getEmrById(emr_id);
 	}
 
 }

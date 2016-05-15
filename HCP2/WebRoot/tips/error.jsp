@@ -22,14 +22,14 @@
 
 
 <script type='text/javascript'>
-  var i = 3;
+  var i = 4;
   function ok(){
     if (i>0){
       i--;
     }else{
       window.history.back(-1);
     }
-     document.getElementById('showtime').innerHTML="用户名不存在或者密码错误，<font color=red>"+i+"</font>秒后前一页";
+     document.getElementById('showtime').innerHTML="出错啦!<font color=red>"+i+"</font>秒后前一页";
   }
   setInterval("ok()",1000);
 </script>

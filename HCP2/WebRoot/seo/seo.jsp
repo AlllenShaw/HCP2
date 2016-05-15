@@ -41,8 +41,7 @@
 				<option value="2">ID</option>
 				<option value="3">身份证</option>
 				<option value="4">所有病人</option>
-			</select> 
-			<input type="text" id="text1" name="text1" class="size1"> <br />
+			</select> <input type="text" id="text1" name="text1" class="size1"> <br />
 			<input type="hidden" name="type" value="0" />
 			<input id="search" class="fb" type="submit" value="查询">
 		</div>

@@ -1,4 +1,4 @@
-function draw(temp){
+function draw(temp,max,min){
 	var value = [];
 	var labels = [];
 	
@@ -16,20 +16,19 @@ function draw(temp){
 	} ];
 	
 	
-	var med=["药物a","药物b","药物c","药物d","药物e","药物f","药物g"];
-	var event="没吃药";
+	
 	var chart = new iChart.LineBasic2D(
 			{
 				render : 'ichart',
 				data : data,
 				align : 'center',
 				title : {
-					text : '血糖最近7天变化曲线图',
+					text : '血糖最近7次测量变化曲线图',
 					font : '微软雅黑',
 					fontsize : 24,
 				},
 				subtitle : {
-					text : '包含预测',
+					text : '',
 					font : '微软雅黑',
 				},
 				footnote : {
@@ -52,8 +51,7 @@ function draw(temp){
 									+ ":血糖量约:<br/>"
 									+ "</span><span style='color:black;font-size:20px;'>"
 									+ value + " mmmol/l<br/>"
-									+ "吃了"+med[i]
-							 		+ "<br/>事件"+ event+"</span>";
+									+"</span>";
 						}
 					}
 				},
@@ -70,7 +68,7 @@ function draw(temp){
 						label : {
 							font : '微软雅黑',
 							fontsize : 11,
-							fontweight : 600
+							fontweight : 600,
 						},
 						scale_color : '#9f9f9f'
 					}, {
@@ -108,7 +106,7 @@ function draw(temp){
 			.textBaseline('top')
 			.fillText('(时间)',x + w + 20, y + h + 10, false);
 			*/
-			var avg = 3.1,
+			var avg = min,
 			x = coo.get('originx'),
 			W = coo.width,
 			S = coo.getScale('left'),
@@ -119,28 +117,19 @@ function draw(temp){
 			chart.target.line(x,y,x+W,y,1,'#b32c0d')
 			.textAlign('start')
 			.textBaseline('middle')
-			.textFont('600 12px Verdana')
+			.textFont('600 12px 微软雅黑')
 			.fillText('下限:'+avg,x+W+5,y,false,'#b32c0d');
 			
-			avg=6.9,
+			avg=max,
 			h = (avg - S.start) * H / S.distance,
 			y = chart.y + H - h;
 		
 			chart.target.line(x,y,x+W,y,1,'#b32c0d')
 			.textAlign('start')
 			.textBaseline('middle')
-			.textFont('600 12px Verdana')
+			.textFont('600 12px 微软雅黑')
 			.fillText('上限:'+avg,x+W+5,y,false,'#b32c0d');
 			
-			avg=7.8,
-			h = (avg - S.start) * H / S.distance,
-			y = chart.y + H - h;
-		
-			chart.target.line(x,y,x+W,y,1,'#f7ff00')
-			.textAlign('start')
-			.textBaseline('middle')
-			.textFont('600 12px Verdana')
-			.fillText('餐后:'+avg,x+W+5,y,false,'#b32c0d');
 		}
 	}));
 	chart.draw();

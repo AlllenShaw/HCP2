@@ -206,7 +206,7 @@
 	</div>
 	</details>
 	<button class="fb" style="margin-left:580px;"
-		onclick="location.href='doctor/addEmr.do?id=${patient.id}'">添加医嘱</button>
+		onclick="location.href='patient/seo.do?selector1=11'">查看医嘱</button>
 	</section> </section>
 </body>
 </html>

@@ -309,7 +309,7 @@ function checktele2(){
 function checkemail(){
 	// id=tipmail;
 	var regemail=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*(;\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)*$/;
-	var femail=document.getElementById("mail");
+	var femail=document.getElementById("email");
 	if(femail.value==""){
 		// ftemail.innerHTML="× 电子邮箱不能为空！";
 		showtips("#tipmail","× 电子邮箱不能为空！");

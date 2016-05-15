@@ -72,4 +72,14 @@ public interface HospitalAdminService {
 	public abstract boolean addCoHospital(String hospital_id, Hospital hospital);
 
 	public abstract boolean deleteCoHospital(String hospital_id, Hospital hospital);
+
+	public abstract Patient getPatientByIdNumber(String patientInfo);
+
+	public abstract Patient getPatientByName(String patientInfo);
+
+	public abstract boolean setGluTime(String patient_id, String bg_remain_time);
+
+	public abstract boolean setHtnTime(String patient_id, String bp_remain_time);
+
+	public abstract boolean setBoTime(String patient_id, String spo_remain_time);
 }

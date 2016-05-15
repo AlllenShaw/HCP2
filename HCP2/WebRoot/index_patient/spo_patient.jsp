@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<h2>${name}的血氧情况</h2>
+	<div class="formtitle">${name}的血氧情况</div>
 	<table class="bordered" id="spo_form">
 		<thead>
 
@@ -43,11 +43,13 @@
 	<div class="paging"  id=paging>
 	</div>
 	<div style="margin-top:50px">
-		<h2 style="float:right">${name}剩下的血氧测试时间：${remainDay}天</h2>
+		<div class="formtitle" style="float:right">${name}剩下的血氧测试天数：${remainDay}</div>
 	</div>
 	<script>
 	var arrdata=new Array();
 	var now;
+	var spo_max='${boPatientInfo.spo2maxMax }',spo_min='${boPatientInfo.spo2maxMin }';
+	var bpm_max='${boPatientInfo.pulseRateMax }',bpm_min='${boPatientInfo.pulseRateMin }';
 	function getdata()
    {
       var objTable=document.getElementById("spo_form");
@@ -89,9 +91,19 @@
 		
 		cell1.innerHTML=arrdata[temp+5*i];
 		cell2.innerHTML=arrdata[temp+5*i+1];
-		cell3.innerHTML=arrdata[temp+5*i+2]+"次/min";
-		cell4.innerHTML=arrdata[temp+5*i+3];
+		var bpm_value=arrdata[temp+5*i+2];
+		cell3.innerHTML=bpm_value+"次/min";
+		var spo_value=arrdata[temp+5*i+3];
+		cell4.innerHTML=spo_value+"%";
 		cell5.innerHTML=arrdata[temp+5*i+4];
+		if(spo_value<spo_min||spo_value>spo_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
+		else if(bpm_value<bpm_min||bpm_value>bpm_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
 		}
 	} 
    }

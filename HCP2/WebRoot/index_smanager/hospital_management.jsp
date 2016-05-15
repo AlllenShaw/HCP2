@@ -30,6 +30,7 @@
 .tip input {
 	height: 35px;
 	width: 150px;
+	margin-right:10px;
 	font: 18px Arial, Helvetica;
 }
 
@@ -52,16 +53,12 @@
 				<tr>
 					<td>医院名称</td>
 					<td><input type="text" name="name" /></td>
-				</tr>
-				<tr>
 					<td>医院地址</td>
 					<td><input type="text" name="address" /></td>
 				</tr>
 				<tr>
 					<td>医院等级</td>
 					<td><input type="text" name="level" /></td>
-				</tr>
-				<tr>
 					<td>医院简介</td>
 					<td><input type="text" name="introduction" /></td>
 				</tr>

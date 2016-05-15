@@ -34,7 +34,7 @@ function draw(temp){
 				data : data,
 				align : 'center',
 				title : {
-					text : '血压最近7天变化曲线图',
+					text : '血压最近7次变化曲线图',
 					font : '微软雅黑',
 					fontsize : 24,
 				},

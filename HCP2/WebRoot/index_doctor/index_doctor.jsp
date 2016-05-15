@@ -64,10 +64,7 @@
 						<li><a href="warning_setting/warning_search.jsp" target="mainframe">预警设置</a></li>
 						<li><a href="warning_setting/warning_monitor.jsp" target="mainframe">预警监控</a></li>
 					</ul>
-					</details><details class="menu" open> <summary>访谈记录</summary>
-					<ul>
-						<li><a href="interview_record/record_search.jsp" target="mainframe">访谈记录</a></li>
-					</ul>
+					</details>
 				</div>
 				<iframe name="mainframe" src="index_doctor/index.jsp" 
 						onload="this.height=this.contentWindow.document.documentElement.scrollHeight"> </iframe>
@@ -75,11 +72,11 @@
 
 			<div class="footer">
 				<div class="copyright">
-					<a href="#" target="_blank">汕头大学</a> | <a href="#" target="_blank">百度文科</a>
+					<a href="http://www.stu.edu.cn/" target="_blank">汕头大学</a> | <a href="http://www.baidu.com/" target="_blank">百度</a>
 				</div>
 
 				<div class="footer_links">
-					<a class="current" href="#" title="">首页</a>
+					<a class="current" href="#" title="">首页</a> <a href="#" title="">关于</a>
 				</div>
 			</div>
 

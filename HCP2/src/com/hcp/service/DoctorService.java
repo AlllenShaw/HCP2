@@ -6,6 +6,7 @@ import javax.print.Doc;
 
 import com.hcp.domain.Doctor;
 import com.hcp.domain.DoctorGroup;
+import com.hcp.domain.Emr;
 import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.HdPatientInfo;
 import com.hcp.domain.Hospital;
@@ -55,5 +56,7 @@ public interface DoctorService {
 	public abstract List<MealTime> getMealTimeList();
 
 	public abstract List<Medicine> getMedicineList();
+
+	public abstract Emr getEmrById(String emr_id);
 	
 }

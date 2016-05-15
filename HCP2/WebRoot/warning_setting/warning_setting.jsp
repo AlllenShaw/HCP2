@@ -42,7 +42,7 @@
 <body>
 	<form action="doctor/setWarning.do" method="post">
 		<div>
-			<H2>${patient.realname}的预警值设置</H2>
+			<div class="formtitle">${patient.realname}的预警值设置</div>
 			<table class="bordered">
 				<thead>
 					<tr>

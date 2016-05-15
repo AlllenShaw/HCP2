@@ -37,16 +37,16 @@
 	<input type="hidden" name="page" id="page" value="1" />
 
 	<section id="conter"> <section id="help-left"> <details
-		class="menu" open> <summary>医嘱</summary>
+		class="menu" open> <summary>${emr.patient.realname }医嘱</summary>
 	<div class="box">
 		<div>
 			<table class="tip">
 				<tr>
 					<td>姓名</td>
-					<td><input readonly="readonly" value="${name }" />
+					<td><input readonly="readonly" value="${emr.patient.realname }" />
 					<td>
 					<td>ID</td>
-					<td><input readonly="readonly" value="${id }" /></td>
+					<td><input readonly="readonly" value="${emr.patient.id }" /></td>
 				</tr>
 			</table>
 		</div>
@@ -56,7 +56,7 @@
 		<div class="question">病情描述</div>
 		<span>补充:</span>
 		<div class="test_box" contenteditable="false" id="order">
-			${emrs[0].illnessStateDesc }
+			${emr.illnessStateDesc }
 			<br />
 		</div>
 		<br />
@@ -70,7 +70,7 @@
 					<th>服用量</th>
 				</tr>
 			</thead>
-			<c:forEach items="${set}" var="item">
+			<c:forEach items="${emr.prescriptions}" var="item">
 				<tr>
 					<td>${item.medicine.adaptationDisease}</td>
 					<td>${item.medicine.id }</td>
@@ -85,19 +85,18 @@
 		<div class="question">诊断和建议</div>
 		<span>补充:</span>
 		<div class="test_box" contenteditable="false" id="dac">
-			${emrs[0].diagnosisSuggestion }
+			${emr.diagnosisSuggestion }
 		</div>
 		<br />
 
 		<div class="question">
 			医嘱时间 <input class="fbt" style="height:30px;" readonly="readonly"
-				value="${emrs[0].createTime }" />
+				value="${emr.createTime }" />
 		</div>
 		<br />
 
 		<div>
-			<button class="fb" style="margin-left:20px;">上一页</button>
-			<button class="fb" style="margin-left:350px;">下一页</button>
+			<button class="fb" style="margin-left:480px;">返回</button>
 		</div>
 		<br />
 	</div>

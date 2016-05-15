@@ -208,4 +208,34 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 		return hospitalAdminDAO.deleteCoHospital(hospitalHasHospitals);
 	}
 
+	@Override
+	public Patient getPatientByIdNumber(String idNumber) {
+		System.out.println("getPatientByIdNumber被调用");
+		return hospitalAdminDAO.getPatientByIdNumber(idNumber);
+	}
+
+	@Override
+	public Patient getPatientByName(String username) {
+		System.out.println("getPatientByName被调用");
+		return hospitalAdminDAO.getPatientByName(username);
+	}
+
+	@Override
+	public boolean setGluTime(String patient_id, String bg_remain_time) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.setGluTime(patient_id,bg_remain_time);
+	}
+
+	@Override
+	public boolean setHtnTime(String patient_id, String bp_remain_time) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.setHtnTime(patient_id,bp_remain_time);
+	}
+
+	@Override
+	public boolean setBoTime(String patient_id, String spo_remain_time) {
+		// TODO Auto-generated method stub
+		return hospitalAdminDAO.setBoTime(patient_id,spo_remain_time);
+	}
+
 }

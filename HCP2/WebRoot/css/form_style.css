@@ -98,3 +98,10 @@ a:visited{color:gray;}
 a:hover{color:bule;}
 a:active{color:bule;}
 
+.formtitle
+{
+	font-size:20px;
+	margin-bottom:10px;
+	margin-top:10px;
+}
+

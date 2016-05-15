@@ -603,7 +603,8 @@ public class MobileController {
 		System.out.println("json------" + json);
 		String time = json.getString("time");
 		// 等待数据 TODO
-		Float bloodGlucose = Float.parseFloat(json.getString("bloodGlucose"));
+		Float heartRate = Float.parseFloat(json.getString("bmpValue"));
+		Float bloodGlucose = Float.parseFloat(json.getString("OxygenValue"));
 		Timestamp measureTime = Timestamp.valueOf(time);
 		Timestamp uploadTime = new Timestamp(new Date().getTime());
 		Patient patient = patientService.getPatientByName(username);

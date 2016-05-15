@@ -58,6 +58,8 @@
 							target="mainframe">用户组管理</a></li>
 						<li><a href="hospitalAdmin/showCopHospital.do"
 							target="mainframe">合作医院管理</a></li>
+						<li><a href="index_hmanager/test_set.jsp"
+							target="mainframe">测试时间管理</a></li>
 					</ul>
 				</div>
 				<iframe name="mainframe" src="index_doctor/index.jsp"
@@ -69,11 +71,11 @@
 
 			<div class="footer">
 				<div class="copyright">
-					<a href="#" target="_blank">汕头大学</a> | <a href="#" target="_blank">百度文科</a>
+					<a href="http://www.stu.edu.cn/" target="_blank">汕头大学</a> | <a href="http://www.baidu.com/" target="_blank">百度</a>
 				</div>
 
 				<div class="footer_links">
-					<a class="current" href="#" title="">首页</a>
+					<a class="current" href="#" title="">首页</a> <a href="#" title="">关于</a>
 				</div>
 			</div>
 

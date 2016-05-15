@@ -16,15 +16,13 @@
 </head>
 
 <body>
-	<h2>${name}的血糖情况</h2>
+	<div class="formtitle">${name}的血糖情况</div>
 		<table class="bordered" id="bg_form">
 			<thead>
-	
 				<tr>
 					<th>ID</th>
 					<th>血糖值</th>
 					<th>测量时间</th>
-					
 				</tr>
 			</thead>
 			
@@ -43,12 +41,14 @@
 	 <hr style="height:5px;border:none;margin-top:50px;border-top:1px ridge #ccc;" />
 	 
 	 <div style="margin-top:50px">
-	 <h2 style="float:right">${name}剩下的血糖测试次数：${gluPatientInfo.remainTime}次</h2>
+	 <div class="formtitle" style="float:right">${name}剩下的血糖测试次数：${gluPatientInfo.remainTime}次</div>
 	 </div>
 	 
 	 <script>
 	var arrdata=new Array();
 	var now;
+	var bg_max='${gluPatientInfo.bloodGlucoseMax}';
+	var bg_min='${gluPatientInfo.bloodGlucoseMin}';
 	function getdata()
    {
       var objTable=document.getElementById("bg_form");
@@ -87,8 +87,13 @@
 		var cell3=rowobj.insertCell(rowobj.cells.length);
 		
 		cell1.innerHTML=arrdata[temp+3*i];
-		cell2.innerHTML=arrdata[temp+3*i+1]+"mmol/L";
+		current_value=arrdata[temp+3*i+1];
+		cell2.innerHTML=current_value+"mmol/L";
 		cell3.innerHTML=arrdata[temp+3*i+2];
+		if(current_value<bg_min||current_value>bg_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
 		}
 	} 
    }

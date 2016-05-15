@@ -381,7 +381,7 @@ public class DoctorController {
 				model.addAttribute("id", patient.getId());
 				model.addAttribute("emrs", emrs);
 				model.addAttribute("set", set);
-				return "/medical_manage/patient_mmed";
+				return "/medical_manage/patient_iform";
 			} else {
 				return "/error/withoutPermission";
 			}
@@ -614,4 +614,12 @@ public class DoctorController {
 		return "redirect:addEmr.do";
 	}
 
+	@RequestMapping(value = "/getPrescriptionByEmr.do", method = RequestMethod.GET)
+	public String getPrescriptionByEmr(HttpServletRequest request, Model model,String emr_id){
+		Emr emr = doctorService.getEmrById(emr_id);
+		model.addAttribute("emr", emr);
+		return "/medical_manage/patient_mmed";
+	}
+	
+	
 }

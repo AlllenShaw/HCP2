@@ -7,7 +7,7 @@
 				<div id="menu">
 					<ul>
 						<li><a href="#l" title="">登录</a></li>
-						<li><a href="#" title="">设置</a></li>
+						<li><a href="#" onclick="window.close()">退出</a></li>
 					</ul>
 				</div>
 </div>

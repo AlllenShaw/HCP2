@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<h2>最新血压列表</h2>
+	<div class="formtitle">最新血压列表</div>
 	<table class="bordered" id="bp_form">
 		<thead>
 
@@ -88,9 +88,29 @@
 	
 		cell1.innerHTML=arrdata[temp+5*i];
 		cell2.innerHTML=arrdata[temp+5*i+1];
-		cell3.innerHTML=arrdata[temp+5*i+2]+"mmHg";
-		cell4.innerHTML=arrdata[temp+5*i+3]+"mmHg";
-		cell5.innerHTML=arrdata[temp+5*i+4]+"次/秒";
+		var sbp_value=arrdata[temp+5*i+2];
+		cell3.innerHTML=sbp_value+"mmHg";
+		var dbp_value=arrdata[temp+5*i+3];
+		cell4.innerHTML=dbp_value+"mmHg";
+		var hr_value=arrdata[temp+5*i+4];
+		cell5.innerHTML=hr_value+"次/秒";
+		var sbp_max='${htnPatientInfo[i].systolicPressureMax }',sbp_min='${htnPatientInfo[i].systolicPressureMin }';
+		var dbp_max='${htnPatientInfo[i].diastolicPressureMax}',dbp_min='${htnPatientInfo[i].diastolicPressureMin}';
+		var hr_min='${htnPatientInfo.heartRateMin}',hr_max='${htnPatientInfo.heartRateMax}';
+		if(sbp_value<sbp_min||sbp_value>sbp_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
+		else if(dbp_value<dbp_min||dbp_value>dbp_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
+		else if(hr_value<hr_min||hr_value>hr_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
+		
+		
 		}
 	} 
    }

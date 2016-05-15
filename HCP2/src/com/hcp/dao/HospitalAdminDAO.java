@@ -123,4 +123,14 @@ public interface HospitalAdminDAO {
 	public abstract HospitalHasHospital getCopHospital(Hospital hospital);
 
 	public abstract boolean deleteCoHospital(HospitalHasHospital hospitalHasHospitals);
+
+	public abstract Patient getPatientByIdNumber(String idNumber);
+
+	public abstract Patient getPatientByName(String username);
+
+	public abstract boolean setGluTime(String patient_id, String bg_remain_time);
+
+	public abstract boolean setHtnTime(String patient_id, String bp_remain_time);
+
+	public abstract boolean setBoTime(String patient_id, String spo_remain_time);
 }

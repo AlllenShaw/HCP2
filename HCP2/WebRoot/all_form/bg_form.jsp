@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<h2>最新血糖列表</h2>
+	<div class="formtitle">最新血糖列表</div>
 	<table class="bordered" id="bg_form">
 		<thead>
 
@@ -38,6 +38,8 @@
 			</c:forEach>
 	</table>
 	<br />
+	
+	
 	<div class="paging" id="paging">
 		
 	</div>
@@ -47,6 +49,7 @@
 	<script>
 	var arrdata=new Array();
 	var now;
+	
 	function getdata()
    {
       var objTable=document.getElementById("bg_form");
@@ -87,8 +90,15 @@
 		
 		cell1.innerHTML=arrdata[temp+4*i];
 		cell2.innerHTML=arrdata[temp+4*i+1];
-		cell3.innerHTML=arrdata[temp+4*i+2]+"mmol/L";
+		var current_value=arrdata[temp+4*i+2];
+		cell3.innerHTML=current_value+"mmol/L";
 		cell4.innerHTML=arrdata[temp+4*i+3];
+		var bg_max='${gluPatientInfos[i].bloodGlucoseMax }';
+		var bg_min='${gluPatientInfos[i].bloodGlucoseMin }';
+		if(current_value<bg_min||current_value>bg_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
 		}
 	} 
    }

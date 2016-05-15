@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<h2>最新血氧列表</h2>
+	<div class="formtitle">最新血氧列表</div>
 	<table class="bordered" id="spo_form">
 		<thead>
 
@@ -90,8 +90,21 @@
 		cell1.innerHTML=arrdata[temp+5*i];
 		cell2.innerHTML=arrdata[temp+5*i+1];
 		cell3.innerHTML=arrdata[temp+5*i+2];
-		cell4.innerHTML=arrdata[temp+5*i+3]+"次/min";
-		cell5.innerHTML=arrdata[temp+5*i+4];
+		var spo_value=arrdata[temp+5*i+3];
+		cell4.innerHTML=spo_value+"次/min";
+		var bpm_value=arrdata[temp+5*i+4];
+		cell5.innerHTML=bpm_value;
+		
+		var spo_max='${boPatientInfo[i].spo2maxMax }',spo_min='${boPatientInfo[i].spo2maxMin }';
+		var bpm_max='${boPatientInfo[i].pulseRateMax }',bpm_min='${boPatientInfo[i].pulseRateMin }';
+		if(spo_value<spo_min||spo_value>spo_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
+		else if(bpm_value<bpm_min||bpm_value>bpm_max)
+		{
+			rows[i+1].style.color="#f00";
+		}
 		}
 	} 
    }

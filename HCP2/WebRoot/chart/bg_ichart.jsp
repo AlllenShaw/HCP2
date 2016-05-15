@@ -20,6 +20,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script>
 	var arrdata=new Array();
 	var num=0;
+	var max='${gluPatientInfo.bloodGlucoseMax}';
+	var min='${gluPatientInfo.bloodGlucoseMin}';
 	function getdata(temp)
    {
 
@@ -40,27 +42,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						tem='${item.measureTime }';
 						getdata(tem);
 			</script>
-			</c:forEach>
+		</c:forEach>
+		
+
+		
+		
 		<div class="box">
 			<div>
 				<table class="tip">
 					<tr>
 						<td>姓名</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${gluPatientInfo.patient.realname}"><td>
 						<td>ID</td>
-						<td><input readonly="readonly"></td>
+						<td><input readonly="readonly" value="${gluPatientInfo.patientId}"></td>
 					</tr>
 					<tr>
-						<td>空腹血糖下限</td>
-						<td><input readonly="readonly"><td>
-						<td>空腹血糖上限</td>
-						<td><input readonly="readonly"><td>
-					</tr>
-					<tr>
-						<td>餐后血糖下限</td>
-						<td><input readonly="readonly"><td>
-						<td>餐后血糖上限</td>
-						<td><input readonly="readonly"><td>
+						<td>血糖下限</td>
+						<td><input readonly="readonly" value="${gluPatientInfo.bloodGlucoseMax}"><td>
+						<td>血糖上限</td>
+						<td><input readonly="readonly" value="${gluPatientInfo.bloodGlucoseMin}"><td>
 					</tr>
 					<tr><td>&nbsp;</td></tr>
 				</table>
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	<script>
-	 draw(arrdata);
+	 draw(arrdata,max,min);
 	</script>
   </body>
 </html>

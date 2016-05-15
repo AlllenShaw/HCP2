@@ -50,21 +50,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table class="tip">
 					<tr>
 						<td>姓名</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${boPatientInfo.patient.realname }"><td>
 						<td>ID</td>
-						<td><input readonly="readonly"></td>
+						<td><input readonly="readonly" value="${boPatientInfo.patientId }"></td>
 					</tr>
 					<tr>
 						<td>脉率下限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${boPatientInfo.pulseRateMin }"><td>
 						<td>脉率上限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${boPatientInfo.pulseRateMax }"><td>
 					</tr>
 					<tr>
 						<td>血氧饱和度下限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${boPatientInfo.spo2maxMin }"><td>
 						<td>血氧饱和度上限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${boPatientInfo.spo2maxMax }"><td>
 					</tr>
 					<tr><td>&nbsp;</td></tr>
 				</table>

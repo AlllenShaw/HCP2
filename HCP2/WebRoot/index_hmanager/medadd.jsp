@@ -30,6 +30,7 @@
 .tip input {
 	height: 35px;
 	width: 180px;
+	margin-right:10px;
 	font: 18px Arial, Helvetica;
 }
 
@@ -46,7 +47,7 @@
 	<div align="center">
 		<form action="hospitalAdmin/addMedicine.do" method="post">
 			<div>
-				<table class="tip">
+				<table class="tip" cellpadding="10px">
 					<tr>
 						<td>类型</td>
 						<td><select class="size1" style="width:100px" id="type">
@@ -55,16 +56,12 @@
 								<option value="3">高血糖</option>
 								<option value="4">其他</option>
 						</select></td>
-					</tr>
-					<tr>
 						<td>药物名称</td>
 						<td><input type="text" name="name"></td>
 					</tr>
 					<tr>
 						<td>适应症</td>
 						<td><input type="text" name="adaptationDisease"></td>
-					</tr>
-					<tr>
 						<td>用法</td>
 						<td><input type="text" name="usage"></td>
 					</tr>
@@ -72,16 +69,13 @@
 
 						<td>用量</td>
 						<td><input type="text" name="dosage"></td>
-					</tr>
-					<tr>
+					
 						<td>不良反应</td>
 						<td><input type="text" name="adverseReaction"></td>
 					</tr>
 					<tr>
 						<td>药物禁忌</td>
 						<td><input type="text" name="taboo"></td>
-					</tr>
-					<tr>
 						<td>注意事项</td>
 						<td><input type="text" name="attentions"></td>
 					</tr>

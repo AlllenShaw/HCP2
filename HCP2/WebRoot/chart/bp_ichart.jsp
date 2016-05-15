@@ -49,27 +49,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table class="tip">
 					<tr>
 						<td>姓名</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.patient.realname }"><td>
 						<td>ID</td>
-						<td><input readonly="readonly"></td>
+						<td><input readonly="readonly" value="${htnPatientInfo.patientId }"></td>
 					</tr>
 					<tr>
 						<td>收缩压下限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.systolicPressureMin }"><td>
 						<td>收缩压上限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.systolicPressureMax }"><td>
 					</tr>
 					<tr>
 						<td>舒张压下限 </td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.diastolicPressureMax}"><td>
 						<td>舒张压上限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.diastolicPressureMin}"><td>
 					</tr>
 					<tr>
 						<td>心率下限 </td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.heartRateMin}"><td>
 						<td>心率上限</td>
-						<td><input readonly="readonly"><td>
+						<td><input readonly="readonly" value="${htnPatientInfo.heartRateMax}"><td>
 					</tr>
 					<tr><td>&nbsp;</td></tr>
 				</table>

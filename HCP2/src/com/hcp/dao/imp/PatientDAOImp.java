@@ -123,6 +123,7 @@ public class PatientDAOImp extends HibernateDaoSupport implements PatientDAO {
 		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().update(patient);
+			System.out.println("**********************update*************");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
