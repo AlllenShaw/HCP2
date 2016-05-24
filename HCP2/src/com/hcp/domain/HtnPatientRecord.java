@@ -17,6 +17,7 @@ public class HtnPatientRecord implements java.io.Serializable {
 	private Float heartRate;
 	private Timestamp measureTime;
 	private Timestamp uploadTime;
+	private Integer heartRateState;
 
 	// Constructors
 
@@ -24,15 +25,28 @@ public class HtnPatientRecord implements java.io.Serializable {
 	public HtnPatientRecord() {
 	}
 
+	/** minimal constructor */
+	public HtnPatientRecord(Patient patient, Float diastolicPressure, Float systolicPressure, Float heartRate,
+			Integer heartRateState,Timestamp measureTime, Timestamp uploadTime) {
+		this.patient = patient;
+		this.diastolicPressure = diastolicPressure;
+		this.systolicPressure = systolicPressure;
+		this.heartRate = heartRate;
+		this.heartRateState = heartRateState;
+		this.measureTime = measureTime;
+		this.uploadTime = uploadTime;
+	}
+
 	/** full constructor */
 	public HtnPatientRecord(Patient patient, Float diastolicPressure, Float systolicPressure, Float heartRate,
-			Timestamp measureTime, Timestamp uploadTime) {
+			Timestamp measureTime, Timestamp uploadTime, Integer heartRateState) {
 		this.patient = patient;
 		this.diastolicPressure = diastolicPressure;
 		this.systolicPressure = systolicPressure;
 		this.heartRate = heartRate;
 		this.measureTime = measureTime;
 		this.uploadTime = uploadTime;
+		this.heartRateState = heartRateState;
 	}
 
 	// Property accessors
@@ -91,6 +105,14 @@ public class HtnPatientRecord implements java.io.Serializable {
 
 	public void setUploadTime(Timestamp uploadTime) {
 		this.uploadTime = uploadTime;
+	}
+
+	public Integer getHeartRateState() {
+		return this.heartRateState;
+	}
+
+	public void setHeartRateState(Integer heartRateState) {
+		this.heartRateState = heartRateState;
 	}
 
 }

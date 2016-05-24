@@ -134,11 +134,21 @@ public class HospitalAdminController {
 	@RequestMapping(value = "/addUser2Group", method = RequestMethod.GET)
 	public String addUser2Group(HttpServletRequest request, Model model, String hospital_id) {
 		Integer id = Integer.parseInt(hospital_id);
-		List<UserGroup> userGroups = hospitalAdminService.getUserGroupByHospital(id);
-		List<Doctor> doctors = hospitalAdminService.getDoctorByHospital(id);
-		List<Hospital> coHospitals = hospitalAdminService.getCopHospital(Integer.parseInt(hospital_id));
-		List<Patient> patients = hospitalAdminService.getPatientByHospital(id);
-		System.out.println("合作医院列表===============================" + coHospitals);
+		List<UserGroup> userGroups = null;
+		List<Doctor> doctors = null;
+		List<Hospital> coHospitals = null;
+		List<Patient> patients = null;
+		try {
+			userGroups = hospitalAdminService.getUserGroupByHospital(id);
+			doctors = hospitalAdminService.getDoctorByHospital(id);
+			coHospitals = hospitalAdminService.getCopHospital(Integer.parseInt(hospital_id));
+			patients = hospitalAdminService.getPatientByHospital(id);
+			System.out.println("合作医院列表===============================" + coHospitals);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/no_usergroup_or_user";
+		}
+		// TODO 处理没有合作医院的问题
 		if (!coHospitals.isEmpty()) {
 			for (Hospital cohospital : coHospitals) {
 				List<Doctor> doctorList = hospitalAdminService.getDoctorByHospital(cohospital.getId());

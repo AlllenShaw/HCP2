@@ -31,13 +31,13 @@
 
 .tip input {
 	height: 35px;
-	width: 140px;
+	width: 230px;
 	font: 18px 微软雅黑;
 }
 
 .tip select {
 	height: 40px;
-	width: 140px;
+	width: 200px;
 	font: 18px 微软雅黑;
 }
 
@@ -55,7 +55,9 @@
 				<tr>
 					<td>当前医院</td>
 					<td>${hospital.name }
-					<td>
+					</td>
+				</tr>
+				<tr>
 					<td>合作医院</td>
 					<td><select name="hospital_id">
 							<c:forEach items="${allHospitals }" var="item">

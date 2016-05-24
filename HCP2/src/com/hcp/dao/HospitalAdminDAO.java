@@ -72,10 +72,10 @@ public interface HospitalAdminDAO {
 	public abstract List<Permission> getPermissionsList();
 
 	// 删除医生组
-	public abstract void deleteDoctorGroup(String doctor_id, String group_id);
+	public abstract boolean deleteDoctorGroup(String doctor_id, String group_id);
 
 	// 删除病人组
-	public abstract void deletePatientGroup(String patient_id, String group_id);
+	public abstract boolean deletePatientGroup(String patient_id, String group_id);
 
 	// 获取用户组的用户
 	public abstract List<Doctor> getNumberByGroupId(String group_id);

@@ -1,7 +1,7 @@
-function draw(temp){
+function draw(temp,temp1){
 	var sbp = [],dbp=[],hr=[];
 	var labels=[];
-	for ( var i = 0; i < 7; i++) {
+	for ( var i = 0; i < temp1; i++) {
 		labels.push(temp[4*i].substr(0,10));
 		sbp.push(temp[4*i+1]);
 		dbp.push(temp[4*i+2]);
@@ -34,7 +34,7 @@ function draw(temp){
 				data : data,
 				align : 'center',
 				title : {
-					text : '血压最近7次变化曲线图',
+					text : '血压最近'+temp1+'次变化曲线图',
 					font : '微软雅黑',
 					fontsize : 24,
 				},

@@ -30,14 +30,14 @@
 
 .tip input {
 	height: 35px;
-	width: 180px;
-	font: 18px Arial, Helvetica;
+	width: 230px;
+	font-size: 18px;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 </style>
 
@@ -54,25 +54,31 @@
 			</tr>
 			<tr>
 				<td>适应症</td>
-				<td><input readonly="readonly" value="${medicine.adaptationDisease }"/></td>
-				<td>不良反应</td>
-				<td><input readonly="readonly" value="${medicine.adverseReaction }"/></td>
+				<td colspan="4"><input readonly="readonly" value="${medicine.adaptationDisease }" style="width:550px;"/></td>
 			</tr>
 			<tr>
-				<td>用法</td>
+				<td>不良反应</td>
+				<td colspan="4"><input readonly="readonly" value="${medicine.adverseReaction }" style="width:550px;"/></td>
+			</tr>
+			<tr>
+				<td>服用方式</td>
 				<td><input readonly="readonly" value="${medicine.usage }"/></td>
+			</tr>
+			<tr>
 				<td>用量</td>
-				<td><input readonly="readonly" value="${medicine.dosage }"/></td>
+				<td colspan="4"><input readonly="readonly" value="${medicine.dosage }" style="width:550px;"/></td>
 			</tr>
 			<tr>
 				<td>药物禁忌</td>
-				<td><input readonly="readonly" value="${medicine.taboo }"/></td>
+				<td colspan="4"><input readonly="readonly" value="${medicine.taboo }" style="width:550px;"/></td>
+			</tr>
+			<tr>
 				<td>注意事项</td>
-				<td><input readonly="readonly" value="${medicine.attentions }"/></td>
+			</tr>
+			<tr>
+				<td colspan="5"><textarea readonly="readonly" class="htextareatype1">${medicine.attentions }</textarea></td>
 			</tr>
 		</table>
-		<button class="fb">修改</button>
-
 	</div>
 	</details> </section> </section>
 </body>

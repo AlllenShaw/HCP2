@@ -54,7 +54,6 @@
 						<li><a href="patient/seo.do?selector1=1" target="mainframe">血糖</a></li>
 						<li><a href="patient/seo.do?selector1=2" target="mainframe">血压</a></li>
 						<li><a href="patient/seo.do?selector1=3" target="mainframe">血氧</a></li>
-						<li><a href="">心电</a></li>
 						<li><a href="patient/seo.do?selector1=10" target="mainframe">病历</a></li>
 						<li><a href="patient/seo.do?selector1=9" target="mainframe">用药记录</a></li>
 					</ul>
@@ -64,7 +63,7 @@
 						<li><a href="patient/seo.do?selector1=5" target="mainframe">血糖</a></li>
 						<li><a href="patient/seo.do?selector1=6" target="mainframe">血压</a></li>
 						<li><a href="patient/seo.do?selector1=7" target="mainframe">血氧</a></li>
-						<li><a href="">心电</a></li>
+						<li><a href="http://120.76.45.51:8080/dhmap/" target="_blank">心电</a></li>
 					</ul>
 					</details>
 				</div>
@@ -81,7 +80,7 @@
 				</div>
 
 				<div class="footer_links">
-					<a class="current" href="#" title="">首页</a> <a href="#" title="">关于</a>
+					<a class="current" href="#" title="">首页</a> <a href="#" onclick="window.close()">退出</a>
 				</div>
 			</div>
 

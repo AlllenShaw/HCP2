@@ -31,13 +31,13 @@
 .tip input {
 	height: 35px;
 	width: 140px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 </style>
 
@@ -48,7 +48,7 @@
 		<div align="center">
 			<table class="tip">
 				<tr>
-					<td>组一名称</td>
+					<td style="width:180px;">组一名称</td>
 					<td><select name="group1_id">
 							<option value="-1" selected="selected">选择一个用户组</option>
 							<c:forEach items="${ doctorGroups}" var="item">
@@ -56,7 +56,7 @@
 							</c:forEach>
 					</select>
 					<td>
-					<td>组二名称</td>
+					<td style="width:180px;">组二名称</td>
 					<td><select name="group2_id">
 							<option value="-1" selected="selected">选择一个用户组</option>
 							<c:forEach items="${paientGroups}" var="item">

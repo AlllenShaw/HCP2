@@ -82,7 +82,7 @@ function checkusername(){
 	/*
 	 * <"√ 用户名可用 × 请输入4-16位用户名× 用户名格式输入错误
 	 */
-		
+	 isexitname();
 	if(username.value==""|| username.value.length<4||username.value.length>16){				
 		showtips("#tipusername","请输入4-16位用户名");
 		var t=setTimeout("hidetips('#tipusername')",timelag);
@@ -90,8 +90,8 @@ function checkusername(){
 	}
 	else{
 		if(username.value.match(regname)){
-	// tipusername.innerHTML="√用户名可用!";
-			showtips("#tipusername","用户名可用");
+	// tipusername.innerHTML="√用户名格式正确!";
+			showtips("#tipusername","用户名格式正确");
 			var t=setTimeout("hidetips('#tipusername')",timelag);
 			return true;
 		}
@@ -101,7 +101,7 @@ function checkusername(){
 			var t=setTimeout("hidetips('#tipusername')",timelag);
 			return false;
 		}
-	}
+	 }
 }
 
 function checkpassword(){
@@ -227,6 +227,7 @@ function checkidcard()
 {  
    var id2=document.getElementById("id2");
    var reg=/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/; 
+   isExistIdNumber();
    if(reg.test(id2.value)==false)  
    {  
        showtips("#tipidcard","身份证输入不合法");
@@ -421,6 +422,36 @@ function isChn(str){
 	}
 }
 
+function question1()
+{
+	var fbel=document.getElementById("security1");
+	if(fbel.value==""){
+		showtips("#que1","× 不能为空！");
+		var t=setTimeout("hidetips('#que1')",timelag);
+		return false;
+	}
+}
+
+function question2()
+{
+	var fbel=document.getElementById("security2");
+	if(fbel.value==""){
+		showtips("#que2","× 不能为空！");
+		var t=setTimeout("hidetips('#que2')",timelag);
+		return false;
+	}
+}
+
+function question3()
+{
+	var fbel=document.getElementById("security3");
+	if(fbel.value==""){
+		showtips("#que3","× 不能为空！");
+		var t=setTimeout("hidetips('#que3')",timelag);
+		return false;
+	}
+}
+
 
 function checkdoctor(){
 	if(!checkusername())return false;
@@ -447,6 +478,19 @@ function checkpatient(){
 	if(!checktele())return false;
 	return true;
 }
+
+function checkrequest_pw()
+{
+	if(!checkusername())return false;
+	if(!checkpassword())return false;
+	if(!rcheckpassword())return false;
+	if(!question1())return false;
+	if(!question2())return false;
+	if(!question3())return false;
+	return true;
+}
+
+
 /*
  * ! tipso - A Lightweight Responsive jQuery Tooltip Plugin v1.0.1 Copyright (c)
  * 2014 Bojan Petkovski http://tipso.object505.com Licensed under the MIT
@@ -601,4 +645,5 @@ function previewImage(file)
                 param.top = Math.round((maxHeight - param.height) / 2);
                 return param;
             }
+
 

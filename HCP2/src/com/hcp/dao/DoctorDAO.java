@@ -128,4 +128,6 @@ public interface DoctorDAO {
 
 	public abstract Emr getEmrById(String emr_id);
 
+	public abstract boolean addEmr(Emr emr);
+
 }

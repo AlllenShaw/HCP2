@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body onload="check()">
 	<div class="formtitle">${name}的血氧情况</div>
 	<table class="bordered" id="spo_form">
 		<thead>
@@ -187,6 +187,25 @@
 	}
 	getdata();
 	gopage(1);
+	function check()
+	{
+		var remainday=${remainDay};
+		var spo_max='${boPatientInfo.spo2maxMax }';
+		if(remainday<3&&remainday>0)
+		alert("您的测试次数准备用完，请即使充值");
+		else if(remainday<1)
+		alert("您的测试次数已不足，请及时充值");
+		else if(remainday==null)
+		{
+			alert("您没权限查看测试记录，请联系管理员并充值");
+			window.location.href="index_doctor/index.jsp";
+		}
+		if(spo_max=null)
+		{
+			alert("您还没设置预警值，请联系您的主治医生");
+			window.location.href="index_doctor/index.jsp";
+		}
+	}
 </script>
 	
 	

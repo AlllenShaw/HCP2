@@ -57,7 +57,7 @@ public class UserController {
 		case "1":
 			Doctor doctor = doctorService.login(username, password);
 			if (doctor == null) {
-				return "redirect:/user/login.do";
+				return "/tips/login_failed";
 			}
 			sessionUtil.setAttribute("USERMODEL", doctor);
 			System.out.println("doctor name : " + doctor.getUsername());
@@ -68,7 +68,7 @@ public class UserController {
 		case "2":
 			Patient patient = patientService.login(username, password);
 			if (patient == null) {
-				return "redirect:/user/login.do";
+				return "/tips/login_failed";
 			}
 			sessionUtil.setAttribute("USERMODEL", patient);
 			System.out.println("patient name : " + patient.getUsername());
@@ -79,7 +79,7 @@ public class UserController {
 		case "3":
 			HospitalAdministrator hospitalAdministrator = hospitalAdminService.login(username, password);
 			if (hospitalAdministrator == null) {
-				return "redirect:/user/login.do";
+				return "/tips/login_failed";
 			}
 			sessionUtil.setAttribute("USERMODEL", hospitalAdministrator);
 			System.out.println("hospitalAdministrator name : " + hospitalAdministrator.getUsername());
@@ -90,7 +90,7 @@ public class UserController {
 		case "4":
 			SuperAdministrator superAdministrator = superAdminService.login(username, password);
 			if (superAdministrator == null) {
-				return "redirect:/user/login.do";
+				return "/tips/login_failed";
 			}
 			sessionUtil.setAttribute("USERMODEL", superAdministrator);
 			System.out.println("superAdministrator name : " + superAdministrator.getUsername());

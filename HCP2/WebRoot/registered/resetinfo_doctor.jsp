@@ -38,7 +38,7 @@
 							onsubmit="return checkdoctor()">
 							<table border="0" cellspacing="2px" cellpadding="2px">
 								<tr>
-									<td colspan="5" class="td_1">修改信息</td>
+									<td colspan="6" class="td_1">修改信息</td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
@@ -123,7 +123,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="td_2">行医资格编号</td>
+									<td class="td_2">行医编号</td>
 									<td colspan="5"><input type="text" id="certificate"
 										name="certificate" onblur="checkcer()" size="90%" value="${doctor.doctorLicense}"><span
 										id="tipcer" data-tipso="" ></span></td>

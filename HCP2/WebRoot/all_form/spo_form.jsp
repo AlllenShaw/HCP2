@@ -14,11 +14,18 @@
 
 
 <link rel="stylesheet" type="text/css" href="css/form_style.css">
-
+<script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-	<div class="formtitle">最新血氧列表</div>
+	<div class="formtitle" style="float:left" onsubmit="return checktext1()">最新血氧列表</div>
+	<form  method="post" id="formid">
+	<input type="hidden" name="selector1" value="10" />
+	<input type="hidden" name="selector2" value="2" />
+	<input type="hidden" name="type" value="0" />
+	<input type="text" id="text1" name="text1" class="size2" style="margin-left:250px;" placeholder="选择病人">
+	<input type="submit" id="text2" name="text2" class="size3"  value="病历">
+	</form>
 	<table class="bordered" id="spo_form">
 		<thead>
 
@@ -104,6 +111,15 @@
 		else if(bpm_value<bpm_min||bpm_value>bpm_max)
 		{
 			rows[i+1].style.color="#f00";
+		}
+		rowobj.onclick=function()
+		{
+			var e = e || window.event;
+		    var target = e.target || e.srcElement;
+		    if(target.tagName.toLowerCase() === "td") {
+		        var rowIdx = target.parentNode.rowIndex-1;
+		    }
+			$("#text1").attr("value",arrdata[temp+4*rowIdx]);
 		}
 		}
 	} 

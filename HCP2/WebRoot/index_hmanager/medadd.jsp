@@ -29,15 +29,15 @@
 
 .tip input {
 	height: 35px;
-	width: 180px;
+	width: 230px;
 	margin-right:10px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 </style>
 
@@ -61,23 +61,30 @@
 					</tr>
 					<tr>
 						<td>适应症</td>
-						<td><input type="text" name="adaptationDisease"></td>
-						<td>用法</td>
-						<td><input type="text" name="usage"></td>
+						<td colspan="4"><input type="text" name="adaptationDisease" style="width:550px;"/></td>
+					</tr>
+					<tr>
+						<td>服用方式</td>
+						<td><input type="text" name="usage"/></td>
 					</tr>
 					<tr>
 
 						<td>用量</td>
-						<td><input type="text" name="dosage"></td>
-					
+						<td colspan="4"><input type="text" name="dosage" style="width:550px;"/></td>
+					</tr>
+					<tr>
 						<td>不良反应</td>
-						<td><input type="text" name="adverseReaction"></td>
+						<td colspan="4"><input type="text" name="adverseReaction" style="width:550px;"/></td>
 					</tr>
 					<tr>
 						<td>药物禁忌</td>
-						<td><input type="text" name="taboo"></td>
+						<td colspan="4"><input type="text" name="taboo" style="width:550px;"/></td>
+					</tr>
+					<tr>
 						<td>注意事项</td>
-						<td><input type="text" name="attentions"></td>
+					</tr>
+					<tr>
+						<td colspan="5"><textarea type="text" name="attentions" class="htextareatype1"></textarea></td>
 					</tr>
 				</table>
 			</div>

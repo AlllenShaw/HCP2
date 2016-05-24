@@ -11,12 +11,17 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
+import javax.print.Doc;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 import com.hcp.domain.BoPatientInfo;
@@ -43,6 +48,8 @@ import com.hcp.domain.PatientGroup;
 import com.hcp.domain.PatientHasDoctor;
 import com.hcp.domain.PatientHasDoctorId;
 import com.hcp.domain.Prescription;
+import com.hcp.mobilePOJO.SimpleDoctor;
+import com.hcp.service.DoctorService;
 import com.hcp.service.PatientService;
 import com.hcp.util.SessionUtil;
 import com.hcp.util.TimeUtil;
@@ -135,9 +142,32 @@ public class PatientController {
 		patient.setTele(tele);
 		patient.setUsername(username);
 		patient.setRegisterTime(new Timestamp(new Date().getTime()));
-		Boolean flag = patientService.register(patient, family1, family2, patientHasDoctor);
-		System.out.println(flag);
-		if (flag) {
+
+		System.out.println(patient.getId() + "....." + patient.getRealname());
+		HtnPatientInfo htnPatientInfo = new HtnPatientInfo(patient.getId(), patient, 89.0f, 60.0f, 139.0f, 90.0f, 100.0f, 60.0f,
+				new Timestamp(new Date().getTime()));
+		GluPatientInfo gluPatientInfo = new GluPatientInfo(patient.getId(), patient, 6.1f, 3.9f, new Timestamp(
+				new Date().getTime()));
+		BoPatientInfo boPatientInfo = new BoPatientInfo(patient.getId(), patient, 100.0f, 60.0f, 98.0f, 95.0f, new Timestamp(
+				new Date().getTime()));
+		Set<BoPatientInfo> boPatientInfos = new HashSet<BoPatientInfo>();
+		boPatientInfos.add(boPatientInfo);
+		patient.setBoPatientInfos(boPatientInfos);
+		Set<HtnPatientInfo> htnPatientInfos = new HashSet<HtnPatientInfo>();
+		htnPatientInfos.add(htnPatientInfo);
+		patient.setHtnPatientInfos(htnPatientInfos);
+		Set<GluPatientInfo> gluPatientInfos = new HashSet<GluPatientInfo>();
+		gluPatientInfos.add(gluPatientInfo);
+		patient.setGluPatientInfos(gluPatientInfos);
+
+		Boolean flag1 = patientService.register(patient, family1, family2, patientHasDoctor);
+		patient = patientService.getPatientByName(username);
+		System.out.println("==================================================================================");
+
+		// Boolean flag2 = patientService.saveChronicInfo(boPatientInfo, htnPatientInfo, gluPatientInfo);
+
+		System.out.println(flag1);
+		if (flag1) {
 			System.out.println("return main");
 			return "/main/main";
 		} else {
@@ -295,170 +325,242 @@ public class PatientController {
 
 		if (selector1.equals("1") || selector1.equals("5")) {
 			// 血糖
-			Set<GluPatientRecord> gluPatientRecordsSet = patient.getGluPatientRecords();
-			List<GluPatientRecord> gluPatientRecords = new ArrayList<GluPatientRecord>();
-			gluPatientRecords.addAll(gluPatientRecordsSet);
-			Collections.sort(gluPatientRecords, new Comparator<GluPatientRecord>() {
-				@Override
-				public int compare(GluPatientRecord o1, GluPatientRecord o2) {
-					return o2.getId() - o1.getId();
+			try {
+				Set<GluPatientRecord> gluPatientRecordsSet = patient.getGluPatientRecords();
+				List<GluPatientRecord> gluPatientRecords = new ArrayList<GluPatientRecord>();
+				gluPatientRecords.addAll(gluPatientRecordsSet);
+				Collections.sort(gluPatientRecords, new Comparator<GluPatientRecord>() {
+					@Override
+					public int compare(GluPatientRecord o1, GluPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				ArrayList<GluPatientInfo> tempList = new ArrayList<GluPatientInfo>();
+				tempList.addAll(patient.getGluPatientInfos());
+				model.addAttribute("gluPatientInfo", tempList.get(0));
+				model.addAttribute("gluPatientRecords", gluPatientRecords);
+
+				// 返回血糖显示页面
+				if (selector1.equals("1")) {
+					return "/index_patient/bg_patient";
+				} else if (selector1.equals("5")) {
+					return "/chart/bg_ichart";
 				}
-			});
-			ArrayList<GluPatientInfo> tempList = new ArrayList<GluPatientInfo>();
-			tempList.addAll(patient.getGluPatientInfos());
-			model.addAttribute("gluPatientInfo", tempList.get(0));
-			model.addAttribute("gluPatientRecords", gluPatientRecords);
-			// 返回血糖显示页面
-			if (selector1.equals("1")) {
-				return "/index_patient/bg_patient";
-			} else if (selector1.equals("5")) {
-				return "/chart/bg_ichart";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
 			}
 		} else if (selector1.equals("2") || selector1.equals("6")) {
 			// 血压
-
-			Set<HtnPatientRecord> htnPatientRecordsSet = patient.getHtnPatientRecords();
-			List<HtnPatientRecord> htnPatientRecords = new ArrayList<HtnPatientRecord>();
-			htnPatientRecords.addAll(htnPatientRecordsSet);
-			Collections.sort(htnPatientRecords, new Comparator<HtnPatientRecord>() {
-				@Override
-				public int compare(HtnPatientRecord o1, HtnPatientRecord o2) {
-					return o2.getId() - o1.getId();
+			try {
+				Set<HtnPatientRecord> htnPatientRecordsSet = patient.getHtnPatientRecords();
+				List<HtnPatientRecord> htnPatientRecords = new ArrayList<HtnPatientRecord>();
+				htnPatientRecords.addAll(htnPatientRecordsSet);
+				Collections.sort(htnPatientRecords, new Comparator<HtnPatientRecord>() {
+					@Override
+					public int compare(HtnPatientRecord o1, HtnPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				ArrayList<HtnPatientInfo> tempList = new ArrayList<HtnPatientInfo>();
+				tempList.addAll(patient.getHtnPatientInfos());
+				HtnPatientInfo htnPatientInfo = tempList.get(0);
+				model.addAttribute("htnPatientInfo", htnPatientInfo);
+				model.addAttribute("htnPatientRecords", htnPatientRecords);
+				model.addAttribute("remainDay", TimeUtil.remainDays(htnPatientInfo.getRemainTime()));
+				if (selector1.equals("2")) {
+					return "/index_patient/bp_patient";
+				} else if (selector1.equals("6")) {
+					return "/chart/bp_ichart";
 				}
-			});
-			ArrayList<HtnPatientInfo> tempList = new ArrayList<HtnPatientInfo>();
-			tempList.addAll(patient.getHtnPatientInfos());
-			HtnPatientInfo htnPatientInfo = tempList.get(0);
-			model.addAttribute("htnPatientInfo", htnPatientInfo);
-			model.addAttribute("htnPatientRecords", htnPatientRecords);
-			model.addAttribute("remainDay", TimeUtil.remainDays(htnPatientInfo.getRemainTime()));
-			if (selector1.equals("2")) {
-				return "/index_patient/bp_patient";
-			} else if (selector1.equals("6")) {
-				return "/chart/bp_ichart";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
 			}
-
 		} else if (selector1.equals("3") || selector1.equals("7")) {
 			// 血氧
-
-			Set<BoPatientRecord> boPatientRecordsSet = patient.getBoPatientRecords();
-			List<BoPatientRecord> boPatientRecords = new ArrayList<BoPatientRecord>();
-			boPatientRecords.addAll(boPatientRecordsSet);
-			Collections.sort(boPatientRecords, new Comparator<BoPatientRecord>() {
-				@Override
-				public int compare(BoPatientRecord o1, BoPatientRecord o2) {
-					return o2.getId() - o1.getId();
+			try {
+				Set<BoPatientRecord> boPatientRecordsSet = patient.getBoPatientRecords();
+				List<BoPatientRecord> boPatientRecords = new ArrayList<BoPatientRecord>();
+				boPatientRecords.addAll(boPatientRecordsSet);
+				Collections.sort(boPatientRecords, new Comparator<BoPatientRecord>() {
+					@Override
+					public int compare(BoPatientRecord o1, BoPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				ArrayList<BoPatientInfo> tempList = new ArrayList<BoPatientInfo>();
+				tempList.addAll(patient.getBoPatientInfos());
+				BoPatientInfo boPatientInfo = tempList.get(0);
+				model.addAttribute("boPatientInfo", boPatientInfo);
+				model.addAttribute("remainDay", TimeUtil.remainDays(boPatientInfo.getRemainTime()));
+				model.addAttribute("boPatientRecords", boPatientRecords);
+				if (selector1.equals("3")) {
+					return "/index_patient/spo_patient";
+				} else if (selector1.equals("7")) {
+					return "/chart/spo_ichart";
 				}
-			});
-			ArrayList<BoPatientInfo> tempList = new ArrayList<BoPatientInfo>();
-			tempList.addAll(patient.getBoPatientInfos());
-			BoPatientInfo boPatientInfo = tempList.get(0);
-			model.addAttribute("boPatientInfo", boPatientInfo);
-			model.addAttribute("remainDay", TimeUtil.remainDays(boPatientInfo.getRemainTime()));
-			model.addAttribute("boPatientRecords", boPatientRecords);
-			if (selector1.equals("3")) {
-				return "/index_patient/spo_patient";
-			} else if (selector1.equals("7")) {
-				return "/chart/spo_ichart";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
 			}
-
 		} else if (selector1.equals("4")) {
 			// 血脂
-
-			Set<HplPatientRecord> hplPatientRecordsSet = patient.getHplPatientRecords();
-			List<HplPatientRecord> hplPatientRecords = new ArrayList<HplPatientRecord>();
-			hplPatientRecords.addAll(hplPatientRecordsSet);
-			Collections.sort(hplPatientRecords, new Comparator<HplPatientRecord>() {
-				@Override
-				public int compare(HplPatientRecord o1, HplPatientRecord o2) {
-					return o2.getId() - o1.getId();
+			try {
+				Set<HplPatientRecord> hplPatientRecordsSet = patient.getHplPatientRecords();
+				List<HplPatientRecord> hplPatientRecords = new ArrayList<HplPatientRecord>();
+				hplPatientRecords.addAll(hplPatientRecordsSet);
+				Collections.sort(hplPatientRecords, new Comparator<HplPatientRecord>() {
+					@Override
+					public int compare(HplPatientRecord o1, HplPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				ArrayList<HplPatientInfo> tempList = new ArrayList<HplPatientInfo>();
+				tempList.addAll(patient.getHplPatientInfos());
+				HplPatientInfo hplPatientInfo = tempList.get(0);
+				model.addAttribute("hplPatientInfo", tempList.get(0));
+				model.addAttribute("remainDay", TimeUtil.remainDays(hplPatientInfo.getRemainTime()));
+				model.addAttribute("hplPatientRecords", hplPatientRecords);
+				if (selector1.equals("4")) {
+					return "/index_patient/tg_patient";
+				} else if (selector1.equals("?")) {
+					return "/chart/tg_ichart";
 				}
-			});
-			ArrayList<HplPatientInfo> tempList = new ArrayList<HplPatientInfo>();
-			tempList.addAll(patient.getHplPatientInfos());
-			HplPatientInfo hplPatientInfo = tempList.get(0);
-			model.addAttribute("hplPatientInfo", tempList.get(0));
-			model.addAttribute("remainDay", TimeUtil.remainDays(hplPatientInfo.getRemainTime()));
-			model.addAttribute("hplPatientRecords", hplPatientRecords);
-			if (selector1.equals("4")) {
-				return "/index_patient/tg_patient";
-			} else if (selector1.equals("?")) {
-				return "/chart/tg_ichart";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
 			}
-
 		} else if (selector1.equals("8")) {
 			// 心电
-
-			Set<HdPatientRecord> hdPatientRecordsSet = patient.getHdPatientRecords();
-			List<HdPatientRecord> hdPatientRecords = new ArrayList<HdPatientRecord>();
-			hdPatientRecords.addAll(hdPatientRecordsSet);
-			Collections.sort(hdPatientRecords, new Comparator<HdPatientRecord>() {
-				@Override
-				public int compare(HdPatientRecord o1, HdPatientRecord o2) {
-					return o2.getId() - o1.getId();
-				}
-			});
-			ArrayList<HdPatientInfo> tempList = new ArrayList<HdPatientInfo>();
-			tempList.addAll(patient.getHdPatientInfos());
-			HdPatientInfo hdPatientInfo = tempList.get(0);
-			model.addAttribute("hdPatientInfo", hdPatientInfo);
-			model.addAttribute("remainDay", TimeUtil.remainDays(hdPatientInfo.getRemainTime()));
-			model.addAttribute("hdPatientRecords", hdPatientRecords);
-			return "/index_patient/hd_patient";
-
+			try {
+				Set<HdPatientRecord> hdPatientRecordsSet = patient.getHdPatientRecords();
+				List<HdPatientRecord> hdPatientRecords = new ArrayList<HdPatientRecord>();
+				hdPatientRecords.addAll(hdPatientRecordsSet);
+				Collections.sort(hdPatientRecords, new Comparator<HdPatientRecord>() {
+					@Override
+					public int compare(HdPatientRecord o1, HdPatientRecord o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				ArrayList<HdPatientInfo> tempList = new ArrayList<HdPatientInfo>();
+				tempList.addAll(patient.getHdPatientInfos());
+				HdPatientInfo hdPatientInfo = tempList.get(0);
+				model.addAttribute("hdPatientInfo", hdPatientInfo);
+				model.addAttribute("remainDay", TimeUtil.remainDays(hdPatientInfo.getRemainTime()));
+				model.addAttribute("hdPatientRecords", hdPatientRecords);
+				return "/index_patient/hd_patient";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
+			}
 		} else if (selector1.equals("9")) {
 			// 用药记录
-
-			Set<GluPatientMedicineRecord> gluPatientMedicineRecords = patient.getGluPatientMedicineRecords();
-			Set<HdPatientMedicineRecord> hdPatientMedicineRecords = patient.getHdPatientMedicineRecords();
-			Set<BoPatientMedicineRecord> boPatientMedicineRecords = patient.getBoPatientMedicineRecords();
-			Set<HtnPatientMedicineRecord> htnPatientMedicineRecords = patient.getHtnPatientMedicineRecords();
-			Set<HplPatientMedicineRecord> hplPatientMedicineRecords = patient.getHplPatientMedicineRecords();
-			model.addAttribute("gluPatientMedicineRecords", gluPatientMedicineRecords);
-			model.addAttribute("hdPatientMedicineRecords", hdPatientMedicineRecords);
-			model.addAttribute("boPatientMedicineRecords", boPatientMedicineRecords);
-			model.addAttribute("htnPatientMedicineRecords", htnPatientMedicineRecords);
-			model.addAttribute("hplPatientMedicineRecords", hplPatientMedicineRecords);
-			return "/index_patient/med_record";
-
+			try {
+				Set<GluPatientMedicineRecord> gluPatientMedicineRecords = patient.getGluPatientMedicineRecords();
+				Set<HdPatientMedicineRecord> hdPatientMedicineRecords = patient.getHdPatientMedicineRecords();
+				Set<BoPatientMedicineRecord> boPatientMedicineRecords = patient.getBoPatientMedicineRecords();
+				Set<HtnPatientMedicineRecord> htnPatientMedicineRecords = patient.getHtnPatientMedicineRecords();
+				Set<HplPatientMedicineRecord> hplPatientMedicineRecords = patient.getHplPatientMedicineRecords();
+				model.addAttribute("gluPatientMedicineRecords", gluPatientMedicineRecords);
+				model.addAttribute("hdPatientMedicineRecords", hdPatientMedicineRecords);
+				model.addAttribute("boPatientMedicineRecords", boPatientMedicineRecords);
+				model.addAttribute("htnPatientMedicineRecords", htnPatientMedicineRecords);
+				model.addAttribute("hplPatientMedicineRecords", hplPatientMedicineRecords);
+				return "/index_patient/med_record";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
+			}
 		} else if (selector1.equals("10")) {
 			// 病历
-
-			Set<Emr> emrs = patient.getEmrs();
-			model.addAttribute("patient", patient);
-			model.addAttribute("emrs", emrs);
-			return "/index_patient/pcase_history";
-
+			try {
+				Set<Emr> emrs = patient.getEmrs();
+				model.addAttribute("patient", patient);
+				model.addAttribute("emrs", emrs);
+				return "/index_patient/pcase_history";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
+			}
 		} else if (selector1.equals("11")) {
 			// 处方
+			try {
+				List<Prescription> list = new ArrayList<Prescription>();
 
-			List<Prescription> list = new ArrayList<Prescription>();
-
-			Set<Emr> emrsSet = patient.getEmrs();
-			List<Emr> emrs = new ArrayList<Emr>();
-			emrs.addAll(emrsSet);
-			Collections.sort(emrs, new Comparator<Emr>() {
-				@Override
-				public int compare(Emr o1, Emr o2) {
-					return o2.getId() - o1.getId();
+				Set<Emr> emrsSet = patient.getEmrs();
+				List<Emr> emrs = new ArrayList<Emr>();
+				emrs.addAll(emrsSet);
+				Collections.sort(emrs, new Comparator<Emr>() {
+					@Override
+					public int compare(Emr o1, Emr o2) {
+						return o2.getId() - o1.getId();
+					}
+				});
+				Set<Prescription> set = emrs.get(0).getPrescriptions();
+				for (Prescription prescription : set) {
+					System.out.println(prescription.getMedicine().getName());
+					System.out.println(prescription.getTakingMedicineNumberEachtime());
 				}
-			});
-			Set<Prescription> set = emrs.get(0).getPrescriptions();
-			for (Prescription prescription : set) {
-				System.out.println(prescription.getMedicine().getName());
-				System.out.println(prescription.getTakingMedicineNumberEachtime());
+				model.addAttribute("name", patient.getRealname());
+				model.addAttribute("id", patient.getId());
+				model.addAttribute("emrs", emrs);
+				model.addAttribute("set", set);
+				return "/medical_manage/patient_iform";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "/tips/operation_failed";
 			}
-			model.addAttribute("name", patient.getRealname());
-			model.addAttribute("id", patient.getId());
-			model.addAttribute("emrs", emrs);
-			model.addAttribute("set", set);
-			return "/medical_manage/patient_iform";
-
 		} else {
 			return "redirect: seo.do";
 		}
 		return "redirect: seo.do";
-
 	}
 
+	@RequestMapping("/getDoctorByHospital")
+	@ResponseBody
+	public String getDoctorByHospital(HttpServletRequest request, HttpServletResponse response, Model model, String hospital_id) {
+		System.out.println("医生被调用");
+		List<Doctor> list = patientService.getDoctorByHospital(hospital_id);
+		JSONObject json = new JSONObject();
+		List<SimpleDoctor> doctors = new ArrayList<SimpleDoctor>();
+		for (Doctor doctor : list) {
+			SimpleDoctor simpleDoctor = new SimpleDoctor(doctor.getId(), doctor.getRealname(), doctor.getProfession(), doctor
+					.getHospital().getName());
+			doctors.add(simpleDoctor);
+		}
+		System.out.println("doctors" + doctors);
+		json.put("doctors", doctors);
+		System.out.println(json.toString());
+		return json.toString();
+	}
+
+	@RequestMapping("/isExistName")
+	@ResponseBody
+	public String isExistName(HttpServletRequest request, Model model, String username) {
+		Boolean result = patientService.isExistName(username);
+		if (result) {
+			return "true";
+		} else {
+			return "false";
+		}
+		// JSONObject json = JSONObject.fromObject(result);
+		// System.out.println(json.toString());
+		// return json.toString();
+		// model.addAttribute("result",result);
+		// return "/registered/registered_patient";
+	}
+
+	@RequestMapping("/isExistIdNumber")
+	@ResponseBody
+	public String isExistIdNumber(HttpServletRequest request, Model model, String idNumber) {
+		Boolean result = patientService.isExistIdNumber(idNumber);
+		if (result) {
+			return "true";
+		} else {
+			return "false";
+		}
+		// model.addAttribute("result",result);
+		// return "/registered/registered_patient";
+	}
 }

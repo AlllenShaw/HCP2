@@ -1,7 +1,7 @@
-function draw(temp){
+function draw(temp,max,min,temp1){
 	var value = [];
 	var labels = [];
-	for(var j=0;j<7;j++)
+	for(var j=0;j<temp1;j++)
 		{
 			value.push(temp[2*j+1]);
 			labels.push(temp[2*j].substr(0,10));
@@ -18,12 +18,12 @@ function draw(temp){
 				data : data,
 				align : 'center',
 				title : {
-					text : '血氧最近7次变化曲线图',
+					text : '血氧最近'+temp1+'次变化曲线图',
 					font : '微软雅黑',
 					fontsize : 24,
 				},
 				subtitle : {
-					text : '包含预测',
+					text : '',
 					font : '微软雅黑',
 				},
 				footnote : {
@@ -100,7 +100,7 @@ function draw(temp){
 			.textBaseline('top')
 			.fillText('(时间)',x + w + 20, y + h + 10, false);
 			*/
-			var avg = 95,
+			var avg = min,
 			x = coo.get('originx'),
 			W = coo.width,
 			S = coo.getScale('left'),
@@ -114,7 +114,7 @@ function draw(temp){
 			.textFont('600 12px Verdana')
 			.fillText('下限:'+avg,x+W+5,y,false,'#b32c0d');
 			
-			avg=98,
+			avg=max,
 			h = (avg - S.start) * H / S.distance,
 			y = chart.y + H - h;
 		

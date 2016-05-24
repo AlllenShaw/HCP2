@@ -30,19 +30,20 @@
 
 .tip input {
 	height: 35px;
-	width: 140px;
-	font: 18px Arial, Helvetica;
+	width: 300px;
+	font-size: 18px;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 
 .tip textarea {
 	height: 100px;
-	width: 400px;
+	width: 500px;
+	font-size: 18px;
 }
 </style>
 

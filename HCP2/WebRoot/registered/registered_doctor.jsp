@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="css/tipso.min.css" type="text/css"></link>
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 <script src="js/register.js" type="text/javascript"></script>
+
+
 </head>
 
 <style>
@@ -48,7 +50,7 @@
 			                onsubmit="return checkdoctor()">
 							<table border="0" cellspacing="2px" cellpadding="2px">
 								<tr>
-									<td colspan="5" class="td_1">医生注册</td>
+									<td colspan="6" class="td_1">医生注册</td>
 								</tr>
 								<tr><td>&nbsp; </td></tr>
 								<tr>
@@ -112,13 +114,13 @@
 								<tr>
 									<td class="td_2">现住地址</td>
 									<td colspan="5"><input type="text" id="naddress"
-										name="naddress" size="62%">
+										name="naddress" size="62%" value="无">
 									</td>
 								</tr>
 								<tr>
 									<td class="td_2">工作方向</td>
 									<td colspan="5"><input type="text" id="" name="profession"
-										size="62%">
+										size="62%" value="无">
 									</td> 
 								</tr>
 								<tr>
@@ -157,7 +159,7 @@
 									<td class="td_2" rowspan="5">自我介绍</td>
 								</tr>
 							</table>
-							<textarea class="textarea1"></textarea>
+							<textarea class="textarea1" >无</textarea>
 							<div class="fbl2">
 								<input class="fb" type="submit" value="提交"> <input
 									class="fb" type="reset" value="重置"> <input class="fb"
@@ -172,5 +174,24 @@
 				
 			</div>
 		</div>
+		<script>
+	function isexitname()
+	{
+		var value1=document.getElementById("username").value;
+			$.post('doctor/isExistName.do',{username:value1},function(data){
+	        	if(data=="true")
+	        	alert("用户名已存在")
+			});
+	}
+	
+	function isExistIdNumber()
+	{
+		var value1=document.getElementById("id2").value;
+			$.post('doctor/isExistIdNumber.do',{idNumber:value1},function(data){
+				if(data=="true")
+	        	alert("身份证已存在");
+			});
+	}
+</script>
 </body>
 </html>

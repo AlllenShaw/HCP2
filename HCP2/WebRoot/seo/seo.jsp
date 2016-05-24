@@ -31,13 +31,12 @@
 				<option value="5">血糖图</option>
 				<option value="6">血压图</option>
 				<option value="7">血氧图</option>
-				<option value="8">心电图</option>
 				<option value="9">用药记录</option>
 				<option value="10">病历</option>
 				<option value="11">医嘱</option>
 			</select> <select id="selector2" name="selector2" class="size1"
 				style="width:100px">
-				<option value="1">姓名</option>
+				<option value="1">用户名</option>
 				<option value="2">ID</option>
 				<option value="3">身份证</option>
 				<option value="4">所有病人</option>

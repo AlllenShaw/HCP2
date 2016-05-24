@@ -29,15 +29,15 @@
 
 .tip input {
 	height: 35px;
-	width: 150px;
+	width: 230px;
 	margin-right:10px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 </style>
 
@@ -52,15 +52,23 @@
 			<table class="tip">
 				<tr>
 					<td>医院名称</td>
-					<td><input type="text" name="name" /></td>
-					<td>医院地址</td>
-					<td><input type="text" name="address" /></td>
+					<td><input type="text" name="name"/></td>
+					<td>医院等级</td>
+					<td><input type="text" name="level"/></td>
 				</tr>
 				<tr>
-					<td>医院等级</td>
-					<td><input type="text" name="level" /></td>
+					<td>医院地址</td>
+				</tr>
+				<tr>
+					
+					<td colspan="5"><textarea type="text" name="address" class="htextareatype1"></textarea></td>
+				</tr>
+				<tr>
 					<td>医院简介</td>
-					<td><input type="text" name="introduction" /></td>
+				</tr>
+				<tr>
+					
+					<td colspan="5"><textarea type="text" name="introduction" class="htextareatype1"></textarea></td>
 				</tr>
 			</table>
 			<input type="submit" class="fb" value="添加" />

@@ -32,23 +32,23 @@
 .tip input {
 	height: 35px;
 	width: 140px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 
 .tip select {
 	height: 40px;
 	width: 180px;
-	font: 18px Arial, Helvetica;
+	font-size: 18px;
 }
 
 .tip textarea {
 	height: 100px;
 	width: 400px;
+	font-size: 18px;
 }
 
 #help-left {
 	width: 650px;
-	font-family: 'microsoft YaHei';
 	float: left
 }
 </style>
@@ -61,14 +61,16 @@
 			<tr>
 				<td>所属医院</td>
 				<td><input type="text" value="${group.hospital.name}"
-					readonly="readonly" /></td>
+					readonly="readonly" style="width:300px;"/></td>
 			</tr>
 			<tr>
 				<td>组名称</td>
 				<td><input type="text" value="${group.name}"
-					readonly="readonly" /></td>
+					readonly="readonly" style="width:300px;"/></td>
+			</tr>
+			<tr>
 				<td>组ID</td>
-				<td><input type="text" value="${group.id}" readonly="readonly" /></td>
+				<td><input type="text" value="${group.id}" readonly="readonly" style="width:300px;" /></td>
 			</tr>
 			<tr>
 				<td>用户组描述</td>

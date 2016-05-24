@@ -196,7 +196,7 @@ function check_med()
 }
 
 
-function add_med()
+function add_med(array,number)
 {
 	var tableid = document.getElementById("med_form");
 	var rows = tableid.getElementsByTagName("tr");
@@ -207,25 +207,18 @@ function add_med()
 		var cell3=rowobj.insertCell(rowobj.cells.length);
 		var cell4=rowobj.insertCell(rowobj.cells.length);
 		var cell5=rowobj.insertCell(rowobj.cells.length);
+		alert(array[number*5]);
+		alert(array[number*5+1]);
+		alert(array[number*5+2]);
+		alert(array[number*5+3]);
+		alert(array[number*5+4]);
+		cell1.innerHTML=array[number*5];
+		cell2.innerHTML=array[number*5+1];
+		cell3.innerHTML=array[number*5+2];
+		cell4.innerHTML=array[number*5+3];
+		cell5.innerHTML=array[number*5+4];
+		alert("OK");
 		
-		cell1.innerHTML=
-		"<select class='size1' style='width:100px' id='type'>" +
-		"<option value='1'>高血压</option>" +
-		"<option value='2'>高血脂</option>" +
-		"<option value='3'>高血糖</option>" +
-		"<option value='4'>其他</option>" +
-		"</select >";
-		cell2.innerHTML="<select class='size1' style='width:100px' id='medid'>" +
-				"</select >";
-		cell3.innerHTML="<select class='size1' style='width:100px' id='medname'>" +
-		"</select >";
-		cell4.innerHTML=
-		"<select class='size1' style='width:100px' id='moa'>" +
-		"<option value='1'>口服</option>" +
-		"<option value='2'>含服</option>" +
-		"<option value='3'>咀嚼</option>" +
-		"</select >";
-		cell5.innerHTML="<input class='size1' style='width:100px' id='rda'>";
 }
 
 function check_medrecord()
@@ -288,6 +281,5 @@ function check_pmed()
 		
 	}
 }
-
 
 

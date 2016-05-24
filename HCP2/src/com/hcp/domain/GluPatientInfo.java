@@ -29,7 +29,8 @@ public class GluPatientInfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public GluPatientInfo(Patient patient, Float bloodGlucoseMax, Float bloodGlucoseMin, Timestamp upgradeTime) {
+	public GluPatientInfo(Integer patientId, Patient patient, Float bloodGlucoseMax, Float bloodGlucoseMin, Timestamp upgradeTime) {
+		this.patientId = patientId;
 		this.patient = patient;
 		this.bloodGlucoseMax = bloodGlucoseMax;
 		this.bloodGlucoseMin = bloodGlucoseMin;

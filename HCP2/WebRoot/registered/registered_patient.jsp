@@ -16,6 +16,29 @@
 <link rel="stylesheet" href="css/tipso.min.css" type="text/css"></link>
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 <script src="js/register.js" type="text/javascript"></script>
+
+<script>
+	function getDoctor1() {
+		$("#Doctor").empty();
+		$
+				.ajax({
+					url : "patient/getDoctorByHospital.do",
+					data : {
+						"hospital_id" : $("#hospital").val()
+					},
+					type : "POST",
+					dataType : "json",
+					success : function(data) {
+							$.each(data.doctors, function (n, value) {
+								$("#Doctor").append(
+										"<option value="+value.doctorID+">"
+												+ value.doctorName
+												+ "</option>");
+						});	
+					}
+				});
+	}
+</script>
 </head>
 
 
@@ -121,17 +144,17 @@
 								<tr>
 									<td class="td_2">出生地址</td>
 									<td colspan="5"><input type="text" id="address"
-										name="address" size="90%"></td>
+										name="address" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">现住地址</td>
 									<td colspan="5"><input type="text" id="naddress"
-										name="naddress" size="90%"></td>
+										name="naddress" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">工作单位</td>
 									<td colspan="5"><input type="text" id="company"
-										name="company" size="90%"></td>
+										name="company" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">联系电话</td>
@@ -170,23 +193,23 @@
 								<tr>
 									<td class="td_2">家属姓名</td>
 									<td class="td_3"><input type="text" id="fname1"
-										name="fname1"></td>
+										name="fname1" value="无"></td>
 									<td class="td_2">关系</td>
 									<td class="td_3"><input type="text" id="relationship1"
-										name="relationship1"></td>
+										name="relationship1" value="无"></td>
 									<td class="td_2">家属电话</td>
 									<td class="td_3"><input type="text" id="tele1"
-										name="tele1"></td>
+										name="tele1" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">地址</td>
 									<td colspan="5"><input type="text" id="faddress1"
-										name="faddress1" size="90%"></td>
+										name="faddress1" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">邮址</td>
 									<td colspan="5"><input type="text" id="femail1"
-										name="femail1" size="90%"></td>
+										name="femail1" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
@@ -197,23 +220,23 @@
 								<tr>
 									<td class="td_2">家属姓名</td>
 									<td class="td_3"><input type="text" id="fname2"
-										name="fname2"></td>
+										name="fname2" value="无"></td>
 									<td class="td_2">关系</td>
 									<td class="td_3"><input type="text" id="relationship2"
-										name="relationship2"></td>
+										name="relationship2" value="无"></td>
 									<td class="td_2">家属电话</td>
 									<td class="td_3"><input type="text" id="tele2"
-										name="tele2"></td>
+										name="tele2" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">地址</td>
 									<td colspan="5"><input type="text" id="faddress2"
-										name="faddress2" size="90%"></td>
+										name="faddress2" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">邮址</td>
 									<td colspan="5"><input type="text" id="femail2"
-										name="femail2" size="90%"></td>
+										name="femail2" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
@@ -233,17 +256,17 @@
 								<tr>
 									<td id="class">患病史</td>
 									<td colspan="5"><input type="text" id="his_1"
-										name="illnesshistory" size="90%"></td>
+										name="illnesshistory" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">过敏史</td>
 									<td colspan="5"><input type="text" id="his_2"
-										name="allergichistory" size="90%"></td>
+										name="allergichistory" size="90%" value="无"></td>
 								</tr>
 								<tr>
 									<td class="td_2">家族病史</td>
 									<td colspan="5"><input type="text" id="his_3"
-										name="familymedicalhistory" size="90%"></td>
+										name="familymedicalhistory" size="90%" value="无"></td>
 								</tr>
 
 								<tr>
@@ -283,5 +306,26 @@
 
 		</div>
 	</div>
+	
+	<script>
+	function isexitname()
+	{
+		var value1=document.getElementById("username").value;
+			$.post('patient/isExistName.do',{username:value1},function(data){
+				if(data=="true")
+	        	alert("用户名已存在");
+			});
+	}
+	
+	function isExistIdNumber()
+	{
+		var value1=document.getElementById("id2").value;
+			$.post('patient/isExistIdNumber.do',{idNumber:value1},function(data){
+				if(data=="true")
+	        	alert("身份证已存在");
+			});
+	}
+	
+	</script>
 </body>
 </html>

@@ -2,7 +2,6 @@ body {
     width: 600px;
     font-family: 微软雅黑;
     font-size: 14px;
-    color: #444;
 }
 
 table {
@@ -105,3 +104,26 @@ a:active{color:bule;}
 	margin-top:10px;
 }
 
+.size2
+{
+	width:100px;
+	height:30px;
+	font-size: 20px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.size3
+{
+	width:100px;
+	height:30px;
+	font-size: 20px;
+	margin-top:10px;
+	margin-bottom:10px;
+	-webkit-appearance: none;
+	background: #009dff;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+}

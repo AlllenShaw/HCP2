@@ -1,8 +1,8 @@
-function draw(temp,max,min){
+function draw(temp,max,min,temp1){
 	var value = [];
 	var labels = [];
 	
-	for(var j=0;j<7;j++)
+	for(var j=0;j<temp1;j++)
 		{
 			value.push(temp[1+3*j]);
 			labels.push(temp[2+3*j].substr(0,10));
@@ -23,7 +23,7 @@ function draw(temp,max,min){
 				data : data,
 				align : 'center',
 				title : {
-					text : '血糖最近7次测量变化曲线图',
+					text : '血糖最近'+temp1+'次测量变化曲线图',
 					font : '微软雅黑',
 					fontsize : 24,
 				},

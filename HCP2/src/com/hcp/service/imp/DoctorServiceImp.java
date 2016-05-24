@@ -77,7 +77,7 @@ public class DoctorServiceImp implements DoctorService {
 		return doctorDAO.getPatientByName(username);
 	}
 
-	@Override
+	
 	public boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup,int permission_id) {
 		// TODO Auto-generated method stub
 		return doctorDAO.isHasPermission(doctorGroup,patientGroup,permission_id);
@@ -89,6 +89,7 @@ public class DoctorServiceImp implements DoctorService {
 		// TODO Auto-generated method stub
 		Set<DoctorGroup> doctorGroups = doctor.getDoctorGroups();
 		Set<PatientGroup> patientGroups = patient.getPatientGroups();
+		System.out.println(doctorGroups+"  "+patientGroups);
 		for (DoctorGroup doctorGroup : doctorGroups) {
 			for (PatientGroup patientGroup : patientGroups) {
 				if(this.isHasPermission(doctorGroup,patientGroup,permission_id)){
@@ -109,7 +110,7 @@ public class DoctorServiceImp implements DoctorService {
 
 	@Override
 	public Patient getPatientByID(String id) {
-		// TODO Auto-generated method stub
+		System.out.println(id);
 		Integer patient_id = Integer.parseInt(id);
 		return doctorDAO.getPatientById(patient_id);
 	}
@@ -150,5 +151,21 @@ public class DoctorServiceImp implements DoctorService {
 	public Emr getEmrById(String emr_id) {
 		return doctorDAO.getEmrById(emr_id);
 	}
+
+	@Override
+	public boolean addEmr(Emr emr) {
+		return doctorDAO.addEmr(emr);
+	}
+
+	@Override
+	public Boolean isExistName(String username) {
+		return doctorDAO.isExist(username, "");
+	}
+
+	@Override
+	public Boolean isExistIdNumber(String idNumber) {
+		return doctorDAO.isExist("", idNumber);
+	}
+
 
 }

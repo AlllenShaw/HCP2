@@ -54,14 +54,14 @@
 				<tr>
 					<td>项目</td>
 					<td>血糖测试次数</td>
-					<td>血压测试天数</td>
-					<td>血氧测试天数</td>
+					<td>血压测试日期</td>
+					<td>血氧测试日期</td>
 				</tr>
 				<tr>
 					<td>数据设置</td>
-					<td><input type="text" name="bg_remain_time"></td>
-					<td><input type="text" name="bp_remain_time"></td>
-					<td><input type="text" name="spo_remain_time"></td>
+					<td><input type="text" name="bg_remain_time" placeholder="例：20"></td>
+					<td><input type="text" name="bp_remain_time" placeholder="例：2016-5-22"></td>
+					<td><input type="text" name="spo_remain_time" placeholder="例：2016-5-22"></td>
 				</tr>
 			</table>
 		</div>

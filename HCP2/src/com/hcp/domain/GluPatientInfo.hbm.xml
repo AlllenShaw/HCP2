@@ -10,7 +10,7 @@
             <column name="patient_id" />
             <generator class="increment" />
         </id>
-        <many-to-one name="patient" class="com.hcp.domain.Patient" update="false" insert="false" fetch="select">
+        <many-to-one name="patient" class="com.hcp.domain.Patient" update="false" insert="false" fetch="select" lazy="false">
             <column name="patient_id" not-null="true" unique="true" />
         </many-to-one>
         <property name="bloodGlucoseMax" type="java.lang.Float">

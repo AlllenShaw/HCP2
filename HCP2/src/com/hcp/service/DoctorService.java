@@ -37,7 +37,7 @@ public interface DoctorService {
 
 	public abstract Patient getPatientByName(String username);
 
-	public abstract boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup,int permission_id);
+//	public abstract boolean isHasPermission(DoctorGroup doctorGroup, PatientGroup patientGroup,int permission_id);
 
 	public abstract boolean isHasPermission(Doctor doctor, Patient patient, int permission_id);
 
@@ -58,5 +58,11 @@ public interface DoctorService {
 	public abstract List<Medicine> getMedicineList();
 
 	public abstract Emr getEmrById(String emr_id);
+
+	public abstract boolean addEmr(Emr emr);
+
+	public abstract Boolean isExistName(String username);
+
+	public abstract Boolean isExistIdNumber(String idNumber);
 	
 }

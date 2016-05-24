@@ -33,8 +33,9 @@ public class HtnPatientInfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public HtnPatientInfo(Patient patient, Float diastolicPressureMax, Float diastolicPressureMin, Float systolicPressureMax,
-			Float systolicPressureMin, Float heartRateMax, Float heartRateMin, Timestamp upgradeTime) {
+	public HtnPatientInfo(Integer patientId, Patient patient, Float diastolicPressureMax, Float diastolicPressureMin,
+			Float systolicPressureMax, Float systolicPressureMin, Float heartRateMax, Float heartRateMin, Timestamp upgradeTime) {
+		this.patientId = patientId;
 		this.patient = patient;
 		this.diastolicPressureMax = diastolicPressureMax;
 		this.diastolicPressureMin = diastolicPressureMin;

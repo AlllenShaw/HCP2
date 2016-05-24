@@ -1,0 +1,53 @@
+body {
+    width:100%; 
+    color:#5f5f5f; 
+    font-family:"Microsoft YaHei";
+    background-color: #f7f7f7;    
+}
+#mgo{
+   position:fixed; 
+   left: 41.32%;
+   overflow: visible;
+   top: 24%; 
+}
+#mstop{
+   left: 45.98%;
+   overflow: visible; 
+   position: fixed;  
+   top: 24%;
+}
+#mgoon{
+   left: 50.64%;
+   overflow: visible; 
+   position: fixed;  
+   top:24%;
+}
+#mclear{
+   left: 55.3%;
+   overflow: visible; 
+   position: fixed;  
+   top:24%;
+}
+#getid{
+   left: 5.75%
+    
+}
+#labgetname{
+   margin-left: 5.75%
+}
+#thelist{
+   margin-left: 5.75%;
+   margin-top: 10px;
+}
+#title1{
+  font-size:24px;
+  margin-left: 5.75%
+}
+#stabou{
+   color:#5f5f5f; 
+   left: 5.75%;
+   bottom: 6.5%;
+   overflow: auto; 
+   width: 88.51%; 
+   position:absolute;   
+}

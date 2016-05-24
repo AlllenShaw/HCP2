@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<h2>医院管理员列表</h2>
+	<div class="formtitle">医院管理员列表</div>
 	<table class="bordered" id="hmanager_form">
 		<thead>
 			<tr>
@@ -39,20 +39,6 @@
 	</table>
 	<br />
 	<div class="paging">
-		<input type="button" value="上一页" onclick="">
-		<%
-			int pagesize = 3;//一页显示几条记录
-			int pagenow = 1;//希望显示第几页
-			int rowcount = 0;//共有几条记录
-			int pagecount = 5;//共有几页(计算)
-
-			for (int i = pagenow; i < pagenow + pagecount; i++) {
-		%>
-		<input class="fb" type="button" value="<%=i%>" onclick="">
-		<%
-			}
-		%>
-		<input class="fb" type="button" value="下一页" onclick="">
 	</div>
 
 	<script src="js/all_form.js"></script>

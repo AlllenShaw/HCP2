@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientInfo;
 import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Emr;
 import com.hcp.domain.Family;
+import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.GluPatientMedicineRecord;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientMedicineRecord;
@@ -16,6 +18,7 @@ import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HplPatientMedicineRecord;
 import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientMedicineRecord;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
@@ -30,7 +33,7 @@ public interface PatientDAO {
 
 	public abstract Patient getPatientByName(String patient_username);
 
-	public abstract boolean isExist(String username,String idNumber,String mail,String tele);
+	public abstract boolean isExist(String username, String idNumber);
 
 	public abstract Patient login(String username, String password);
 
@@ -63,7 +66,7 @@ public interface PatientDAO {
 	public abstract boolean saveHplPatientRecord(HplPatientRecord hplPatientRecord);
 
 	public abstract boolean saveHdPatientRecord(HdPatientRecord hdPatientRecord);
-	
+
 	public abstract boolean saveBoPatientRecord(BoPatientRecord boPatientRecord);
 
 	public abstract List<Emr> getPatientEmrsList(Integer patient_id, String startTime, String endTime);
@@ -88,11 +91,33 @@ public interface PatientDAO {
 
 	public abstract List<Timestamp> getAllHdRecordTime(String username);
 
+	public abstract List<Timestamp> getAllBoRecordTime(String username);
+
+	public abstract List<Timestamp> getAllHtnRecordTime(String username);
+	
+	public abstract List<Timestamp> getAllGluRecordTime(String username);
+
 	public abstract List<HdPatientRecord> getHdPatientRecordsByTime(String username, Timestamp startTime, Timestamp endTime);
 
+	public abstract List<BoPatientRecord> getBoPatientRecordsByTime(String username, Timestamp sTime, Timestamp eTime);
+
+	public abstract List<HtnPatientRecord> getHtnPatientRecordsByTime(String username, Timestamp sTime, Timestamp eTime);
+
+	public abstract List<GluPatientRecord> getGluPatientRecordsByTime(String username, Timestamp sTime, Timestamp eTime);
+	
 	public abstract boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor);
 
 	public abstract AppVersion getAppVersion();
 
+	public abstract boolean saveBoPatientInfo(BoPatientInfo boPatientInfo);
+
+	public abstract boolean saveGluPatientInfo(GluPatientInfo gluPatientInfo);
+
+	public abstract boolean saveHtnPatientInfo(HtnPatientInfo htnPatientInfo);
+
+	public abstract List<Doctor> getDoctorByHospital(String hospital_jd);
+
+
 	
+
 }

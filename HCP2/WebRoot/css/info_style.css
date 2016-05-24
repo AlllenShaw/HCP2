@@ -1,4 +1,4 @@
-*{margin:0;padding:0}
+*{margin:0;padding:0;font-family:微软雅黑;}
 a{text-decoration:none}
 #conter{width:1000px;margin-top:10px}
 #help-left{width:680px;font-family:微软雅黑;float:left}
@@ -35,4 +35,12 @@ a{text-decoration:none}
     width: 100px;
 	margin-top:10px;
 	margin-bottom:10px;
+}
+
+.htextareatype1
+{
+	height: 70px;
+	width: 600px;
+	font-family:微软雅黑;
+	font-size: 18px;
 }

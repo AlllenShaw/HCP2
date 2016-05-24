@@ -58,6 +58,7 @@
 					</details> <details class="menu" open> <summary>综合查询</summary>
 					<ul>
 						<li><a href="doctor/seo.do" target="mainframe">综合查询</a></li>
+						<li><a href="http://120.76.45.51:8080/dhmap/" target="_blank">心电图</a></li>
 					</ul>
 					</details> <details class="menu" open> <summary>辅助诊治</summary>
 					<ul>
@@ -76,7 +77,7 @@
 				</div>
 
 				<div class="footer_links">
-					<a class="current" href="#" title="">首页</a> <a href="#" title="">关于</a>
+					<a class="current" href="#" title="">首页</a> <a href="#" onclick="window.close()">退出</a>
 				</div>
 			</div>
 

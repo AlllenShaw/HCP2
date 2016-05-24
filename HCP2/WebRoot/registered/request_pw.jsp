@@ -37,7 +37,7 @@
 
 						<form id="request_pw" name="request_pw"
 										action="patient/forgetPassword.do" method="post"
-										onsubmit="">
+										onsubmit="return checkrequest_pw()">
 							<table border="0" cellspacing="2px" cellpadding="2px">
 								<tr>
 									<td colspan="6" class="td_1">忘记密码</td>
@@ -64,19 +64,19 @@
 								<tr>
 									<td class="td_2">出生日期</td>
 									<td colspan="5"><input type="text" id="security1"
-										name="security1" size="90%">
+										name="security1" size="90%" onblur="question1()"><span id="que1" data-tipso=""></span>
 									</td>					
 								</tr>
 								<tr>
 									<td class="td_2">喜欢的书</td>
 									<td colspan="5"><input type="text" id="security2"
-										name="security2" size="90%">
+										name="security2" size="90%" onblur="question2()"><span id="que2" data-tipso=""></span>
 									</td>	
 								</tr>
 								<tr>
 									<td class="td_2">喜欢的人</td>
 									<td colspan="5"><input type="text" id="security3"
-										name="security3" size="90%">
+										name="security3" size="90%" onblur="question3()"><span id="que3" data-tipso=""></span>
 									</td>	
 								</tr>
 							</table>

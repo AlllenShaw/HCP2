@@ -185,7 +185,13 @@ public class HospitalAdminServiceImp implements HospitalAdminService {
 	@Override
 	public List<Hospital> getCopHospital(Integer hospital_id) {
 		// TODO Auto-generated method stub
-		return hospitalAdminDAO.getCopHospital(hospital_id);
+		try {
+			return hospitalAdminDAO.getCopHospital(hospital_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	@Override

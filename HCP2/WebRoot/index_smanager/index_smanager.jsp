@@ -73,7 +73,7 @@
 				</div>
 
 				<div class="footer_links">
-					<a class="current" href="#" title="">首页</a> <a href="#" title="">关于</a>
+					<a class="current" href="#" title="">首页</a> <a href="#" onclick="window.close()">退出</a>
 				</div>
 			</div>
 

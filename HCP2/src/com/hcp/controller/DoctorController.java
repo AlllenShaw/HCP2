@@ -14,13 +14,17 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hcp.domain.*;
 import com.hcp.service.DoctorService;
+import com.hcp.service.HospitalAdminService;
 import com.hcp.util.SessionUtil;
 import com.hcp.util.TimeUtil;
 
@@ -35,6 +39,9 @@ public class DoctorController {
 
 	@Resource(name = "doctorService")
 	private DoctorService doctorService;
+
+	@Resource(name = "hospitalAdminService")
+	private HospitalAdminService hospitalAdminService;
 
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, Model model) {
@@ -150,7 +157,7 @@ public class DoctorController {
 
 	@SuppressWarnings({ "unchecked" })
 	@RequestMapping(value = "/seo", method = RequestMethod.POST)
-	public String seo(HttpServletRequest request, Model model, String selector1, String selector2, String text1,String type) {
+	public String seo(HttpServletRequest request, Model model, String selector1, String selector2, String text1, String type) {
 		SessionUtil sessionUtil = new SessionUtil(request);
 		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
 		// System.out.println("----------------"+doctor.getUsername()+" "+doctor.getRealname()+" "+doctor.getAddress());
@@ -167,7 +174,7 @@ public class DoctorController {
 			// by身份证
 			patient = doctorService.getPatientByIdNumber(text1);
 		} else if (selector2.equals("4")) {
-			return this.seoAll(doctor, selector1, model,type);
+			return this.seoAll(doctor, selector1, model, type);
 		} else {
 			return "redirect:/doctor/seo.do";
 		}
@@ -180,7 +187,7 @@ public class DoctorController {
 		if (doctorService.hasPatien(doctor, patient)) {
 			flag = true;
 		}
-		System.out.println("flag= " + flag);
+		System.out.println("是不是患者医生*******************************8flag= " + flag);
 
 		if (selector1.equals("1") || selector1.equals("5")) {
 			// 血糖
@@ -188,6 +195,7 @@ public class DoctorController {
 			if (doctorService.isHasPermission(doctor, patient, 1)) {
 				flag = true;
 			}
+			System.out.println("血糖***************flag" + flag);
 			if (flag) {
 				// 返回该病人的血糖信息,加入model
 				Set<GluPatientRecord> gluPatientRecordsSet = patient.getGluPatientRecords();
@@ -211,7 +219,7 @@ public class DoctorController {
 					return "/chart/bg_ichart";
 				}
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("2") || selector1.equals("6")) {
 			// 血压
@@ -240,7 +248,7 @@ public class DoctorController {
 					return "/chart/bp_ichart";
 				}
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("3") || selector1.equals("7")) {
 			// 血氧
@@ -269,7 +277,7 @@ public class DoctorController {
 					return "/chart/spo_ichart";
 				}
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("4")) {
 			// 血脂
@@ -297,7 +305,7 @@ public class DoctorController {
 					return "/chart/tg_ichart";
 				}
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("8")) {
 			// 心电
@@ -315,13 +323,14 @@ public class DoctorController {
 					}
 				});
 				ArrayList<HdPatientInfo> tempList = new ArrayList<HdPatientInfo>();
+				tempList.addAll(patient.getHdPatientInfos());
 				HdPatientInfo hdPatientInfo = tempList.get(0);
 				model.addAttribute("hdPatientInfo", hdPatientInfo);
 				model.addAttribute("remainDay", TimeUtil.remainDays(hdPatientInfo.getRemainTime()));
 				model.addAttribute("hdPatientRecords", hdPatientRecords);
 				return "/index_patient/hd_patient";
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("9")) {
 			// 用药记录
@@ -341,7 +350,7 @@ public class DoctorController {
 				model.addAttribute("hplPatientMedicineRecords", hplPatientMedicineRecords);
 				return "/index_patient/med_record";
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("10")) {
 			// 病历
@@ -354,7 +363,7 @@ public class DoctorController {
 				model.addAttribute("emrs", emrs);
 				return "/index_patient/case_history";
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 		} else if (selector1.equals("11")) {
 			// 处方
@@ -383,7 +392,7 @@ public class DoctorController {
 				model.addAttribute("set", set);
 				return "/medical_manage/patient_iform";
 			} else {
-				return "/error/withoutPermission";
+				return "/tips/no_permissions";
 			}
 
 		} else {
@@ -393,6 +402,7 @@ public class DoctorController {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "setWarning", method = RequestMethod.POST)
 	public String setWarning(HttpServletRequest request, Model model, String patient_id, String bloodGlucoseMin,
 			String bloodGlucoseMax, String pulseRateMin, String pulseRateMax, String spo2maxMin, String spo2maxMax,
@@ -406,7 +416,7 @@ public class DoctorController {
 		// 血氧
 		if (boPatientInfos.isEmpty()) {
 			System.out.println("血氧--无");
-			BoPatientInfo boPatientInfo = new BoPatientInfo(patient, Float.parseFloat(pulseRateMax),
+			BoPatientInfo boPatientInfo = new BoPatientInfo(patient.getId(), patient, Float.parseFloat(pulseRateMax),
 					Float.parseFloat(pulseRateMin), Float.parseFloat(spo2maxMax), Float.parseFloat(spo2maxMin), new Timestamp(
 							new Date().getTime()));
 			boPatientInfos.add(boPatientInfo);
@@ -420,26 +430,26 @@ public class DoctorController {
 				boPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
 			}
 		}
-		// 血糖
-		if (gluPatientInfos.isEmpty()) {
-			GluPatientInfo gluPatientInfo = new GluPatientInfo(patient, Float.parseFloat(bloodGlucoseMax),
-					Float.parseFloat(bloodGlucoseMin), new Timestamp(new Date().getTime()));
-			gluPatientInfos.add(gluPatientInfo);
-		} else {
-			for (GluPatientInfo gluPatientInfo : gluPatientInfos) {
-				gluPatientInfo.setBloodGlucoseMax(Float.parseFloat(bloodGlucoseMax));
-				gluPatientInfo.setBloodGlucoseMin(Float.parseFloat(bloodGlucoseMin));
-				gluPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
-			}
-		}
 		// 血压
 		if (htnPatientInfos.isEmpty()) {
-			HtnPatientInfo htnPatientInfo = new HtnPatientInfo(patient, Float.parseFloat(diastolicPressureMax),
+			System.out.println("血压--无");
+			// HtnPatientInfo htnPatientInfo = new HtnPatientInfo(patient, Float.parseFloat(diastolicPressureMax),
+			// Float.parseFloat(diastolicPressureMin), Float.parseFloat(systolicPressureMax),
+			// Float.parseFloat(systolicPressureMin), Float.parseFloat(heartRateMax), Float.parseFloat(heartRateMin),
+			// new Timestamp(new Date().getTime()));
+			// htnPatientInfos.add(htnPatientInfo);
+			HtnPatientInfo htnPatientInfo = new HtnPatientInfo(patient.getId(), patient, Float.parseFloat(diastolicPressureMax),
 					Float.parseFloat(diastolicPressureMin), Float.parseFloat(systolicPressureMax),
 					Float.parseFloat(systolicPressureMin), Float.parseFloat(heartRateMax), Float.parseFloat(heartRateMin),
 					new Timestamp(new Date().getTime()));
 			htnPatientInfos.add(htnPatientInfo);
+			for (HtnPatientInfo h : htnPatientInfos) {
+				System.out.println("******************" + h.getDiastolicPressureMax());
+				System.out.println("******************" + h.getSystolicPressureMax());
+			}
+			System.out.println("血压加入");
 		} else {
+			System.out.println("血压--有");
 			for (HtnPatientInfo htnPatientInfo : htnPatientInfos) {
 				htnPatientInfo.setDiastolicPressureMax(Float.parseFloat(diastolicPressureMax));
 				htnPatientInfo.setDiastolicPressureMin(Float.parseFloat(diastolicPressureMin));
@@ -450,7 +460,23 @@ public class DoctorController {
 				htnPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
 			}
 		}
+		// 血糖
+		if (gluPatientInfos.isEmpty()) {
+			System.out.println("血糖--无");
+			GluPatientInfo gluPatientInfo = new GluPatientInfo(patient.getId(), patient, Float.parseFloat(bloodGlucoseMax),
+					Float.parseFloat(bloodGlucoseMin), new Timestamp(new Date().getTime()));
+			gluPatientInfos.add(gluPatientInfo);
+		} else {
+			System.out.println("血糖--有");
+			for (GluPatientInfo gluPatientInfo : gluPatientInfos) {
+				gluPatientInfo.setBloodGlucoseMax(Float.parseFloat(bloodGlucoseMax));
+				gluPatientInfo.setBloodGlucoseMin(Float.parseFloat(bloodGlucoseMin));
+				gluPatientInfo.setUpgradeTime(new Timestamp(new Date().getTime()));
+			}
+		}
+
 		if (doctorService.updatePatient(patient)) {
+			System.out.println("UPdate Success");
 			return "/index_doctor/index";
 		} else {
 			return "/error/setPatientInfoError";
@@ -593,33 +619,111 @@ public class DoctorController {
 
 	@RequestMapping(value = "/addEmr.do", method = RequestMethod.GET)
 	public String addEmr(HttpServletRequest request, Model model, String id) {
+
+		Boolean flag = false;
+		System.out.println("id = " + id);
 		Patient patient = doctorService.getPatientByID(id);
 		SessionUtil sessionUtil = new SessionUtil(request);
 		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
-		model.addAttribute("doctor", doctor);
-		model.addAttribute("patient", patient);
-		List<MedicineUnit> medicineUnits = doctorService.getmedicineUnitList();
-		List<MealTime> mealTimes = doctorService.getMealTimeList();
-		List<Medicine> medicines = doctorService.getMedicineList();
-		model.addAttribute("medicineUnits", medicineUnits);
-		model.addAttribute("mealTimes", mealTimes);
-		model.addAttribute("medicines", medicines);
-		return "/medical_manage/doctor_mmed";
+		if (doctorService.hasPatien(doctor, patient)) {
+			flag = true;
+		}
+		if (flag == false) {
+			if (doctorService.isHasPermission(doctor, patient, 10)) {
+				flag = true;
+			}
+		}
+		if (flag) {
+			model.addAttribute("doctor", doctor);
+			model.addAttribute("patient", patient);
+
+			List<MedicineUnit> medicineUnits = doctorService.getmedicineUnitList();
+			List<MealTime> mealTimes = doctorService.getMealTimeList();
+			List<Medicine> medicines = doctorService.getMedicineList();
+			model.addAttribute("medicineUnits", medicineUnits);
+			model.addAttribute("mealTimes", mealTimes);
+			model.addAttribute("medicines", medicines);
+			return "/medical_manage/doctor_mmed";
+		} else {
+			return "/tips/no_permissions";
+		}
 	}
 
 	@RequestMapping(value = "/addEmr.do", method = RequestMethod.POST)
-	public String addEmr(HttpServletRequest request, Model model) {
-		Emr emr = new Emr();
+	public String addEmr(HttpServletRequest request, Model model, String id, String advice, String illnessStateDesc, String str) {
 		// TODO
-		return "redirect:addEmr.do";
+		System.out.println("addEmePost" + id);
+		Patient patient = doctorService.getPatientByID(id);
+		SessionUtil sessionUtil = new SessionUtil(request);
+		Doctor doctor = (Doctor) sessionUtil.getAttribute("USERMODEL");
+		Emr emr = new Emr(doctor, patient, illnessStateDesc, new Timestamp(new Date().getTime()));
+		emr.setDiagnosisSuggestion(advice);
+		Set<Prescription> set = new HashSet<Prescription>();
+		System.out.println("str=" + str);
+		String[] medicines = str.split(";");
+		for (String m : medicines) {
+			System.out.println(m);
+			String[] detail = m.split(",");
+			String medicine_id = detail[1];
+			Medicine medicine = hospitalAdminService.getMedicineById(medicine_id);
+			Prescription prescription = new Prescription();
+			prescription.setEmr(emr);
+			prescription.setDoctor(doctor);
+			prescription.setMedicine(medicine);
+			if (detail[4] != null) {
+				prescription.setTakingMedicineNumberEachtime(Double.parseDouble(detail[4]));
+			}
+			set.add(prescription);
+		}
+		emr.setPrescriptions(set);
+		try {
+			doctorService.addEmr(emr);
+			return "/tips/operation_success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/tips/operation_failed";
+		}
+
+		// Medicine medicine = doctorService.getMealTimeById)(medicine_id);
+		// Prescription prescription = new Prescription(emr, medicine, doctor, medicine.getUsage(), medicineUnit,
+		// takingMedicineNumberEachtime, takingMedicineTimesEachday, mealTime, createTime)
+
 	}
 
 	@RequestMapping(value = "/getPrescriptionByEmr.do", method = RequestMethod.GET)
-	public String getPrescriptionByEmr(HttpServletRequest request, Model model,String emr_id){
+	public String getPrescriptionByEmr(HttpServletRequest request, Model model, String emr_id) {
 		Emr emr = doctorService.getEmrById(emr_id);
 		model.addAttribute("emr", emr);
 		return "/medical_manage/patient_mmed";
 	}
-	
-	
+
+	@RequestMapping("/isExistName")
+	@ResponseBody
+	public String isExistName(HttpServletRequest request, Model model, String username) {
+		Boolean result = doctorService.isExistName(username);
+		if (result) {
+			return "true";
+		} else {
+			return "false";
+		}
+		// JSONObject json = JSONObject.fromObject(result.toString());
+		// System.out.println(result);
+		// System.out.println(json.toString());
+		// return json.toString();
+	}
+
+	@RequestMapping("/isExistIdNumber")
+	@ResponseBody
+	public String isExistIdNumber(HttpServletRequest request, Model model, String idNumber) {
+		Boolean result = doctorService.isExistIdNumber(idNumber);
+		if (result) {
+			return "true";
+		} else {
+			return "false";
+		}
+		// JSONObject json = JSONObject.fromObject(result);
+		// System.out.println(json.toString());
+		// return json.toString();
+	}
+
 }

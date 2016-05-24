@@ -214,3 +214,15 @@ function check_hmanager()
 	} 
 }
 
+function checktext1()
+{
+	var text1=document.getElementById("text1");
+	if(text1.value==""){
+			alert("请选择病人");
+			return false;
+	}
+	else
+	{
+		return true;
+	}
+}

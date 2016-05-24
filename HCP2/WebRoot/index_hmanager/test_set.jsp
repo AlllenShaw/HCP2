@@ -24,12 +24,12 @@
 
 		<div align="center">
 			<select id="type" name="type" class="size1" style="width:100px">
-				<option value="1">姓名</option>
+				<option value="1">用户名</option>
 				<option value="2">ID</option>
 				<option value="3">身份证</option>
 			</select> 
-			<input type="text" id="patient" name="patientInfo" class="size1"><br /> 
-			<input id="search" class="fb" type="submit" value="查询病人">
+			<input type="text" id="patient" name="patientInfo" class="size1">
+			<input id="search" class="fb" type="submit" value="查询">
 		</div>
 		</details>
 	</form>

@@ -31,8 +31,9 @@ public class BoPatientInfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public BoPatientInfo(Patient patient, Float pulseRateMax, Float pulseRateMin, Float spo2maxMax, Float spo2maxMin,
+	public BoPatientInfo(Integer patientId,Patient patient, Float pulseRateMax, Float pulseRateMin, Float spo2maxMax, Float spo2maxMin,
 			Timestamp upgradeTime) {
+		this.patientId = patientId;
 		this.patient = patient;
 		this.pulseRateMax = pulseRateMax;
 		this.pulseRateMin = pulseRateMin;

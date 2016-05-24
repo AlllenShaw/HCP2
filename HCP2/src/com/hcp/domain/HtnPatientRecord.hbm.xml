@@ -28,5 +28,8 @@
         <property name="uploadTime" type="java.sql.Timestamp">
             <column name="upload_time" length="19" not-null="true" />
         </property>
+        <property name="heartRateState" type="java.lang.Integer">
+            <column name="heart_rate_state" />
+        </property>
     </class>
 </hibernate-mapping>

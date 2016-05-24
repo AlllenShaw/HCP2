@@ -30,31 +30,42 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 
 	@Override
 	public SuperAdministrator getSuperAdminiByID(Integer id) {
-		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().load(SuperAdministrator.class, id);
+		try {
+			return this.getHibernateTemplate().load(SuperAdministrator.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public SuperAdministrator getSuperAdminiByName(String username) {
-		// TODO Auto-generated method stub
-		List<SuperAdministrator> list = this.getHibernateTemplate().find("from SuperAdministrator as sa where sa.username = ?",
-				new Object[] { username });
-		return list.isEmpty() ? null : list.get(0);
+		try {
+			List<SuperAdministrator> list = this.getHibernateTemplate().find(
+					"from SuperAdministrator as sa where sa.username = ?", new Object[] { username });
+			return list.isEmpty() ? null : list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public SuperAdministrator login(String username, String password) {
-		// TODO Auto-generated method stub
-		List<SuperAdministrator> list = this.getHibernateTemplate().find(
-				"from SuperAdministrator as sa where sa.username = ? and sa.password=?", new Object[] { username, password });
-		return list.isEmpty() ? null : list.get(0);
+		try {
+			List<SuperAdministrator> list = this.getHibernateTemplate().find(
+					"from SuperAdministrator as sa where sa.username = ? and sa.password=?", new Object[] { username, password });
+			return list.isEmpty() ? null : list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public boolean deleteHospital(Hospital hospital) {
-		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().delete(hospital);
 			return true;
@@ -66,7 +77,6 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 
 	@Override
 	public boolean addHosptial(Hospital hospital) {
-		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().save(hospital);
 			return true;
@@ -79,75 +89,101 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Hospital> getHospitalsList() {
-		// TODO Auto-generated method stub
-		List<Hospital> list = this.getSession().createQuery("from Hospital").list();
-		return list.isEmpty() ? null : list;
+		try {
+			List<Hospital> list = this.getSession().createQuery("from Hospital").list();
+			return list.isEmpty() ? null : list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public Hospital getHospitalById(Integer hospital_id) {
-		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().load(Hospital.class, hospital_id);
+		try {
+			return this.getHibernateTemplate().load(Hospital.class, hospital_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Hospital getHospitalByName(String hospital_name) {
-		// TODO Auto-generated method stub
-		List<Hospital> list = this.getHibernateTemplate().find("from Hospital as h where h.name = ?",
-				new Object[] { hospital_name });
-		return list.isEmpty() ? null : list.get(0);
+		try {
+			List<Hospital> list = this.getHibernateTemplate().find("from Hospital as h where h.name = ?",
+					new Object[] { hospital_name });
+			return list.isEmpty() ? null : list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<HospitalAdministrator> getHospitalAdministrators(Integer hospital_id) {
-		// TODO Auto-generated method stub
-		List<HospitalAdministrator> list = this.getHibernateTemplate().find(
-				"form HospitalAdministrator as ha where ha.hospital.id = ?", new Object[] { hospital_id });
-		return list.isEmpty() ? null : list;
+		try {
+			List<HospitalAdministrator> list = this.getHibernateTemplate().find(
+					"form HospitalAdministrator as ha where ha.hospital.id = ?", new Object[] { hospital_id });
+			return list.isEmpty() ? null : list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public HospitalAdministrator getHospitalAdministratorByID(Integer admin_id) {
-		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().load(HospitalAdministrator.class, admin_id);
+		try {
+			return this.getHibernateTemplate().load(HospitalAdministrator.class, admin_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public HospitalAdministrator getHospitalAdministratorByName(String admin_username) {
-		// TODO Auto-generated method stub
-		List<HospitalAdministrator> list = this.getHibernateTemplate().find(
-				"form HospitalAdministrator as ha where ha.username = ?", new Object[] { admin_username });
-		return list.isEmpty() ? null : list.get(0);
+		try {
+			List<HospitalAdministrator> list = this.getHibernateTemplate().find(
+					"form HospitalAdministrator as ha where ha.username = ?", new Object[] { admin_username });
+			return list.isEmpty() ? null : list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<HospitalAdministrator> getHospitalAdministratorByRealName(final String realname) {
-		// TODO Auto-generated method stub
-		List<HospitalAdministrator> list = this.getHibernateTemplate().executeFind(
-				new HibernateCallback<List<HospitalAdministrator>>() {
-					@Override
-					public List<HospitalAdministrator> doInHibernate(Session session) throws HibernateException, SQLException {
-						// TODO Auto-generated method stub
-						Query query = session
-								.createQuery("select ha from HospitalAdministrator as ha where ha.realname like :realname");
-						query.setString("realname", realname);
-						return query.list();
-					}
-				});
-		return list;
+		try {
+			List<HospitalAdministrator> list = this.getHibernateTemplate().executeFind(
+					new HibernateCallback<List<HospitalAdministrator>>() {
+						@Override
+						public List<HospitalAdministrator> doInHibernate(Session session) throws HibernateException, SQLException {
+							// TODO Auto-generated method stub
+							Query query = session
+									.createQuery("select ha from HospitalAdministrator as ha where ha.realname like :realname");
+							query.setString("realname", realname);
+							return query.list();
+						}
+					});
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public boolean addospitalAdministrator(HospitalAdministrator hospitalAdministrator) {
-		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().save(hospitalAdministrator);
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}
@@ -155,7 +191,6 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 
 	@Override
 	public boolean deleteHospitalAdministrator(HospitalAdministrator hospitalAdministrator) {
-		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().delete(hospitalAdministrator);
 			return true;
@@ -169,21 +204,29 @@ public class SuperAdminDAOImp extends HibernateDaoSupport implements SuperAdminD
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<HospitalAdministrator> getHospitalAdministratorsList() {
-		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().find("from HospitalAdministrator");
+		try {
+			return this.getHibernateTemplate().find("from HospitalAdministrator");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<HospitalAdministrator> getHospitalAdminByHospital(String hospital_id) {
-		// TODO Auto-generated method stub
-		Integer id = Integer.parseInt(hospital_id);
-		return this.getHibernateTemplate().find("from HospitalAdministrator as h where h.hospital.id = ?",new Object[]{id});
+		try {
+			Integer id = Integer.parseInt(hospital_id);
+			return this.getHibernateTemplate().find("from HospitalAdministrator as h where h.hospital.id = ?",
+					new Object[] { id });
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public boolean addAppVersion(AppVersion appVersion) {
-		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().save(appVersion);
 			return true;

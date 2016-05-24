@@ -39,8 +39,11 @@ import com.hcp.domain.Prescription;
 import com.hcp.mobilePOJO.DoctorInfo;
 import com.hcp.mobilePOJO.MedicineDetail;
 import com.hcp.mobilePOJO.MedicineInfo;
+import com.hcp.mobilePOJO.SimpleBoRecord;
 import com.hcp.mobilePOJO.SimpleDoctor;
+import com.hcp.mobilePOJO.SimpleGluRecord;
 import com.hcp.mobilePOJO.SimpleHdRecord;
+import com.hcp.mobilePOJO.SimpleHtnRecord;
 import com.hcp.mobilePOJO.SimplePatient;
 import com.hcp.service.DoctorService;
 import com.hcp.service.PatientService;
@@ -61,12 +64,12 @@ public class MobileController {
 	public String login(String username, String password) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int state = 1;
-		String error = "0";
+		String error = "没有错误";
 		System.out.println(username + " " + password);
 		Patient patient = patientService.login(username, password);
 		if (patient == null) {
 			state = 0;
-			error = "1";
+			error = "用户名或密码错误";
 		}
 		System.out.println("------------------------" + patient);
 		System.out.println("state: " + state + " error: " + error);
@@ -273,55 +276,161 @@ public class MobileController {
 		return jo.toString();
 	}
 
-	// // /////////////////////////////////////////////////////////////////////////
-	// @SuppressWarnings("unchecked")
-	// @RequestMapping("/getHdPatientRecord")
-	// @ResponseBody
-	// public String getHdPatientRecord(Integer patient_id) {
-	// Map<String, Object> map = new HashMap<String, Object>();
-	// int state = 1;
-	// int error = 0;
-	// Set<HdPatientRecord> set = null;
-	// Patient patient = patientService.getPatientById(patient_id);
-	// if (patient != null) {
-	// set = patient.getHdPatientRecords();
-	// } else {
-	// state = 0;
-	// error = 5;
-	// }
-	// map.put("state", state);
-	// map.put("set", set);
-	// map.put("error", error);
-	// JSONObject jo = JSONObject.fromObject(map);
-	// return jo.toString();
-	// }
-	//
-	// // //////////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping("/getAllBoRecordTime")
+	@ResponseBody
+	public String getAllBoRecordTime(String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> list = new ArrayList<String>();
+		int state = 1;
+		String error = "0";
+		List<Timestamp> timestamps = patientService.getAllBoRecordTime(username);
+		if (timestamps == null) {
+			state = 0;
+			error = "该用户没有血氧数据";
+		}
+		for (Timestamp timestamp : timestamps) {
+			System.out.println(timestamp.toString());
+			list.add(timestamp.toString());
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
 
-	// @RequestMapping("/getHplPatientInfo")
-	// public String getHplPatientInfo(Integer patient_id) {
-	// return null;
-	// }
-	//
-	// public String getHplPatientMedicineRecord(Integer patient_id) {
-	// return null;
-	// }
-	//
-	// public String getHplPatientRecord(Integer patient_id) {
-	// return null;
-	// }
-	//
-	// public String getHtnPatientInfo(Integer patient_id) {
-	// return null;
-	// }
-	//
-	// public String getHtnPatientMedicineRecord(Integer patient_id) {
-	// return null;
-	// }
-	//
-	// public String getHtnPatientRecord(Integer patient_id) {
-	// return null;
-	// }
+	@RequestMapping("/getBoPatientRecords")
+	@ResponseBody
+	public String getBoPatientRecords(String username, String startTime, String endTime) {
+		System.out.println("===========================================");
+		System.out.println(username + " " + startTime + " " + endTime);
+		System.out.println("===========================================");
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<SimpleBoRecord> list = new ArrayList<SimpleBoRecord>();
+		int state = 1;
+		String error = "0";
+		List<BoPatientRecord> records = patientService.getBoPatientRecords(username, startTime, endTime);
+		if (records == null) {
+			state = 0;
+			error = "该用户没有血氧数据记录";
+		} else {
+			for (BoPatientRecord record : records) {
+				SimpleBoRecord sRecord = new SimpleBoRecord(record.getId(), record.getSpo2(), record.getMeasureTime().toString());
+				list.add(sRecord);
+			}
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		System.out.println(jo.toString());
+		return jo.toString();
+	}
+
+	@RequestMapping("/getAllHtnRecordTime")
+	@ResponseBody
+	public String getAllHtnRecordTime(String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> list = new ArrayList<String>();
+		int state = 1;
+		String error = "0";
+		List<Timestamp> timestamps = patientService.getAllHtnRecordTime(username);
+		if (timestamps == null) {
+			state = 0;
+			error = "该用户没有血氧数据";
+		}
+		for (Timestamp timestamp : timestamps) {
+			System.out.println(timestamp.toString());
+			list.add(timestamp.toString());
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
+
+	@RequestMapping("/getHtnPatientRecords")
+	@ResponseBody
+	public String getHtnPatientRecords(String username, String startTime, String endTime) {
+		System.out.println("===========================================");
+		System.out.println(username + " " + startTime + " " + endTime);
+		System.out.println("===========================================");
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<SimpleHtnRecord> list = new ArrayList<SimpleHtnRecord>();
+		int state = 1;
+		String error = "0";
+		List<HtnPatientRecord> records = patientService.getHtnPatientRecords(username, startTime, endTime);
+		if (records == null) {
+			state = 0;
+			error = "该用户没有血压数据记录";
+		} else {
+			for (HtnPatientRecord record : records) {
+				SimpleHtnRecord sRecord = new SimpleHtnRecord(record.getId(), record.getDiastolicPressure(),
+						record.getSystolicPressure(), record.getHeartRate(), record.getHeartRateState(), record.getMeasureTime()
+								.toString());
+				list.add(sRecord);
+			}
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		System.out.println(jo.toString());
+		return jo.toString();
+	}
+
+	@RequestMapping("/getAllGluRecordTime")
+	@ResponseBody
+	public String getAllGluRecordTime(String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> list = new ArrayList<String>();
+		int state = 1;
+		String error = "0";
+		List<Timestamp> timestamps = patientService.getAllGluRecordTime(username);
+		if (timestamps == null) {
+			state = 0;
+			error = "该用户没有血糖数据";
+		}
+		for (Timestamp timestamp : timestamps) {
+			System.out.println(timestamp.toString());
+			list.add(timestamp.toString());
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		return jo.toString();
+	}
+
+	@RequestMapping("/getGluPatientRecords")
+	@ResponseBody
+	public String getGluPatientRecords(String username, String startTime, String endTime) {
+		System.out.println("===========================================");
+		System.out.println(username + " " + startTime + " " + endTime);
+		System.out.println("===========================================");
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<SimpleGluRecord> list = new ArrayList<SimpleGluRecord>();
+		int state = 1;
+		String error = "0";
+		List<GluPatientRecord> records = patientService.getGluPatientRecords(username, startTime, endTime);
+		if (records == null) {
+			state = 0;
+			error = "该用户没有血糖数据记录";
+		} else {
+			for (GluPatientRecord record : records) {
+				SimpleGluRecord sRecord = new SimpleGluRecord(record.getId(), record.getBloodGlucose(), record.getMeasureTime()
+						.toString());
+				list.add(sRecord);
+			}
+		}
+		map.put("state", state);
+		map.put("list", list);
+		map.put("error", error);
+		JSONObject jo = JSONObject.fromObject(map);
+		System.out.println(jo.toString());
+		return jo.toString();
+	}
 
 	public String getDoctorList() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -579,12 +688,14 @@ public class MobileController {
 			// 心电数据
 			return this.uploadHdRecord(username, data);
 		case 1:
+			// 血氧数据
+			return this.uploadBoRecord(username, data);
+		case 2:
 			// 血糖数据
 			return this.uploadGluRecord(username, data);
-		case 2:
-			return null;
 		case 3:
-			return null;
+			// 血压数据
+			return this.uploadHtnRecord(username, data);
 		default:
 			return null;
 		}
@@ -602,9 +713,7 @@ public class MobileController {
 		JSONObject json = JSONObject.fromObject(data);
 		System.out.println("json------" + json);
 		String time = json.getString("time");
-		// 等待数据 TODO
-		Float heartRate = Float.parseFloat(json.getString("bmpValue"));
-		Float bloodGlucose = Float.parseFloat(json.getString("OxygenValue"));
+		Float bloodGlucose = Float.parseFloat(json.getString("SugerValue"));
 		Timestamp measureTime = Timestamp.valueOf(time);
 		Timestamp uploadTime = new Timestamp(new Date().getTime());
 		Patient patient = patientService.getPatientByName(username);
@@ -627,6 +736,8 @@ public class MobileController {
 					}
 				}
 			}
+			//TODO 
+			patientService.updatePatient(patient);
 		}
 		map.put("state", state);
 		map.put("error", error);
@@ -738,15 +849,16 @@ public class MobileController {
 		System.out.println("json------" + json);
 		String time = json.getString("time");
 		// 等待数据 TODO
-		Float diastolicPressure = Float.parseFloat(json.getString("diastolicPressure"));
-		Float systolicPressure = Float.parseFloat(json.getString("systolicPressure"));
-		Float heartRate = Float.parseFloat(json.getString("heartRate"));
+		Float diastolicPressure = Float.parseFloat(json.getString("lowblood")); // 舒张压
+		Float systolicPressure = Float.parseFloat(json.getString("highblood")); // 收缩压
+		Float heartRate = Float.parseFloat(json.getString("heartrate"));
+		Integer heartRateState = json.getInt("heartproblem");
 		Timestamp measureTime = Timestamp.valueOf(time);
 		Timestamp uploadTime = new Timestamp(new Date().getTime());
 		Patient patient = patientService.getPatientByName(username);
 		System.out.println(patient);
 		HtnPatientRecord htnPatientRecord = new HtnPatientRecord(patient, diastolicPressure, systolicPressure, heartRate,
-				measureTime, uploadTime);
+				heartRateState, measureTime, uploadTime);
 		Boolean f = patientService.uploadHtnRecord(htnPatientRecord);
 		if (!f) {
 			state = 0;
@@ -784,9 +896,10 @@ public class MobileController {
 		System.out.println("json------" + json);
 		String time = json.getString("time");
 		// 等待数据 TODO
-		Float pulseRate = Float.parseFloat(json.getString("pulseRate"));
-		Float spo2 = Float.parseFloat(json.getString("spo2"));
-		Float pi = Float.parseFloat(json.getString("pi"));
+		Float pulseRate = Float.parseFloat(json.getString("bmpValue"));
+		Float spo2 = Float.parseFloat(json.getString("OxygenValue"));
+		Float pi = Float.parseFloat("0");
+		System.out.println(pulseRate + "*******" + spo2 + "**************");
 		Timestamp measureTime = Timestamp.valueOf(time);
 		Timestamp uploadTime = new Timestamp(new Date().getTime());
 		Patient patient = patientService.getPatientByName(username);

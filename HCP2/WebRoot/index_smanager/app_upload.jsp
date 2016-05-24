@@ -66,7 +66,7 @@
 			</div>
 		 -->
 			<input type="file" name="app"
-				style="float:left;width:300px;margin-right:20px;margin-left:20px;" /><br>
+				style="float:left;width:300px;margin-right:20px;margin-left:20px;margin-top:20px;" /><br>
 			<table class="tip">
 				<tr>
 					<td>版本号</td>

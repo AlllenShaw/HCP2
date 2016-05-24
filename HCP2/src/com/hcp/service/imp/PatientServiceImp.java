@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 
 import com.hcp.dao.PatientDAO;
 import com.hcp.domain.AppVersion;
+import com.hcp.domain.BoPatientInfo;
 import com.hcp.domain.BoPatientRecord;
 import com.hcp.domain.Doctor;
 import com.hcp.domain.Family;
+import com.hcp.domain.GluPatientInfo;
 import com.hcp.domain.GluPatientRecord;
 import com.hcp.domain.HdPatientRecord;
 import com.hcp.domain.Hospital;
 import com.hcp.domain.HplPatientRecord;
+import com.hcp.domain.HtnPatientInfo;
 import com.hcp.domain.HtnPatientRecord;
 import com.hcp.domain.Medicine;
 import com.hcp.domain.Patient;
@@ -67,7 +70,7 @@ public class PatientServiceImp implements PatientService {
 	public boolean register(Patient patient) {
 		// TODO Auto-generated method stub
 		System.out.println("patientService register");
-		if (patientDAO.isExist(patient.getUsername(), patient.getIdNumber(), patient.getMail(), patient.getTele())) {
+		if (patientDAO.isExist(patient.getUsername(), patient.getIdNumber())) {
 			return false;
 		}
 		return patientDAO.register(patient);
@@ -147,15 +150,35 @@ public class PatientServiceImp implements PatientService {
 	}
 
 	@Override
-	public Boolean uploadBoRecord(BoPatientRecord boPatientRecord) {
+	public boolean uploadBoRecord(BoPatientRecord boPatientRecord) {
 		// TODO Auto-generated method stub
-		return  patientDAO.saveBoPatientRecord(boPatientRecord);
+		return patientDAO.saveBoPatientRecord(boPatientRecord);
 	}
-	
+
 	@Override
 	public List<Timestamp> getAllHdRecordTime(String username) {
 		// TODO Auto-generated method stub
 		return patientDAO.getAllHdRecordTime(username);
+	}
+
+	@Override
+	public List<Timestamp> getAllHtnRecordTime(String username) {
+		// TODO Auto-generated method stub
+		return patientDAO.getAllHtnRecordTime(username);
+	}
+
+	@Override
+	public List<Timestamp> getAllGluRecordTime(String username) {
+		// TODO Auto-generated method stub
+		return patientDAO.getAllGluRecordTime(username);
+	}
+
+	@Override
+	public List<GluPatientRecord> getGluPatientRecords(String username, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		Timestamp sTime = Timestamp.valueOf(startTime);
+		Timestamp eTime = Timestamp.valueOf(endTime);
+		return patientDAO.getGluPatientRecordsByTime(username, sTime, eTime);
 	}
 
 	@Override
@@ -167,13 +190,29 @@ public class PatientServiceImp implements PatientService {
 	}
 
 	@Override
+	public List<BoPatientRecord> getBoPatientRecords(String username, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		Timestamp sTime = Timestamp.valueOf(startTime);
+		Timestamp eTime = Timestamp.valueOf(endTime);
+		return patientDAO.getBoPatientRecordsByTime(username, sTime, eTime);
+	}
+
+	@Override
+	public List<HtnPatientRecord> getHtnPatientRecords(String username, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		Timestamp sTime = Timestamp.valueOf(startTime);
+		Timestamp eTime = Timestamp.valueOf(endTime);
+		return patientDAO.getHtnPatientRecordsByTime(username, sTime, eTime);
+	}
+
+	@Override
 	public boolean register(Patient patient, Family family1, Family family2, PatientHasDoctor patientHasDoctor) {
 		System.out.println("patientService register");
-		if (patientDAO.isExist(patient.getUsername(), patient.getIdNumber(), patient.getMail(), patient.getTele())) {
+		if (patientDAO.isExist(patient.getUsername(), patient.getIdNumber())) {
 			System.out.println("用户名或者身份证重复");
 			return false;
 		}
-		return patientDAO.register(patient,family1,family2,patientHasDoctor);
+		return patientDAO.register(patient, family1, family2, patientHasDoctor);
 	}
 
 	@Override
@@ -181,6 +220,37 @@ public class PatientServiceImp implements PatientService {
 		return patientDAO.getAppVersion();
 	}
 
-	
+	@Override
+	public List<Timestamp> getAllBoRecordTime(String username) {
+		return patientDAO.getAllBoRecordTime(username);
+	}
+
+	@Override
+	public Boolean saveChronicInfo(BoPatientInfo boPatientInfo, HtnPatientInfo htnPatientInfo, GluPatientInfo gluPatientInfo) {
+		try {
+			patientDAO.saveBoPatientInfo(boPatientInfo);
+			patientDAO.saveHtnPatientInfo(htnPatientInfo);
+			patientDAO.saveGluPatientInfo(gluPatientInfo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public List<Doctor> getDoctorByHospital(String hospital_jd) {
+		return patientDAO.getDoctorByHospital(hospital_jd);
+	}
+
+	@Override
+	public Boolean isExistName(String username) {
+		return patientDAO.isExist(username, "");
+	}
+
+	@Override
+	public Boolean isExistIdNumber(String idNumber) {
+		return patientDAO.isExist("", idNumber);
+	}
 
 }
